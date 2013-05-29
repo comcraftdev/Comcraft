@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+*** GENERATED FROM project.xml - DO NOT EDIT  ***
+***         EDIT ../build.xml INSTEAD         ***
+
+For the purpose of easier reading the script
+is divided into following sections:
+
+  - initialization
+  - profiling
+  - applet profiling
+
+-->
+<project name="-profiler-impl" default="cpu-profile" basedir="..">
+    <target name="-profile-pre-init">
+        <!-- Empty placeholder for easier customization. -->
+        <!-- You can override this target in the ../build.xml file. -->
+    </target>
+    <target name="-profile-post-init">
+        <!-- Empty placeholder for easier customization. -->
+        <!-- You can override this target in the ../build.xml file. -->
+    </target>
+    <target name="profile-init" depends="-profile-pre-init, init, -profile-post-init"/>
+    <!--
+    =========================
+    CPU PROFILING  SECTION
+    =========================
+    -->
+    <target name="cpu-profile" if="netbeans.home" depends="profile-init,jar">
+        <exec executable="${platform.home}/bin/emulator">
+            <arg value="-Xdescriptor:${basedir}/${dist.dir}/${dist.jad}"/>
+            <arg value="-Xdevice:${platform.device}"/>
+            <arg value="-Xprofile:system=${mesdk.profile.system.classes}"/>
+        </exec>
+    </target>
+    <!--
+    =========================
+    NETWORK MONITOR SECTION
+    =========================
+    -->
+    <target name="network-monitor" if="netbeans.home" depends="profile-init,jar">
+        <exec executable="${platform.home}/bin/emulator">
+            <arg value="-Xdescriptor:${basedir}/${dist.dir}/${dist.jad}"/>
+            <arg value="-Xdevice:${platform.device}"/>
+            <arg value="-Xnetmon:suspend=y"/>
+        </exec>
+    </target>
+</project>

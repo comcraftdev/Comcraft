@@ -1,0 +1,49 @@
+Hello!
+This is Comcraft!
+#1
+How are you today?
+WOW!
+Let's play!
+6-5-4-3-2-1...
+Just enjoy it!
+Hahaha...
+LOL
+Hi!
+Yeah!
+Mmmmm...Comcraft :)
+[...]
+=)
+The game called Comcraft
+Open the door!
+Tnt?
+TNT?
+TNT!
+Inspired by Minecraft
+for (int n = 0; n < 100; ++n) {...}
+System.out.println("Hello World!");
+This text is so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong!
+There are two bioms, so far.
+Sometimes there's a desert...
+Sometimes there're some flowers
+Butter fly!
+Created with love <3
+27.03.2012 - the very first cc build <3
+Today is (was) 09.03.2013
+Thumbs up if you play in 2034!
+Created in NetBeans!
+J2ME...does anyone use it nowadays?
+Minecraft was inspired by Comcraft.
+It's a little bit addictive.
+Random!
+Use the screenshot mode!
+You can load the whole world at once.
+Use seeds to make grass.
+Blue TNT is so weak.
+Dark TNT is so strong.
+Click on the chest and see what happen :3
+There is an emoticon block here! :) :/ :(
+Remember to charge your battery, ok?
+Google or Bing? Yahoo! :D
+Better than any other minecraft. Phew!
+Hours of coding!
+Created in Java!
