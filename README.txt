@@ -1,4 +1,4 @@
-Copyright (C) 2013 Piotr Wójcik
+﻿Copyright (C) 2013 Piotr Wójcik
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,7 +15,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 =====================================================================
 
-NetBeans IDE recommended.
+NetBeans IDE and Java ME SDK 3.2 (or later) recommended. 
+
+Tutorial on how to install Java ME SDK: https://blogs.oracle.com/javamesdk/entry/how_to_integrate_java_me1
+
 
 Visit comcraft-game.blogspot.com for more information.
 
