@@ -146,7 +146,7 @@ public class GuiContainerInventory {
         
         addBlock(Block.stone, false);
         addBlock(Block.grass, false);
-        addItem(Item.hammer, false);
+        addItem(InvItem.hammer, false);
         addBlock(Block.dirt, false);
         addBlock(Block.sand, false);
         addBlock(Block.cobblestone, false);
@@ -159,8 +159,8 @@ public class GuiContainerInventory {
         addBlock(Block.planks1, true);
         addBlock(Block.planks2, true);
         addBlock(Block.planks3, true);
-        addItem(Item.detonator, true);
-        addItem(Item.seeds, false);
+        addItem(InvItem.detonator, true);
+        addItem(InvItem.seeds, false);
         addBlock(Block.tnt, true);
         addBlock(Block.tntWeak, true);
         addBlock(Block.tntStrong, true);
