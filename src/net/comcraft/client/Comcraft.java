@@ -35,6 +35,7 @@ public final class Comcraft implements Runnable {
     public static int screenHeight = 320;
     public Graphics g;
     public TexturePackList texturePackList;
+    public ModLoader modLoader;
     public TextureManager textureProvider;
     public Settings settings;
     public WorldLoader worldLoader;
@@ -60,6 +61,7 @@ public final class Comcraft implements Runnable {
         g = null;
         currentScreen = null;
         textureProvider = null;
+        modLoader=new ModLoader(this);
         textureProvider = new TextureManager(this);
         texturePackList = new TexturePackList(this);
         world = null;
@@ -144,6 +146,7 @@ public final class Comcraft implements Runnable {
 
         settings.loadOptions();
 
+        modLoader.initMods();
         langBundle.loadBundle(settings.language);
 
         if (!settings.getComcraftFileSystem().isAvailable()) {
