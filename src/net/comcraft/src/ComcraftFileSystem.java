@@ -24,11 +24,9 @@ import net.comcraft.client.Comcraft;
 
 public final class ComcraftFileSystem {
 
-    private final Comcraft cc;
     private String comcraftPath;
 
     public ComcraftFileSystem(Comcraft cc, String path) {
-        this.cc = cc;
         comcraftPath = path;
     }
 

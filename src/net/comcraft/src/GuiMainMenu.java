@@ -35,20 +35,20 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
     }
 
     public void customDrawScreen() {
-        cc.g.drawImage(cc.textureProvider.getImage("gui/comcraft_logo.png"), cc.screenWidth / 2, 10, Graphics.TOP | Graphics.HCENTER);
+        cc.g.drawImage(cc.textureProvider.getImage("gui/comcraft_logo.png"), Comcraft.screenWidth / 2, 10, Graphics.TOP | Graphics.HCENTER);
 
         cc.g.setColor(0x007FFF);
         drawStringWithShadow(cc.g, currentHelloWord, 10, 13 + cc.textureProvider.getImage("gui/comcraft_logo.png").getHeight(), Graphics.TOP | Graphics.LEFT);
 
         cc.g.setColor(240, 240, 240);
-        drawStringWithShadow(cc.g, "Copyright " + "Piotr Wójcik" + ".", cc.screenWidth - 2, cc.screenHeight - 2 - cc.g.getFont().getHeight() - 2, Graphics.BOTTOM | Graphics.RIGHT);
-        drawStringWithShadow(cc.g, "Do not distribute!", cc.screenWidth - 2, cc.screenHeight - 2, Graphics.BOTTOM | Graphics.RIGHT);
+        drawStringWithShadow(cc.g, "Copyright " + "Piotr Wójcik" + ".", Comcraft.screenWidth - 2, Comcraft.screenHeight - 2 - cc.g.getFont().getHeight() - 2, Graphics.BOTTOM | Graphics.RIGHT);
+        drawStringWithShadow(cc.g, "Do not distribute!", Comcraft.screenWidth - 2, Comcraft.screenHeight - 2, Graphics.BOTTOM | Graphics.RIGHT);
     }
 
     protected void initGui() {
         currentHelloWord = getHelloWorld();
 
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
         int logoHeight = cc.textureProvider.getImage("gui/comcraft_logo.png").getHeight();
         int startY = 10 + logoHeight + 30;

@@ -29,8 +29,6 @@ public class InvItemSlab extends InvItemBlock {
             return false;
         }
         if (world.canBlockBePlacedAt(blockID, x, y, z, side)) {
-            Block block = Block.blocksList[blockID];
-
             if (world.getBlockID(x, y, z) == blockID && world.setBlockAndMetadataN(x, y, z, doubleSlab.blockID, 0)) {
                 if (world.getBlockID(x, y, z) == blockID) {
                     Block.blocksList[blockID].onBlockPlaced(world, x, y, z, side);

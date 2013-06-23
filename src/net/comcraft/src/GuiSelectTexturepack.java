@@ -15,8 +15,8 @@ public final class GuiSelectTexturepack extends GuiScreenSlotHost {
     protected void initGuiSlotCustom() {
         cc.texturePackList.updateAvailableTexturePacks();
         
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, cc.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), cc.langBundle.getText("GuiScreen.buttonSelect")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), cc.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), cc.langBundle.getText("GuiScreen.buttonClose")).setEnabled(parentScreen != null));
+        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, Comcraft.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), cc.langBundle.getText("GuiScreen.buttonSelect")).setEnabled(false));
+        elementsList.addElement(new GuiButtonSmall(cc, 1, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), Comcraft.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), cc.langBundle.getText("GuiScreen.buttonClose")).setEnabled(parentScreen != null));
     
         elementClicked(0);
     }

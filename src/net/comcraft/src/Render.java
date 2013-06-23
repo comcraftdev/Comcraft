@@ -25,7 +25,6 @@ import javax.microedition.lcdui.game.Sprite;
 import javax.microedition.m3g.Background;
 import javax.microedition.m3g.Camera;
 import javax.microedition.m3g.Graphics3D;
-import javax.microedition.m3g.Transform;
 import net.comcraft.client.Comcraft;
 
 public final class Render {
@@ -40,13 +39,8 @@ public final class Render {
     private Frustum frustum;
     private static final Vec3D upVec = new Vec3D(0, 1, 0);
     public long currentTick;
-    private RenderPC renderPC;
     public RenderEffects renderEffects;
-    private boolean isScaled;
     private Image targetGraphicsImage;
-    private Graphics targetGraphics;
-    private int backgroundColor;
-
     public Render(Comcraft cc) {
         this.cc = cc;
         g3D = Graphics3D.getInstance();
@@ -80,14 +74,9 @@ public final class Render {
 
     public void reloadTargetGraphics() {
         if (cc.settings.resolutionScale == 1) {
-            isScaled = false;
-
-            targetGraphics = cc.g;
         } else {
-            isScaled = true;
-
             targetGraphicsImage = Image.createImage(Comcraft.getScreenWidth() / cc.settings.resolutionScale, Comcraft.getScreenHeight() / cc.settings.resolutionScale);
-            targetGraphics = targetGraphicsImage.getGraphics();
+            targetGraphicsImage.getGraphics();
         }
     }
 
@@ -112,11 +101,11 @@ public final class Render {
     }
 
     public void reloadFrustum() {
-        frustum.setCamInternals(cc.settings.fov + 3 + cc.settings.renderDistance * 6f, (float) cc.screenWidth / cc.screenHeight, 1f, 800.0f);
+        frustum.setCamInternals(cc.settings.fov + 3 + cc.settings.renderDistance * 6f, (float) Comcraft.screenWidth / Comcraft.screenHeight, 1f, 800.0f);
     }
 
     public void reloadCamera() {
-        camera.setPerspective(cc.settings.fov, (float) cc.screenWidth / cc.screenHeight, 1f, 800.0f);
+        camera.setPerspective(cc.settings.fov, (float) Comcraft.screenWidth / Comcraft.screenHeight, 1f, 800.0f);
     }
 
     public void releaseRender() {
@@ -161,7 +150,7 @@ public final class Render {
             return;
         }
 
-        int startX = cc.screenWidth / 4;
+        int startX = Comcraft.screenWidth / 4;
 
         cc.g.setColor(0, 0, 0);
         cc.g.drawString("x: " + cc.player.xPos, startX, 3, Graphics.TOP | Graphics.LEFT);
@@ -270,27 +259,6 @@ public final class Render {
     }
 
     
-    private void renderBlockPreview() {
-        Transform transform = new Transform();
-
-        Vec3D vec = cc.player.getLook(0, cc.screenHeight);
-        vec.crossProduct(10);
-
-        transform.postTranslate((cc.player.xPos - vec.x) * 10, (cc.player.yPos + vec.y) * 10, (cc.player.zPos - vec.z) * 10);
-        transform.postRotate(cc.player.rotationYaw, 0, 1, 0);
-        transform.postRotate(cc.player.rotationPitch, 1, 0, 0);
-        transform.postRotate(45, 0, 1, 0);
-        transform.postScale(0.5f, 0.5f, 0.5f);
-
-        renderBlock.renderBlockAllFaces(Block.blocksList[cc.player.inventory.getSelectedItemStack().itemID], 0, 0, 0, transform);
-    }
-
-    private void drawEmulatorBackgorund() {
-        cc.g.setClip(0, 0, 640, 640);
-        cc.g.drawImage(cc.textureProvider.getImage("emulator_background.png"), 0, 0, Graphics.TOP | Graphics.LEFT);
-        cc.g.setClip(0, 0, Comcraft.screenWidth, Comcraft.screenHeight);
-    }
-
     private void clearScreen() {
         cc.g.setColor(background.getColor());
         cc.g.fillRect(0, 0, Comcraft.screenWidth, Comcraft.screenHeight);

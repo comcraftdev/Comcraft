@@ -17,6 +17,8 @@
 
 package net.comcraft.src;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiNewWorld extends GuiScreen {
 
     private GuiScreen guiMainMenu;
@@ -31,7 +33,7 @@ public class GuiNewWorld extends GuiScreen {
     }
 
     protected void initGui() {
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
         int startY = 30;
 
         elementsList.addElement(new GuiButton(cc, 0, centerX, startY, cc.langBundle.getText("GuiNewWorld.buttonCreate")));

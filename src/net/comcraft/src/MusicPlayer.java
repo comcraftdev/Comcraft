@@ -46,31 +46,6 @@ public final class MusicPlayer {
 //        loadMusicFromTexturepack();
     }
 
-    private void loadMusicFromTexturepack() {
-        try {
-            FileConnection fileConnection = (FileConnection) Connector.open(cc.settings.getComcraftFileSystem().getPathToFolder("texturepacks/") + "music/", Connector.READ);
-
-            if (!fileConnection.exists()) {
-                return;
-            }
-
-            Vector elements = FileSystemHelper.getElementsList(fileConnection);
-
-            for (int i = 0; i < elements.size(); ++i) {
-                String elementName = (String) elements.elementAt(i);
-
-                if (elementName.endsWith(".mp3")) {
-                    musicList.addElement(elementName);
-                }
-            }
-
-            fileConnection.close();
-        } catch (IOException ex) {
-            //#debug
-//#             ex.printStackTrace();
-        }
-    }
-
     private void loadMusicFromMainFolder() {
         try {
             FileConnection fileConnection = (FileConnection) Connector.open(cc.settings.getComcraftFileSystem().getPathToFolder("music/"), Connector.READ);

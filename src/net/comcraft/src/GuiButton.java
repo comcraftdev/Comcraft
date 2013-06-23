@@ -90,8 +90,8 @@ public class GuiButton extends GuiElement {
 
         int y = yPos;
 
-        if (selectedButton != null && selectedButton.yPos + selectedButton.getHeight() > cc.screenHeight) {
-            y -= selectedButton.yPos + selectedButton.getHeight() - cc.screenHeight + 10;
+        if (selectedButton != null && selectedButton.yPos + selectedButton.getHeight() > Comcraft.screenHeight) {
+            y -= selectedButton.yPos + selectedButton.getHeight() - Comcraft.screenHeight + 10;
         }
 
         buttonSprite.setPosition(xPos, y);

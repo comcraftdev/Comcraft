@@ -81,7 +81,6 @@ public final class TextureManager {
         int width = image.getWidth(), height = image.getHeight();
         in = new int[width];
 
-        int i = 0;
         int dy, dx;
         out = new int[resizedWidth * resizedHeight];
 

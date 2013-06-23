@@ -46,7 +46,7 @@ public class EntityPlayer {
         xPos = 32;
         yPos = 15;
         zPos = 32;
-        aspect = (float) cc.screenWidth / cc.screenHeight;
+        aspect = (float) Comcraft.screenWidth / Comcraft.screenHeight;
         h = 2 * (float) Math.tan(Math.toRadians(cc.settings.fov / 2));
         w = aspect * h;
         boundingBox = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
@@ -195,7 +195,7 @@ public class EntityPlayer {
         Vec3D up_dir = dir1c.crossProduct(right_dir);
         up_dir.normalize();
 
-        Vec3D center = new Vec3D(((float) y / cc.screenHeight - 0.5f) * h, (0.5f - (float) x / cc.screenWidth) * w, 0);
+        Vec3D center = new Vec3D(((float) y / Comcraft.screenHeight - 0.5f) * h, (0.5f - (float) x / Comcraft.screenWidth) * w, 0);
         Vec3D centerWS = (right_dir.crossProduct(center.x)).addVector((up_dir.crossProduct(center.y)));
         Vec3D dir2 = (dir1.addVector(centerWS));
         dir2.normalize();

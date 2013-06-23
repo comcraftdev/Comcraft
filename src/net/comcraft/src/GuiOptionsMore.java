@@ -4,6 +4,8 @@
  */
 package net.comcraft.src;
 
+import net.comcraft.client.Comcraft;
+
 /**
  *
  * @author Piotr Wójcik
@@ -18,7 +20,7 @@ public class GuiOptionsMore extends GuiScreen {
     }
 
     protected void initGui() {
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
         int startY = 5;
 
         elementsList.addElement(new GuiButtonSelect(cc, 0, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 0, cc.langBundle.getText("GuiOptions.buttonFOV"), new int[]{65, 90, 120, 160}, new String[]{"65°", cc.langBundle.getText("GuiOptions.buttonFOV.normal"), "120°", "160°"}).setCurrentValue((int) cc.settings.fov));

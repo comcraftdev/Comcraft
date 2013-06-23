@@ -16,12 +16,9 @@ public class ChunkGeneratorFlat extends ChunkGenerator {
     }
 
     public ChunkStorage[] generateChunk(int chunkX, int chunkZ) {
-        int blockGrassId = Block.grass.blockID;
-
         Calendar calendar = Calendar.getInstance();
 
         if (calendar.get(Calendar.MONTH) == Calendar.DECEMBER && (calendar.get(Calendar.DAY_OF_MONTH) == 24 || calendar.get(Calendar.DAY_OF_MONTH) == 25 || calendar.get(Calendar.DAY_OF_MONTH) == 26)) {
-            blockGrassId = Block.snow.blockID;
         }
         
         boolean isHalloweenToday = calendar.get(Calendar.MONTH) == Calendar.OCTOBER && calendar.get(Calendar.DAY_OF_MONTH) == 31;
@@ -76,25 +73,5 @@ public class ChunkGeneratorFlat extends ChunkGenerator {
         }
 
         return blockStorage;
-    }
-
-    private void genereateTree(ChunkStorage[] blocksStorage, Random rand, int x, int y, int z) {
-        for (int i = 0; i < 6; ++i) {
-            blocksStorage[(i + y) >> 2].setBlockID(x, (y + i) & 3, z, Block.wood.blockID);
-        }
-
-        for (int i = 2; i < 6; ++i) {
-            for (int zT = -1; zT <= 1; ++zT) {
-                for (int xT = -1; xT <= 1; ++xT) {
-                    if (rand.nextInt(5) == 0) {
-                        continue;
-                    }
-
-                    blocksStorage[(i + y) >> 2].setBlockID(x + xT, (y + i) & 3, z + zT, Block.leaves.blockID);
-                }
-            }
-        }
-
-        blocksStorage[(6 + y) >> 2].setBlockID(x, (y + 6) & 3, z, Block.leaves.blockID);
     }
 }

@@ -6,6 +6,8 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.TextField;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiSelectWorld extends GuiScreenSlotHost implements GuiYesNoHost, GuiTextBoxHost {
 
     private WorldSaveType selectedWorld;
@@ -23,9 +25,9 @@ public class GuiSelectWorld extends GuiScreenSlotHost implements GuiYesNoHost, G
 
         elementsList.addElement(new GuiButtonSmall(cc, 0, 5, guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectWorld.buttonPlay")).setEnabled(false));
         elementsList.addElement(new GuiButtonSmall(cc, 1, 5, guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectWorld.buttonNew")).setEnabled(getElementsList().size() < maxWorlds));
-        elementsList.addElement(new GuiButtonSmall(cc, 2, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectWorld.buttonDelete")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 4, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectWorld.buttonRename")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 3, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + (GuiButtonSmall.getButtonHeight() + 5) * 2, cc.langBundle.getText("GuiSelectWorld.buttonClose")).setEnabled(parentScreen != null));
+        elementsList.addElement(new GuiButtonSmall(cc, 2, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectWorld.buttonDelete")).setEnabled(false));
+        elementsList.addElement(new GuiButtonSmall(cc, 4, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectWorld.buttonRename")).setEnabled(false));
+        elementsList.addElement(new GuiButtonSmall(cc, 3, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + (GuiButtonSmall.getButtonHeight() + 5) * 2, cc.langBundle.getText("GuiSelectWorld.buttonClose")).setEnabled(parentScreen != null));
 
         elementClicked(0);
     }

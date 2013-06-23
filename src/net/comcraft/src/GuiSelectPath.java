@@ -3,6 +3,8 @@ package net.comcraft.src;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiSelectPath extends GuiScreenSlotHost implements GuiYesNoHost {
 
     private String selectedPath;
@@ -33,8 +35,8 @@ public class GuiSelectPath extends GuiScreenSlotHost implements GuiYesNoHost {
 
         elementsList.addElement(new GuiButtonSmall(cc, 0, 5, guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectPath.buttonOpen")).setEnabled(false));
         elementsList.addElement(new GuiButtonSmall(cc, 2, 5, guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectPath.buttonSetAsRoot")).setEnabled(fileBrowser.canWriteCurrentDirectory()));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectPath.buttonBack")).setEnabled(!fileBrowser.getCurrentPath().equals("file:///")));
-        elementsList.addElement(new GuiButtonSmall(cc, 3, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectPath.buttonClose")).setEnabled(parentScreen != null));
+        elementsList.addElement(new GuiButtonSmall(cc, 1, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectPath.buttonBack")).setEnabled(!fileBrowser.getCurrentPath().equals("file:///")));
+        elementsList.addElement(new GuiButtonSmall(cc, 3, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectPath.buttonClose")).setEnabled(parentScreen != null));
 
         elementClicked(0);
     }

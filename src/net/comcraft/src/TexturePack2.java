@@ -18,7 +18,6 @@
 package net.comcraft.src;
 
 import java.io.InputStream;
-import javax.microedition.lcdui.Image;
 import net.comcraft.client.Comcraft;
 
 public abstract class TexturePack2 implements TexturePack {
@@ -78,6 +77,6 @@ public abstract class TexturePack2 implements TexturePack {
     }
 
     public boolean isTexturePackSupported() {
-        return cc.screenWidth == supportedWidth && cc.screenHeight == supportedHeight;
+        return Comcraft.screenWidth == supportedWidth && Comcraft.screenHeight == supportedHeight;
     }
 }

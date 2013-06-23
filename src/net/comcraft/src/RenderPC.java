@@ -47,13 +47,13 @@ public class RenderPC {
         isBinded = true;
         gLast = cc.g;
         cc.g = screenImage.getGraphics();
-        cc.g.setClip(0, 0, cc.screenWidth, cc.screenHeight);
+        cc.g.setClip(0, 0, Comcraft.screenWidth, Comcraft.screenHeight);
     }
 
     public void releaseRenderPC() {
         isBinded = false;
         cc.g = gLast;
-        cc.g.setClip(0, 0, cc.screenHeight, cc.screenWidth);
-        cc.g.drawRegion(screenImage, 0, 0, screenImage.getWidth(), screenImage.getHeight(), Sprite.TRANS_ROT270, 0, cc.screenWidth - cc.screenHeight, Graphics.TOP | Graphics.LEFT);
+        cc.g.setClip(0, 0, Comcraft.screenHeight, Comcraft.screenWidth);
+        cc.g.drawRegion(screenImage, 0, 0, screenImage.getWidth(), screenImage.getHeight(), Sprite.TRANS_ROT270, 0, Comcraft.screenWidth - Comcraft.screenHeight, Graphics.TOP | Graphics.LEFT);
     }
 }

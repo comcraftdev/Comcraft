@@ -13,7 +13,7 @@ public class Frustum {
     public final static short INSIDE = 2;
     private final static float HALF_ANG2RAD = (float) (3.14159265358979323846 / 360.0);
     private Plane[] pl = new Plane[6];
-    private Vec3D ntl, ntr, nbl, nbr, ftl, ftr, fbl, fbr, X, Y, Z, camPos;
+    private Vec3D ntl, ntr, nbl, nbr, ftl, fbl, fbr, X, Y, Z, camPos;
     private float nearD, farD, ratio, angle;
     private float sphereFactorX, sphereFactorY;
     private double tang;
@@ -45,7 +45,7 @@ public class Frustum {
     }
 
     public void setCamDef(Vec3D p, Vec3D l, Vec3D u) {
-        Vec3D dir, nc, fc;
+        Vec3D nc, fc;
 
         camPos = p;
 
@@ -67,7 +67,7 @@ public class Frustum {
 
         ftl = fc.addVector(Y.crossProduct((float) fh)).subtractVector(X.crossProduct((float) fw));
         fbr = fc.subtractVector(Y.crossProduct((float) fh)).addVector(X.crossProduct((float) fw));
-        ftr = fc.addVector(Y.crossProduct((float) fh)).addVector(X.crossProduct((float) fw));
+        fc.addVector(Y.crossProduct((float) fh)).addVector(X.crossProduct((float) fw));
         fbl = fc.subtractVector(Y.crossProduct((float) fh)).subtractVector(X.crossProduct((float) fw));
 
         pl[TOP].set3Points(ntr, ntl, ftl);

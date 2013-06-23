@@ -133,24 +133,4 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
 
         return blockStorages;
     }
-
-    private void genereateTree(ChunkStorage[] blocksStorages, Random random, int x, int y, int z, Block wood) {
-        for (int i = 0; i < 6; ++i) {
-            blocksStorages[(i + y) >> 2].setBlockID(x, (y + i) & 3, z, wood.blockID);
-        }
-
-        for (int i = 2; i < 6; ++i) {
-            for (int zT = -1; zT <= 1; ++zT) {
-                for (int xT = -1; xT <= 1; ++xT) {
-                    if (random.nextInt(5) == 0) {
-                        continue;
-                    }
-
-                    blocksStorages[(i + y) >> 2].setBlockID(x + xT, (y + i) & 3, z + zT, Block.leaves.blockID);
-                }
-            }
-        }
-
-        blocksStorages[(6 + y) >> 2].setBlockID(x, (y + 6) & 3, z, Block.leaves.blockID);
-    }
 }
