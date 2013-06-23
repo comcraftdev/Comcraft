@@ -1,4 +1,19 @@
-﻿Copyright (C) 2013 Piotr Wójcik
+﻿# Comcraft Mod Loader
+
+This is a project for allowing mods to load into [comcraft](http://www.comcraft-game.blogspot.com) - a Minecraft inspired game for J2ME devices.
+
+Comcraft Mod Loader is not finished yet, if you have any suggestions, ideas code tips etc please make an 'issue' or a pull request.
+
+This project was forked from the [Comcraft repository](https://github.com/queader/Comcraft)
+
+Comcraft is made by queader (Piotr Wójcik), you can find him:
+
+ * Twitter @queader
+ * Email queader.comcraft@gmail.com
+
+### Below is the license for Comcraft:
+```
+Copyright (C) 2013 Piotr Wójcik
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -12,23 +27,4 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-=====================================================================
-
-NetBeans IDE and Java ME SDK 3.2 (or later) recommended. 
-
-Tutorial on how to install Java ME SDK: https://blogs.oracle.com/javamesdk/entry/how_to_integrate_java_me1
-
-
-Visit comcraft-game.blogspot.com for more information.
-
-=====================================================================
-
-Feel free to contact me at:
-
-    queader.comcraft@gmail.com
-
-or find me on Twitter:
-
-    @queader
-
+```
