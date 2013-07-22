@@ -55,9 +55,10 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
 
         elementsList.addElement(new GuiButton(cc, 0, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 0, cc.langBundle.getText("GuiMainMenu.buttonPlay")));
         elementsList.addElement(new GuiButton(cc, 1, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 1, cc.langBundle.getText("GuiMainMenu.buttonTexturepacks")));
-        elementsList.addElement(new GuiButton(cc, 2, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 2, cc.langBundle.getText("GuiMainMenu.buttonOptions")));
-        elementsList.addElement(new GuiButton(cc, 3, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 3, cc.langBundle.getText("GuiMainMenu.buttonInfo")));
-        elementsList.addElement(new GuiButton(cc, 4, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 4, cc.langBundle.getText("GuiMainMenu.buttonQuit")));
+        elementsList.addElement(new GuiButton(cc, 5, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 2, "Mods"));
+        elementsList.addElement(new GuiButton(cc, 2, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 3, cc.langBundle.getText("GuiMainMenu.buttonOptions")));
+        elementsList.addElement(new GuiButton(cc, 3, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 4, cc.langBundle.getText("GuiMainMenu.buttonInfo")));
+        elementsList.addElement(new GuiButton(cc, 4, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 5, cc.langBundle.getText("GuiMainMenu.buttonQuit")));
     }
 
     private String getHelloWorld() {
@@ -92,6 +93,7 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
         } else if (guiButton.id == 3) {
             cc.displayGuiScreen(new GuiInfo(this));
         } else if (guiButton.id == 5) {
+            cc.displayGuiScreen(new GuiSelectMod(this));
         }
     }
 
