@@ -4,6 +4,8 @@ This is a project for allowing mods to load into [comcraft](http://www.comcraft-
 
 Comcraft Mod Loader is not finished yet, if you have any suggestions, ideas code tips etc please make an 'issue' or a pull request.
 
+The Commit e71872501d 'Fixed ALL [Warnings] by eclipse's quick-fix tool' deleted a large chunk of code because it was obsolete/not used but I am keeping track of queader upstream, so if any unused code becomes functional i'll change this accordingly.
+
 This project was forked from the [Comcraft repository](https://github.com/queader/Comcraft)
 
 Comcraft is made by queader (Piotr Wójcik), you can find him:
