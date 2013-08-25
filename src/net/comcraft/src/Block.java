@@ -23,12 +23,16 @@
 
 package net.comcraft.src;
 
+// ModLoader start
+import com.google.minijoe.sys.JsArray;
+import com.google.minijoe.sys.JsObject;
+// ModLoader end
 import javax.microedition.m3g.IndexBuffer;
 import javax.microedition.m3g.Node;
 import javax.microedition.m3g.Transform;
 import javax.microedition.m3g.VertexBuffer;
 
-public class Block {
+public class Block extends JsObject { // ModLoader
 
     public static final Block[] blocksList;
     public static final Block stone;
@@ -165,20 +169,212 @@ public class Block {
     private String blockName;
     private String blockPlacingSound = "/sound/block_placed.wav";
     private String blockDestroyingSound = "/sound/block_placed.wav";
+    // ModLoader start
+    private static final int ID_COLLIDES_WITH_PLAYER = 100;
+    private static final int ID_DOES_BLOCK_DESTROY_GRASS = 101;
+    private static final int ID_IS_REPLACEABLE_BLOCK = 102;
+    private static final int ID_IS_UPDATABLE_BLOCK = 103;
+    private static final int ID_CAN_BE_PIECED = 104;
+    private static final int ID_CAN_BE_PIECED_VERTICALLY = 105;
+    private static final int ID_GET_BLOCK_NAME = 106;
+    private static final int ID_SET_BLOCK_NAME = 107;
+    private static final int ID_GET_ID_DROPPED = 108;
+    private static final int ID_GET_BLOCK_TEXTURE = 109;
+    private static final int ID_IS_NORMAL = 110;
+    private static final int ID_GET_RENDER_TYPE = 111;
+    private static final int ID_SHOULD_SIDE_BE_RENDERED = 112;
+    private static final int ID_CAN_PLACE_BLOCK_ON_SIDE = 113;
+    private static final int ID_CAN_PLACE_BLOCK_AT = 114;
+    private static final int ID_ON_BLOCK_PLACED = 115;
+    private static final int ID_ON_BLOCK_DESTROYED_BY_PLAYER = 116;
+    private static final int ID_ON_NEIGHBOR_BLOCK_CHANGE = 117;
+    private static final int ID_ON_BLOCK_REMOVAL = 118;
+    private static final int ID_ON_BLOCK_ADDED = 119;
+    private static final int ID_GET_BLOCK_DESTROYING_SOUND = 120;
+    private static final int ID_GET_BLOCK_PLACING_SOUND = 121;
+    private static final int ID_SET_BLOCK_PLACING_SOUND = 122;
+    private static final int ID_SET_BLOCK_DESTROYING_SOUND = 123;
+    private static final int ID_TICK_BLOCK = 124;
+    // ModLoader end
 
     protected Block(int id) {
+        super(JsObject.OBJECT_PROTOTYPE); // ModLoader
         if (blocksList[id] != null) {
             throw new ComcraftException("Block ID is already in use! Id: " + id, null);
         } else {
             blocksList[id] = this;
             blockID = id;
         }
+        // ModLoader start
+        // Methods
+        addNative("collidesWithPlayer", ID_COLLIDES_WITH_PLAYER, 0);
+        addNative("doesBlockDestroyGrass", ID_DOES_BLOCK_DESTROY_GRASS, 0);
+        addNative("isReplaceableBlock", ID_IS_REPLACEABLE_BLOCK, 0);
+        addNative("isUpdatableBlock", ID_IS_UPDATABLE_BLOCK, 0);
+        addNative("canBePieced", ID_CAN_BE_PIECED, 0);
+        addNative("canBePiecedVertically", ID_CAN_BE_PIECED_VERTICALLY, 0);
+        addNative("getBlockName", ID_GET_BLOCK_NAME, 0);
+        addNative("setBlockName", ID_SET_BLOCK_NAME, 1);
+        addNative("getIdDropped", ID_GET_ID_DROPPED, 0);
+        addNative("getBlockTexture", ID_GET_BLOCK_TEXTURE, 5);
+        addNative("isNormal", ID_IS_NORMAL, 0);
+        addNative("getRenderType", ID_GET_RENDER_TYPE, 0);
+        addNative("shouldSideBeRendered", ID_SHOULD_SIDE_BE_RENDERED, 5);
+        addNative("canPlaceBlockOnSide", ID_CAN_PLACE_BLOCK_ON_SIDE, 5);
+        addNative("canPlaceBlockAt", ID_CAN_PLACE_BLOCK_AT, 4);
+        addNative("onBlockPlaced", ID_ON_BLOCK_PLACED, 5);
+        addNative("onBlockDestroyedByPlayer", ID_ON_BLOCK_DESTROYED_BY_PLAYER, 5);
+        addNative("onNeighborBlockChange", ID_ON_NEIGHBOR_BLOCK_CHANGE, 5);
+        addNative("onBlockRemoval", ID_ON_BLOCK_REMOVAL, 4);
+        addNative("onBlockAdded", ID_ON_BLOCK_ADDED, 4);
+        addNative("getBlockDestroyingSound", ID_GET_BLOCK_DESTROYING_SOUND, 0);
+        addNative("getBlockPlacingSound", ID_GET_BLOCK_PLACING_SOUND, 0);
+        addNative("setBlockPlacingSound", ID_SET_BLOCK_PLACING_SOUND, 1);
+        addNative("setBlockDestroyingSound", ID_SET_BLOCK_DESTROYING_SOUND, 1);
+        addNative("tickBlock", ID_TICK_BLOCK, 4);
+        // Properties
+        JsArray arr_blocksList= new JsArray();for(int i=0;i<blocksList.length;i++){arr_blocksList.setObject(i,blocksList[i]);}
+        addVar("blocksList", arr_blocksList);
+        addVar("stone", stone);
+        addVar("grass", grass);
+        addVar("dirt", dirt);
+        addVar("glass", glass);
+        addVar("leaves", leaves);
+        addVar("sand", sand);
+        addVar("planks", planks);
+        addVar("wood", wood);
+        addVar("brick", brick);
+        addVar("woolWhite", woolWhite);
+        addVar("woolBlack", woolBlack);
+        addVar("woolRed", woolRed);
+        addVar("woolBlue", woolBlue);
+        addVar("woolYellow", woolYellow);
+        addVar("woolGreen", woolGreen);
+        addVar("woolLightGray", woolLightGray);
+        addVar("woolGray", woolGray);
+        addVar("woolOrange", woolOrange);
+        addVar("woolLime", woolLime);
+        addVar("woolCyan", woolCyan);
+        addVar("woolLightBlue", woolLightBlue);
+        addVar("woolPurple", woolPurple);
+        addVar("woolMagenta", woolMagenta);
+        addVar("woolPink", woolPink);
+        addVar("woolBrown", woolBrown);
+        addVar("cobblestone", cobblestone);
+        addVar("bookshelve", bookshelve);
+        addVar("obsidian", obsidian);
+        addVar("pumpkin", pumpkin);
+        addVar("ice", ice);
+        addVar("stoneBrick", stoneBrick);
+        addVar("mossStone", mossStone);
+        addVar("iron", iron);
+        addVar("gold", gold);
+        addVar("diamond", diamond);
+        addVar("bedrock", bedrock);
+        addVar("stoneSlab", stoneSlab);
+        addVar("plankSlab", plankSlab);
+        addVar("doubleStoneSlab", doubleStoneSlab);
+        addVar("cobblestoneSlab", cobblestoneSlab);
+        addVar("cactus", cactus);
+        addVar("water", water);
+        addVar("redFlower", redFlower);
+        addVar("yellowFlower", yellowFlower);
+        addVar("treePlant", treePlant);
+        addVar("toadstool", toadstool);
+        addVar("mushroom", mushroom);
+        addVar("lava", lava);
+        addVar("snow", snow);
+        addVar("snowBlock", snowBlock);
+        addVar("sandStone", sandStone);
+        addVar("lapisLazuli", lapisLazuli);
+        addVar("craftingTable", craftingTable);
+        addVar("furnace", furnace);
+        addVar("tnt", tnt);
+        addVar("tntWeak", tntWeak);
+        addVar("tntStrong", tntStrong);
+        addVar("netherrack", netherrack);
+        addVar("netherBrick", netherBrick);
+        addVar("soulSand", soulSand);
+        addVar("plankTitle", plankTitle);
+        addVar("planks1", planks1);
+        addVar("planks2", planks2);
+        addVar("planks3", planks3);
+        addVar("plankSlab1", plankSlab1);
+        addVar("plankSlab2", plankSlab2);
+        addVar("plankSlab3", plankSlab3);
+        addVar("netherBrickSlab", netherBrickSlab);
+        addVar("brickSlab", brickSlab);
+        addVar("whiteWoolSlab", whiteWoolSlab);
+        addVar("blackWoolSlab", blackWoolSlab);
+        addVar("redWoolSlab", redWoolSlab);
+        addVar("blueWoolSlab", blueWoolSlab);
+        addVar("yellowWoolSlab", yellowWoolSlab);
+        addVar("greenWoolSlab", greenWoolSlab);
+        addVar("lightGreenWoolSlab", lightGreenWoolSlab);
+        addVar("orangeWoolSlab", orangeWoolSlab);
+        addVar("pinkWoolSlab", pinkWoolSlab);
+        addVar("wood1", wood1);
+        addVar("wood2", wood2);
+        addVar("plankTitle1", plankTitle1);
+        addVar("plankTitle2", plankTitle2);
+        addVar("plankTitle3", plankTitle3);
+        addVar("brickTitle", brickTitle);
+        addVar("netherBrickTitle", netherBrickTitle);
+        addVar("stoneTitle", stoneTitle);
+        addVar("cobblestoneTitle", cobblestoneTitle);
+        addVar("torch", torch);
+        addVar("woodenDoor", woodenDoor);
+        addVar("ironDoor", ironDoor);
+        addVar("plankStairs", plankStairs);
+        addVar("plankStairs1", plankStairs1);
+        addVar("plankStairs2", plankStairs2);
+        addVar("plankStairs3", plankStairs3);
+        addVar("brickStairs", brickStairs);
+        addVar("netherBrickStairs", netherBrickStairs);
+        addVar("stoneStairs", stoneStairs);
+        addVar("cobblestoneStairs", cobblestoneStairs);
+        addVar("whiteWoolStairs", whiteWoolStairs);
+        addVar("blackWoolStairs", blackWoolStairs);
+        addVar("redWoolStairs", redWoolStairs);
+        addVar("blueWoolStairs", blueWoolStairs);
+        addVar("yellowWoolStairs", yellowWoolStairs);
+        addVar("greenWoolStairs", greenWoolStairs);
+        addVar("lightGreenWoolStairs", lightGreenWoolStairs);
+        addVar("orangeWoolStairs", orangeWoolStairs);
+        addVar("pinkWoolStairs", pinkWoolStairs);
+        addVar("chest", chest);
+        addVar("emoticon", emoticon);
+        addVar("alphabet1", alphabet1);
+        addVar("alphabet2", alphabet2);
+        addVar("numbers", numbers);
+        addVar("fencePlank", fencePlank);
+        addVar("fencePlank2", fencePlank2);
+        addVar("fencePlank3", fencePlank3);
+        addVar("fencePlank4", fencePlank4);
+        addVar("fenceStone", fenceStone);
+        addVar("fenceBrick", fenceBrick);
+        addVar("fenceNetherbrick", fenceNetherbrick);
+        addVar("wheat", wheat);
+        addVar("animalSheep", animalSheep);
+        addVar("animalChicken", animalChicken);
+        addVar("animalCow", animalCow);
+        addVar("animalPig", animalPig);
+        addVar("bed", bed);
+        addVar("blockID", new Integer(blockID));
+        // ModLoader end
     }
 
     protected Block(int id, int index) {
         this(id);
         blockIndexInTexture = index;
     }
+
+    public Block() {
+    	super(JsObject.OBJECT_PROTOTYPE);
+    	blockID=0;
+	}
+
+
 
     public boolean collidesWithPlayer() {
         return true;
@@ -476,4 +672,88 @@ public class Block {
             }
         }
     }
+    // ModLoader start
+    public void evalNative(int id, JsArray stack, int sp, int parCount) {
+        switch(id) {
+            case ID_COLLIDES_WITH_PLAYER:
+                stack.setBoolean(sp,collidesWithPlayer());
+                break;
+            case ID_DOES_BLOCK_DESTROY_GRASS:
+                stack.setBoolean(sp,doesBlockDestroyGrass());
+                break;
+            case ID_IS_REPLACEABLE_BLOCK:
+                stack.setBoolean(sp,isReplaceableBlock());
+                break;
+            case ID_IS_UPDATABLE_BLOCK:
+                stack.setBoolean(sp,isUpdatableBlock());
+                break;
+            case ID_CAN_BE_PIECED:
+                stack.setBoolean(sp,canBePieced());
+                break;
+            case ID_CAN_BE_PIECED_VERTICALLY:
+                stack.setBoolean(sp,canBePiecedVertically());
+                break;
+            case ID_GET_BLOCK_NAME:
+                stack.setObject(sp,getBlockName());
+                break;
+            case ID_SET_BLOCK_NAME:
+                stack.setObject(sp,setBlockName(stack.getString(sp+2)));
+                break;
+            case ID_GET_ID_DROPPED:
+                stack.setInt(sp,getIdDropped());
+                break;
+            case ID_GET_BLOCK_TEXTURE:
+                stack.setInt(sp,getBlockTexture((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_IS_NORMAL:
+                stack.setBoolean(sp,isNormal());
+                break;
+            case ID_GET_RENDER_TYPE:
+                stack.setInt(sp,getRenderType());
+                break;
+            case ID_SHOULD_SIDE_BE_RENDERED:
+                stack.setBoolean(sp,shouldSideBeRendered((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_CAN_PLACE_BLOCK_ON_SIDE:
+                stack.setBoolean(sp,canPlaceBlockOnSide((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_CAN_PLACE_BLOCK_AT:
+                stack.setBoolean(sp,canPlaceBlockAt((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5)));
+                break;
+            case ID_ON_BLOCK_PLACED:
+                onBlockPlaced((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_BLOCK_DESTROYED_BY_PLAYER:
+                onBlockDestroyedByPlayer((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_NEIGHBOR_BLOCK_CHANGE:
+                onNeighborBlockChange((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_BLOCK_REMOVAL:
+                onBlockRemoval((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+            case ID_ON_BLOCK_ADDED:
+                onBlockAdded((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+            case ID_GET_BLOCK_DESTROYING_SOUND:
+                stack.setObject(sp,getBlockDestroyingSound());
+                break;
+            case ID_GET_BLOCK_PLACING_SOUND:
+                stack.setObject(sp,getBlockPlacingSound());
+                break;
+            case ID_SET_BLOCK_PLACING_SOUND:
+                setBlockPlacingSound(stack.getString(sp+2));
+                break;
+            case ID_SET_BLOCK_DESTROYING_SOUND:
+                setBlockDestroyingSound(stack.getString(sp+2));
+                break;
+            case ID_TICK_BLOCK:
+                tickBlock((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+
+            default:
+                super.evalNative(id, stack, sp, parCount);
+        }
+    }
+    // ModLoader end
 }
