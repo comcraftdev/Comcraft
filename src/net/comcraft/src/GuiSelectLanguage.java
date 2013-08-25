@@ -6,7 +6,6 @@ package net.comcraft.src;
 
 import java.util.Vector;
 
-import net.comcraft.client.Comcraft;
 
 /**
  *
@@ -36,8 +35,8 @@ public class GuiSelectLanguage extends GuiScreenSlotHost {
     }
 
     protected void initGuiSlotCustom() {
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, Comcraft.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), "Select").setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, Comcraft.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), Comcraft.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), "Close").setEnabled(parentScreen != null));
+        addButton("Select", false, 0, 0);
+        addButton("Close", parentScreen != null, 0, 1);
 
         elementClicked(0);
     }
