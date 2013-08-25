@@ -1,6 +1,7 @@
 package net.comcraft.src;
 
 import javax.microedition.lcdui.Graphics;
+
 import net.comcraft.client.Comcraft;
 
 public class GuiSlotSelectMod extends GuiSlot {
@@ -15,7 +16,7 @@ public class GuiSlotSelectMod extends GuiSlot {
         slotWidth = Comcraft.screenWidth - 10 * 2;
 
         yPos = 3 + cc.g.getFont().getHeight() + 3;
-        slotScreenHeight = Comcraft.screenHeight - yPos - 5 * 2 - GuiButtonSmall.getButtonHeight();
+        slotScreenHeight = Comcraft.screenHeight - yPos - 5 * 4 - GuiButtonSmall.getButtonHeight() * 2;
 
         if (Comcraft.getScreenHeight() == 320) {
             slotHeight = 50;
