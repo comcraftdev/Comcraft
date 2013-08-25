@@ -9,7 +9,7 @@ if sys.version_info[0]>2:
   from tkinter import font
   import tkinter as tk
   def debug(elevel, *text):
-    print ('[%s]'%elevel, *text)
+    exec("print ('[%s]'%elevel, *text)")
 else:
   from Tkinter import *
   import Tkinter as tk
@@ -621,9 +621,11 @@ import com.google.minijoe.sys.JsObject;
         'int':'new Integer(%s)',
         'long':'new Long(%s)',
         'float':'new Float(%s)',
-        '[]':'BaseMod.toArray(%s)'
       }.items():
         if prop.type.endswith(before):val=after%val
+      if prop.type.endswith('[]'):
+        addattrs+=idnt+'JsArray arr_%s= new JsArray();for(int i=0;i<%s.length;i++){arr_%s.setObject(i,%s[i]);}\n'%(prop.name, prop.name, prop.name, prop.name)
+        val = 'arr_'+val
       addattrs+=idnt+'addVar("%s", %s);\n'%(prop.name,val)
     buffer[idx]=idnt+'// ModLoader start\n'+addattrs+idnt+'// ModLoader end\n'+buffer[idx]
 
