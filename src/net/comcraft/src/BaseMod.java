@@ -12,11 +12,13 @@ class BaseMod extends JsObject {
         super(PROTOTYPE);
         scopeChain = ModGlobals.createGlobal();
         addVar("Console", new DebugConsole());
+        addVar("ChunkGeneratorNormal", ModGlobals.cgn);
         stack.setObject(0, this);
     }
 
     public void evalNative(int id, JsArray stack, int sp, int parCount) {
         switch (id) {
+            break;
         default:
             super.evalNative(id, stack, sp, parCount);
         }

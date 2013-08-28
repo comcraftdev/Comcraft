@@ -1,18 +1,21 @@
 package net.comcraft.src;
 
 import java.util.Calendar;
-import java.util.Random;
+
+import com.google.minijoe.sys.JsObject;
 
 public class ChunkGeneratorFlat extends ChunkGenerator {
 
     private int level;
-    private Random random;
-    
-    public ChunkGeneratorFlat(long seed, int level) {
-        super(seed);
-        
+
+    public ChunkGenerator Initialize(long seed, int level) {
+        newChunkGenerator(seed);
         this.level = level;
-        random = new Random(seed);
+        return this;
+    }
+
+    public ChunkGeneratorFlat(JsObject objectPrototype) {
+        super(objectPrototype);
     }
 
     public ChunkStorage[] generateChunk(int chunkX, int chunkZ) {
@@ -66,7 +69,7 @@ public class ChunkGeneratorFlat extends ChunkGenerator {
                     if (y == level + 1 && isHalloweenToday && random.nextInt(30) == 0) {
                         id = Block.pumpkin.blockID;
                     }
-
+                    id = runModGens(id,-1,level, x,y,z, chunkX,chunkZ);
                     blockStorageTemp.setBlockID(x, y & 3, z, id);
                 }
             }
