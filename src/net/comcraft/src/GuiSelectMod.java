@@ -11,8 +11,8 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
 
     protected void initGuiSlotCustom() {
         addButton("See Info", false, 0, 0);
-        addButton(cc.langBundle.getText("GuiOptions.buttonBack"),parentScreen!=null, 0, 1);
-        addButton("Enable",false, 1, 0);
+        addButton(cc.langBundle.getText("GuiOptions.buttonBack"), parentScreen != null, 0, 1);
+        addButton("Enable", false, 1, 0);
         addButton("Disable", false, 1, 1);
         elementClicked(0);
     }
@@ -38,7 +38,6 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
                 getButton(2).setEnabled(true);
             }
         }
-
     }
 
     public Vector getElementsList() {
