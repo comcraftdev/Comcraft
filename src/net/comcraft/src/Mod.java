@@ -1,7 +1,6 @@
 package net.comcraft.src;
 
 import java.io.DataInputStream;
-import java.io.IOException;
 
 import com.google.minijoe.sys.JsObject;
 import com.google.minijoe.sys.JsFunction;
@@ -24,7 +23,7 @@ public class Mod {
         try {
             JsFunction.exec(dis, global);
             running = true;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             info = e.getMessage();
         }
