@@ -171,7 +171,7 @@ class CCMLGen:
   title="Comcraft ModLoader Javascript Object Generator"
   settingsdir=join(os.getcwd(),"_CCMLG")
   filedlgopts={'filetypes':[('INI Files', '.ini')], 'initialdir':os.getcwd(), 'defaultextension':'.ini'}
-  protectedfiles=['BaseMod.java', 'Mod.java', 'ModLoader.java', 'ModGlobals.java']
+  protectedfiles=['BaseMod.java', 'Mod.java', 'ModLoader.java', 'ModGlobals.java', 'ModArray.java']
   ##
   imports="""
 // ModLoader start
@@ -635,8 +635,10 @@ import com.google.minijoe.sys.JsObject;
       }.items():
         if prop.type.endswith(before):val=after%val
       if prop.type.endswith('[]'):
-        addattrs+=idnt+'JsArray arr_%s= new JsArray();for(int i=0;i<%s.length;i++){arr_%s.setObject(i,%s[i]);}\n'%(prop.name, prop.name, prop.name, prop.name)
-        val = 'arr_'+val
+        val = 'new ModArray(%s)'%val
+      if prop.name.endswith('[]'):
+        prop.name=prop.name.replace('[]','')
+        val = 'new ModArray(%s)'%prop.name
       addattrs+=idnt+'addVar("%s", %s);\n'%(prop.name,val)
     buffer[idx]=idnt+'// ModLoader start\n'+addattrs+idnt+'// ModLoader end\n'+buffer[idx]
 
