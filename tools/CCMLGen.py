@@ -17,7 +17,7 @@ else:
   import tkFileDialog as filedialog
   import tkFont as font
   def debug(elevel,*args):
-    exec("print '[%s]'%elevel, "+', '.join(args))
+    exec("print '[%s]'%elevel, "+', '.join(map(repr,args)))
 
 # Debug constants
 class D:
@@ -33,6 +33,7 @@ class D:
 sys.stderr.write=lambda l:debug(D.S,l.rstrip())
 
 join=os.path.join
+exists=os.path.exists
 
 class LinkLabel(Label):
   def __init__(self,*args, **kwargs):
@@ -170,7 +171,7 @@ class CCMLGen:
   title="Comcraft ModLoader Javascript Object Generator"
   settingsdir=join(os.getcwd(),"_CCMLG")
   filedlgopts={'filetypes':[('INI Files', '.ini')], 'initialdir':os.getcwd(), 'defaultextension':'.ini'}
-  protectedfiles=['BaseMod.java', 'Mod.java', 'ModLoader.java']
+  protectedfiles=['BaseMod.java', 'Mod.java', 'ModLoader.java', 'ModGlobals.java']
   ##
   imports="""
 // ModLoader start
@@ -339,7 +340,7 @@ import com.google.minijoe.sys.JsObject;
     self.notdonelist.config(width=longest2)
 
   def openfile(self,filename):
-    return open(join(self.config['settings']['comcraft_root'],'net\\comcraft\\src\\',filename),'r+',encoding='UTF-8')
+    return open(join(self.config['settings']['comcraft_root'],'net\\comcraft\\src\\',filename),'r+')
 
   def makeobjects(self):
     for i in self.notdonelist.curselection():
@@ -424,9 +425,18 @@ import com.google.minijoe.sys.JsObject;
         continue
       if classdef.match(strp) and 'extend' not in done:
         i=line.index('{')
-        if line.find('extends')>-1:
-          messagebox.showerror("Error", "Cannot extend class "+filename+", there is already a superclass.")
-          self.config.merge('no_extend', {filename+'.java': 'True'})
+        m=re.search("extends\s+(.*?)\s*\{",line)
+        if m:
+          superclass=m.group(1)
+          if exists(join(self.config['settings']['comcraft_root'],'net\\comcraft\\src\\',superclass+".java")):
+            if superclass+".java" in self.config['done']:
+              done.append('extend')
+              self.superclass=""
+              continue
+            messagebox.showerror("Error", "Cannot extend class "+filename+", please make %r an object first"%superclass)
+          else:
+            messagebox.showerror("Error", "Cannot extend class "+filename+", there is already a superclass %r which cannot be made an object."%superclass)
+            self.config.merge('no_extend', {filename+'.java': 'True'})
           return 0
         buffer[-1]=line[:i-1]+' extends '+self.extend+line[i:-1]+' // ModLoader\n'
         done.append('extend')
@@ -476,6 +486,7 @@ import com.google.minijoe.sys.JsObject;
       if not v.get():return 0
     onfinish=lambda fn,pr:self.writeobject(f,indexes,buffer,fn,pr)
     success=self.askforselections(functions, properties, onfinish,selections, filename)
+    if not self.superclass:self.superclass=CCMLGen.superclass
     return success
   def askforselections(self,functions, properties, callback, selected=[[],[]], name="(Unknown)"):
     root=self.makewindow("Attributes for Class "+name)
