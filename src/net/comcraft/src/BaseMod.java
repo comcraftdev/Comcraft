@@ -18,7 +18,6 @@ class BaseMod extends JsObject {
 
     public void evalNative(int id, JsArray stack, int sp, int parCount) {
         switch (id) {
-            break;
         default:
             super.evalNative(id, stack, sp, parCount);
         }
