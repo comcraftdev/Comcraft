@@ -11,14 +11,16 @@ public class ModArray extends JsArray {
 			super.setObject(i, source[i]);
 		}
 	}
-	public void setObject(int i, Object v) {
-		source[i]=v;
-	}
-	public Object getObject(int i) {
+	public Object getArrayObject(int i) {
 		return source[i];
+	}
+	public void vmGetOperation(JsArray stack, int keyIndex, int valueIndex) {
+		super.vmGetOperation(stack, keyIndex, valueIndex);
+		int i = stack.getInt(keyIndex);
+		stack.setObject(valueIndex, source[i]);
 	}
 	public void vmSetOperation(JsArray stack, int keyIndex, int valueIndex) {
 		super.vmSetOperation(stack, keyIndex, valueIndex);
-		setObject(stack.getInt(keyIndex), stack.getObject(valueIndex));
+		source[stack.getInt(keyIndex)]=stack.getObject(valueIndex);
 	}
 }
