@@ -20,7 +20,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 import javax.microedition.m3g.Graphics3D;
+
 import net.comcraft.client.Comcraft;
 
 public final class Settings {
@@ -48,6 +50,7 @@ public final class Settings {
     public boolean screenshotMode;
     public int resolutionScale;
     public int screenshotResolution;
+    public String[] disabledMods;
 
     public Settings(Comcraft cc) {
         this.cc = cc;
@@ -70,6 +73,7 @@ public final class Settings {
         screenshotMode = false;
         resolutionScale = 1;
         screenshotResolution = 2;
+        disabledMods = new String[0];
 
         Boolean antialiasingB = (Boolean) (Graphics3D.getProperties().get("supportAntialiasing"));
         antialiasing = antialiasingB.booleanValue();
@@ -113,6 +117,7 @@ public final class Settings {
             language = dataInputStream.readUTF();
             resolutionScale = dataInputStream.readInt();
             screenshotResolution = dataInputStream.readInt();
+            readDisabledMods(dataInputStream);
         } catch (IOException ex) {
             //#debug debug
 //#             ex.printStackTrace();
@@ -129,6 +134,7 @@ public final class Settings {
 
         comcraftFileSystem.initComcraftFileSystem();
     }
+
 
     public void saveOptions() {
         rms = RMS.openRecordStore(recordStoreName, false);
@@ -152,6 +158,7 @@ public final class Settings {
             dataOutputStream.writeUTF(language);
             dataOutputStream.writeInt(resolutionScale);
             dataOutputStream.writeInt(screenshotResolution);
+            writeDisabledMods(dataOutputStream);
         } catch (IOException ex) {
             //#debug debug
 //#             ex.printStackTrace();
@@ -168,5 +175,27 @@ public final class Settings {
 
     public void setComcraftFileSystem(ComcraftFileSystem comcraftFileSystem) {
         this.comcraftFileSystem = comcraftFileSystem;
+    }
+    private void readDisabledMods(DataInputStream dataInputStream) throws IOException {
+        int len= dataInputStream.readShort();
+        disabledMods = new String[len];
+        for (int i = 0; i < len; i++) {
+            disabledMods[i]=dataInputStream.readUTF();
+        }
+    }
+    private void writeDisabledMods(DataOutputStream dataOutputStream) throws IOException {
+        String[] disMods = new String[disabledMods.length];
+        int x = 0;
+        for (int i = 0; i < disabledMods.length; i++) {
+            if (disabledMods[i] != null) {
+                disMods[x++] = disabledMods[i];
+            }
+        }
+        disabledMods = new String[x];
+        System.arraycopy(disMods, 0, disabledMods, 0, x);
+        dataOutputStream.writeShort(disabledMods.length);
+        for (int i = 0; i < disabledMods.length; i++) {
+            dataOutputStream.writeUTF(disabledMods[i]);
+        }
     }
 }

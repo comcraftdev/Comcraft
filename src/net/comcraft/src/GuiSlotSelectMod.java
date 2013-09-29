@@ -63,8 +63,17 @@ public class GuiSlotSelectMod extends GuiSlot {
         else {
             cc.g.setColor(110, 110, 110);
             drawStringWithShadow(cc.g, mod.getModName(), (Comcraft.screenWidth - slotWidth) / 2 + 10, y + interval, Graphics.TOP | Graphics.LEFT);
-            cc.g.setColor(0x8B0000);
-            drawStringWithShadow(cc.g, "Errors were encountered", (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval*2+ cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
+            String text = "Errors were encountered";
+            if (!mod.wasenabled) {
+                if (mod.enabled) {
+                    text = "Restart required";
+                } else {
+                    text = "Mod Disabled";
+                }
+            } else {
+                cc.g.setColor(0x8B0000);
+            }
+            drawStringWithShadow(cc.g, text, (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval*2+ cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
         }
     }
 

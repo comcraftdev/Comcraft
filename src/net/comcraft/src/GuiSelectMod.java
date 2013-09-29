@@ -21,22 +21,20 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
     }
 
     public void elementClicked(int id) {
+        getButton(2).setEnabled(false);
+        getButton(3).setEnabled(false);
         if (id >= getElementsList().size() || id < 0) {
             getButton(0).setEnabled(false);
-            getButton(2).setEnabled(false);
-            getButton(3).setEnabled(false);
             return;
         }
         getButton(0).setEnabled(true);
         Mod mod = (Mod) getElementsList().elementAt(id);
         selectedmod=mod;
-        if (mod.isRunning()) {
-            if (mod.enabled) {
-                getButton(3).setEnabled(true);
-            }
-            else {
-                getButton(2).setEnabled(true);
-            }
+        if (mod.enabled) {
+            getButton(3).setEnabled(true);
+        } else {
+            getButton(2).setEnabled(true);
+
         }
     }
 
@@ -62,12 +60,12 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
             backToParentScreen();
         } else if (guiButton.id == 2) {
             //Enable
-            selectedmod.enabled=true;
+            selectedmod.enable();
             getButton(2).setEnabled(false);
             getButton(3).setEnabled(true);
         } else if (guiButton.id == 3) {
             //Disable
-            selectedmod.enabled=false;
+            selectedmod.disable();
             getButton(3).setEnabled(false);
             getButton(2).setEnabled(true);
         }

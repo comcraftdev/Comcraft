@@ -12,14 +12,20 @@ public class Mod {
     private String ModDescription;
     private boolean running = false;
     public boolean enabled = false;
+    private JsObject global = new BaseMod();
+    private ModLoader ml;
+    public boolean wasenabled = false;
 
-    public Mod(String name, String desc, DataInputStream dis) {
+    public Mod(ModLoader modLoader, String name, String desc, DataInputStream dis) {
         ModName = name;
         ModDescription = desc;
-        if (true) { // not disabled
+        ml = modLoader;
+        if (!ml.isDisabled(name)) {
             enabled = true;
+            wasenabled = true;
+        } else {
+            return;
         }
-        JsObject global = new BaseMod();
         try {
             JsFunction.exec(dis, global);
             running = true;
@@ -43,5 +49,15 @@ public class Mod {
 
     public String getModInfo() {
         return info;
+    }
+
+    public void enable() {
+        ml.enable(ModName);
+        enabled = true;
+    }
+
+    public void disable() {
+        ml.disable(ModName);
+        enabled = false;
     }
 }
