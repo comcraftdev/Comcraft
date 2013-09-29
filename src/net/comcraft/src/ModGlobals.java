@@ -10,13 +10,12 @@ public class ModGlobals implements JsObjectFactory {
 
     static final int FACTORY_ID_BLOCK = 0;
     static ModGlobals instance = new ModGlobals();
-    static ChunkGeneratorNormal cgn = new ChunkGeneratorNormal(JsObject.OBJECT_PROTOTYPE);
-    static ChunkGeneratorFlat cgf = new ChunkGeneratorFlat(JsObject.OBJECT_PROTOTYPE);
+
+    public static EventHandlerAPI event = new EventHandlerAPI();
 
     public static JsObject createGlobal() {
         global = JsSystem.createGlobal();
-        global.addVar("Block", new JsFunction(instance, FACTORY_ID_BLOCK,
-                Block.BLOCK_PROTOTYPE, Block.ID_CONSTRUCTOR, 1));
+        global.addVar("Block", new JsFunction(instance, FACTORY_ID_BLOCK, Block.BLOCK_PROTOTYPE, Block.ID_CONSTRUCTOR, 1));
         return global;
     }
 

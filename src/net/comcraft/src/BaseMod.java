@@ -12,7 +12,7 @@ class BaseMod extends JsObject {
         super(PROTOTYPE);
         scopeChain = ModGlobals.createGlobal();
         addVar("Console", new DebugConsole());
-        addVar("ChunkGeneratorNormal", ModGlobals.cgn);
+        addVar("EventHandler", ModGlobals.event);
         stack.setObject(0, this);
     }
 

@@ -68,10 +68,11 @@ public class WorldGenerator {
         seed = System.currentTimeMillis();
 
         if (isFlat) {
-            chunkGenerator = ModGlobals.cgf.Initialize(seed, flatLevel);
+            chunkGenerator = new ChunkGeneratorFlat(seed, flatLevel);
         } else {
-            chunkGenerator = ModGlobals.cgn.Initialize(seed, generateTrees);
+            chunkGenerator = new ChunkGeneratorNormal(seed, generateTrees);
         }
+        ModGlobals.event.runEvent("World.Generate", new Object[] { new Boolean(isFlat), chunkGenerator });
 
         worldSaveType = new WorldSaveType(saveHandler.getSavePath());
 

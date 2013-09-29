@@ -2,20 +2,13 @@ package net.comcraft.src;
 
 import java.util.Calendar;
 
-import com.google.minijoe.sys.JsObject;
-
 public class ChunkGeneratorFlat extends ChunkGenerator {
 
     private int level;
 
-    public ChunkGenerator Initialize(long seed, int level) {
-        newChunkGenerator(seed);
+    public ChunkGeneratorFlat(long seed, int level) {
+        super(seed);
         this.level = level;
-        return this;
-    }
-
-    public ChunkGeneratorFlat(JsObject objectPrototype) {
-        super(objectPrototype);
     }
 
     public ChunkStorage[] generateChunk(int chunkX, int chunkZ) {

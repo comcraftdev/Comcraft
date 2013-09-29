@@ -7,7 +7,6 @@ package net.comcraft.src;
 import java.util.Random;
 
 import com.google.minijoe.sys.JsArray;
-import com.google.minijoe.sys.JsObject;
 
 /**
  * 
@@ -25,19 +24,16 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
     private static final int ID_TREESNOISE = 112;
     private static final int ID_BIOMNOISE = 113;
 
-    public ChunkGenerator Initialize(long seed, boolean generateTrees) {
-        newChunkGenerator(seed);
+    public ChunkGeneratorNormal(long seed, boolean generateTrees) {
+        super(seed);
+
         heightNoise = new SimplexNoise(new Random(seed));
         flowersNoise = new SimplexNoise(new Random(seed - 231));
         treesNoise = new SimplexNoise(new Random(seed - 781));
         biomNoise = new SimplexNoise(new Random(seed - 6281));
 
         this.generateTrees = generateTrees;
-        return this;
-    }
 
-    public ChunkGeneratorNormal(JsObject objectPrototype) {
-        super(objectPrototype);
         addNative("heightNoise", ID_HEIGHTNOISE, 2);
         addNative("flowersNoise", ID_FLOWERNOISE, 2);
         addNative("treesNoise", ID_TREESNOISE, 2);
@@ -165,16 +161,16 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
     public void evalNative(int index, JsArray stack, int sp, int parCount) {
         switch (index) {
         case ID_HEIGHTNOISE:
-            stack.setNumber(sp, heightNoise.noise2D(stack.getInt(sp+2), stack.getInt(sp+3)));
+            stack.setNumber(sp, heightNoise.noise2D(stack.getInt(sp + 2), stack.getInt(sp + 3)));
             break;
         case ID_FLOWERNOISE:
-            stack.setNumber(sp, flowersNoise.noise2D(stack.getInt(sp+2), stack.getInt(sp+3)));
+            stack.setNumber(sp, flowersNoise.noise2D(stack.getInt(sp + 2), stack.getInt(sp + 3)));
             break;
         case ID_TREESNOISE:
-            stack.setNumber(sp, treesNoise.noise2D(stack.getInt(sp+2), stack.getInt(sp+3)));
+            stack.setNumber(sp, treesNoise.noise2D(stack.getInt(sp + 2), stack.getInt(sp + 3)));
             break;
         case ID_BIOMNOISE:
-            stack.setNumber(sp, biomNoise.noise2D(stack.getInt(sp+2), stack.getInt(sp+3)));
+            stack.setNumber(sp, biomNoise.noise2D(stack.getInt(sp + 2), stack.getInt(sp + 3)));
             break;
         default:
             super.evalNative(index, stack, sp, parCount);
