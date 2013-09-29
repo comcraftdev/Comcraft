@@ -19,15 +19,53 @@ package net.comcraft.src;
 
 import java.util.Calendar;
 import java.util.Vector;
+
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
-import javax.microedition.m3g.Background;
 import javax.microedition.m3g.Camera;
 import javax.microedition.m3g.Graphics3D;
+
+import com.google.minijoe.sys.JsArray;
+import com.google.minijoe.sys.JsObject;
+
 import net.comcraft.client.Comcraft;
 
 public final class Render {
+    private class Background extends JsObject {
+        private static final int ID_SET_COLOR = 100;
+        private static final int ID_GET_COLOR = 101;
+        public javax.microedition.m3g.Background bg;
+
+        public Background() {
+            super(OBJECT_PROTOTYPE);
+            bg = new javax.microedition.m3g.Background();
+            addNative("setColor", ID_SET_COLOR, 1);
+            addNative("getColor", ID_GET_COLOR, 0);
+        }
+
+        public void setColor(int c) {
+            bg.setColor(c);
+        }
+
+        public int getColor() {
+            return bg.getColor();
+        }
+
+        public void evalNative(int id, JsArray stack, int sp, int parCount) {
+            switch (id) {
+            case ID_SET_COLOR:
+                setColor(stack.getInt(sp + 2));
+                break;
+            case ID_GET_COLOR:
+                stack.setInt(sp, getColor());
+                break;
+            default:
+                super.evalNative(id, stack, sp, parCount);
+            }
+        }
+
+    }
 
     private final Comcraft cc;
     private Background background;
@@ -59,6 +97,7 @@ public final class Render {
 
         background = new Background();
         background.setColor(0xB0E0E6);
+        ModGlobals.event.runEvent("Render.Init", new Object[] { background });
 //        background.setColor(0x191970);
 
         camera = new Camera();
@@ -178,7 +217,7 @@ public final class Render {
 
         g3D.bindTarget(cc.g, true, cc.settings.antialiasing ? Graphics3D.ANTIALIAS : 0);
 
-        g3D.clear(background);
+        g3D.clear(background.bg);
         g3D.setCamera(camera, cc.player.getPlayerTransform());
 
         try {

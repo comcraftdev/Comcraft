@@ -146,6 +146,8 @@ public final class Comcraft implements Runnable {
 
         settings.loadOptions();
 
+        modLoader.initMods();
+
         langBundle.loadBundle(settings.language);
 
         if (!settings.getComcraftFileSystem().isAvailable()) {
@@ -164,7 +166,6 @@ public final class Comcraft implements Runnable {
         helloWords = new HelloWords(this);
         musicPlayer.loadMusicList();
         movementInput = new InputManager(this);
-        modLoader.initMods();
 
         if (currentScreen == null) {
             displayGuiScreen(new GuiMainMenu());
