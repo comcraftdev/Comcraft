@@ -1,19 +1,30 @@
 ﻿# Comcraft Mod Loader
 
 This is a project for allowing mods to load into [comcraft](http://www.comcraft-game.blogspot.com) - a Minecraft inspired game for J2ME devices.
+It was forked from the [Comcraft repository](https://github.com/queader/Comcraft)
 
-Comcraft Mod Loader is not finished yet, if you have any suggestions, ideas code tips etc please make an 'issue' or a pull request.
+### Documentation
+Documentation has been made on the **[wiki](https://github.com/simon816/ComcraftModLoader/wiki)**, it includes all information about developing mods, testing, releasing and more.
 
-The Commit e71872501d 'Fixed ALL [Warnings] by eclipse's quick-fix tool' deleted a large chunk of code because it was obsolete/not used but I am keeping track of queader upstream, so if any unused code becomes functional i'll change this accordingly.
+### Issues, new features questions
+Please go to the **[issues](https://github.com/simon816/ComcraftModLoader/issues)** page and open a new issue with the relevent label (bug, enhancement ...)
 
-This project was forked from the [Comcraft repository](https://github.com/queader/Comcraft)
+### Contributing
+Contrubuting information can be found on the wiki [here](https://github.com/simon816/ComcraftModLoader/wiki#contributing-to-the-mod-loader)
 
+### Other
+The Commit e71872501d 'Fixed ALL [Warnings] by eclipse's quick-fix tool' deleted a large chunk of code because it was obsolete/not used but I am keeping track of queader upstream, so if any unused code becomes functional i'll change this accordingly.  
+I may implement some of these discarded methods in some of my commits, I will try to clearly mark and code by Queader I removed and readded.
+
+### Credits
 Comcraft is made by queader (Piotr Wójcik), you can find him:
 
  * Twitter @queader
  * Email queader.comcraft@gmail.com
 
-### Below is the license for Comcraft:
+Thanks to [MINIJOE](http://code.google.com/p/minijoe/) for making the javascript enviromnent possible
+
+### License
 ```
 Copyright (C) 2013 Piotr Wójcik
 
