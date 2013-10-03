@@ -3,6 +3,8 @@
 This is a project for allowing mods to load into [comcraft](http://www.comcraft-game.blogspot.com) - a Minecraft inspired game for J2ME devices.
 It was forked from the [Comcraft repository](https://github.com/queader/Comcraft)
 
+**Downloads, Updates and Mods can be found on the comcraft mod loader [homepage](http://simon816.hostzi.com/dev/ComcraftML/)**
+
 ### Documentation
 Documentation has been made on the **[wiki](https://github.com/simon816/ComcraftModLoader/wiki)**, it includes all information about developing mods, testing, releasing and more.
 
