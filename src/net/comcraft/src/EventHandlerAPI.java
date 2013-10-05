@@ -50,4 +50,8 @@ public class EventHandlerAPI extends JsObject {
             super.evalNative(id, stack, sp, parCount);
         }
     }
+
+    public Object[] getSucesses(String name) {
+        return ehandle.getSucesses(name);
+    }
 }

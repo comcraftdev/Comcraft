@@ -93,4 +93,18 @@ public class EventHandler {
         return null;
     }
 
+    public Object[] getSucesses(String name) {
+        Vector event = ((Vector[]) events.get(name))[1];
+        Enumeration e = event.elements();
+        Vector v = new Vector();
+        while (e.hasMoreElements()) {
+            Object r = e.nextElement();
+            if (r != null) {
+                v.addElement(r);
+            }
+        }
+        Object[] arr = new Object[v.size()];
+        v.copyInto(arr);
+        return arr;
+    }
 }
