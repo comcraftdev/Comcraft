@@ -4,19 +4,23 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Vector;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.TextField;
 import javax.microedition.lcdui.game.Sprite;
+
 import net.comcraft.client.Comcraft;
 
-public class GuiIngame extends GuiScreen {
+public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
 
     private GuiInventory guiInventory;
     private Sprite loadingChunksSprite;
     private Image lastLoadingChunksImage;
     private GuiButton screenshotButton;
+    private GuiButton commandButton;
 
     public GuiIngame(Comcraft cc) {
         super(null);
@@ -128,6 +132,8 @@ public class GuiIngame extends GuiScreen {
 
             screenshotButton = new GuiButtonPictured(cc, this, 10, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), Comcraft.screenHeight - GuiButtonPictured.getButtonHeight(), "gui/button_screenshot.png", Sprite.TRANS_ROT90);
             elementsList.addElement(screenshotButton);
+            commandButton = new GuiButtonPictured(cc, this, 11, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), 0, "gui/button_command.png", Sprite.TRANS_ROT90);
+            elementsList.addElement(commandButton);
 
             screenshotButton.drawButton = cc.settings.screenshotMode;
         }
@@ -166,9 +172,15 @@ public class GuiIngame extends GuiScreen {
             }
         } else if (guiButton.getId() == 10) {
             takeScreenshot();
+        } else if (guiButton.getId() == 11) {
+            commandInput();
         }
 
         Touch.setInputHandled(true);
+    }
+
+    private void commandInput() {
+        cc.displayGuiScreen(new GuiInGameTextBox(this, "", TextField.ANY, 64));
     }
 
     private void takeScreenshot() {
@@ -280,5 +292,16 @@ public class GuiIngame extends GuiScreen {
     }
 
     protected void initGui() {
+    }
+
+    public void guiTextBoxAction(String cmd) {
+        if (cmd == null) {
+            return;
+        }
+        if (cmd.equals("")) {
+            return;
+        }
+        // Work In Progress
+        ModGlobals.event.runEvent("Game.Command", new Object[] { cmd });
     }
 }

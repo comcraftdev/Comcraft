@@ -13,7 +13,7 @@ public class EventHandlerAPI extends JsObject {
     public EventHandlerAPI() {
         super(OBJECT_PROTOTYPE);
         addNative("bindEvent", ID_BIND_EVENT, 2);
-        ehandle = new EventHandler(new String[] { "World.Generate", "Render.Init" });
+        ehandle = new EventHandler(new String[] { "World.Generate", "Render.Init", "Game.Command" });
     }
 
     public void runEvent(String name, Object[] params) {
