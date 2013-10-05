@@ -57,7 +57,7 @@ public class GuiNewWorld extends GuiScreen {
         }
 
         if (guiButton.getId() == 0) {
-            genereateWorld();
+            generateWorld();
             cc.displayGuiScreen(new GuiSelectWorld(guiMainMenu));
         } else if (guiButton.getId() == 1) {
             backToParentScreen();
@@ -95,7 +95,7 @@ public class GuiNewWorld extends GuiScreen {
         return false;
     }
 
-    private void genereateWorld() {
+    private void generateWorld() {
         String worldName;
 
         for (int i = 1;; ++i) {
@@ -114,7 +114,7 @@ public class GuiNewWorld extends GuiScreen {
         
 //        boolean generateTrees = getButtonOnOff(5).getValue();
 
-        WorldGenerator worldGenereator = new WorldGenerator(cc, worldName, worldSize, isFlat, flatLevel, false);
-        worldGenereator.genereateAndSaveWorld();
+        WorldGenerator worldGenerator = new WorldGenerator(cc, worldName, worldSize, isFlat, flatLevel, false);
+        worldGenerator.generateAndSaveWorld();
     }
 }
