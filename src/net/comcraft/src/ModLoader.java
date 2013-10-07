@@ -31,8 +31,7 @@ public class ModLoader {
             System.out.println("scanning mods folder");
             FileConnection fileConnection = (FileConnection) Connector.open(cc.settings.getComcraftFileSystem().getPathToFolder("mods/"), Connector.READ);
             if (!fileConnection.exists()) {
-                System.out.println("missing folder '/mods'");
-                return;
+                fileConnection.mkdir();
             }
             hasInitialized = true;
 

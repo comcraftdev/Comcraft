@@ -36,6 +36,7 @@ public final class ComcraftFileSystem {
         }
 
         initFolder(comcraftPath + "comcraft/");
+        initFolder(comcraftPath + "comcraft/" + "mods/");
         initFolder(comcraftPath + "comcraft/" + "saves/");
         initFolder(comcraftPath + "comcraft/" + "texturepacks/");
         initFolder(comcraftPath + "comcraft/" + "music/");
