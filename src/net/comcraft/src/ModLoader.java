@@ -1,10 +1,11 @@
 package net.comcraft.src;
 
+import java.util.Hashtable;
 import java.util.Vector;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
@@ -24,6 +25,7 @@ public class ModLoader {
     private Vector Mods;
     private boolean hasInitialized = false;
     private BaseMod global;
+    private Hashtable resourcedata;
 
     public ModLoader(Comcraft cc) {
         this.cc = cc;
@@ -32,6 +34,7 @@ public class ModLoader {
     }
 
     public void initMods() {
+        resourcedata = new Hashtable();
         try {
             if (!cc.settings.getComcraftFileSystem().isAvailable()) {
                 System.out.println("files not initialized");
@@ -98,7 +101,13 @@ public class ModLoader {
                 for (int i = 0; i < l; i++) {
                     String resname = dis.readUTF();
                     String content = dis.readUTF();
-                    // Currently not used
+                    resname = resname.replace('\\', '/'); // the IDE does not (yet) standardize URIs
+                    resname = resname.substring("/res".length()); // Forgot to strip this in the IDE
+                    if (resourcedata.containsKey(resname)) {
+                        // Do something here maybe
+                    } else {
+                        resourcedata.put(resname, content);
+                    }
                 }
                 break;
             case PACKAGE:
@@ -112,10 +121,10 @@ public class ModLoader {
                         if ((packageName + "." + filename).equals(main)) {
                             try {
                                 JsFunction.exec(dis, global);
-                                info[4] = new Boolean(true);
+                                info[3] = new Boolean(true);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                info[3] = e.getMessage();
+                                info[2] = e.getMessage();
                             }
                         } else {
                             dis.read(new byte[length]);
@@ -133,6 +142,15 @@ public class ModLoader {
         }
         dis.close();
         return info;
+    }
+
+    public InputStream getResourceAsStream(String filename) {
+        // Emulates standard Class.getResourceAsStream
+        String content = (String) resourcedata.get(filename);
+        if (content == null) {
+            return Class.class.getResourceAsStream(filename);
+        }
+        return new ByteArrayInputStream(content.getBytes());
     }
 
     public Vector ListMods() {

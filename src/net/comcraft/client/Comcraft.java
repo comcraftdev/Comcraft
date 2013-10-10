@@ -16,8 +16,11 @@
  */
 package net.comcraft.client;
 
+import java.io.InputStream;
+
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
+
 import net.comcraft.src.*;
 
 public final class Comcraft implements Runnable {
@@ -487,5 +490,8 @@ public final class Comcraft implements Runnable {
         }
 
         return imei;
+    }
+    public InputStream getResourceAsStream(String filename) {
+        return modLoader.getResourceAsStream(filename);
     }
 }
