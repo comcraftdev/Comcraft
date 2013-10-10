@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright (C) 2013 Piotr Wójcik
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -171,7 +171,7 @@ public final class Comcraft implements Runnable {
             displayGuiScreen(new GuiMainMenu());
         }
 
-        System.out.println(getMIDletSize());
+        
 
         showScreenVisit();
     }
