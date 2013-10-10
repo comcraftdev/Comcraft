@@ -15,12 +15,12 @@ import com.java4ever.apime.io.GZIP;
 import net.comcraft.client.Comcraft;
 
 public class ModLoader {
-    public static final int API_VERSION = 2;
+    public static final int API_VERSION = 3;
     public static final int MIN_API_VERSION = 1;
     private static final int PACKAGE = 0x10;
     private static final int MOD_DESCRIPTOR = 0x20;
     private static final int RESOURCE = 0x30;
-    private String version = "0.2";
+    private String version = "0.3";
     private Comcraft cc;
     private Vector Mods;
     private boolean hasInitialized = false;

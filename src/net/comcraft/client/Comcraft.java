@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2013 Piotr Wójcik
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -71,7 +71,7 @@ public final class Comcraft implements Runnable {
         guiIngame = null;
         render = null;
         loadingScreen = new LoadingScreen(this);
-        langBundle = new LangBundle();
+        langBundle = new LangBundle(this);
         render = new Render(this);
         musicPlayer = new MusicPlayer(this);
     }
@@ -143,13 +143,14 @@ public final class Comcraft implements Runnable {
 
         loadScreen();
 
-        langBundle.setDefaultMap("/lang/en.lng");
 
         ModelsList.initModelList();
 
         settings.loadOptions();
 
         modLoader.initMods();
+
+        langBundle.setDefaultMap("/lang/en.lng");
 
         langBundle.loadBundle(settings.language);
 
@@ -173,8 +174,6 @@ public final class Comcraft implements Runnable {
         if (currentScreen == null) {
             displayGuiScreen(new GuiMainMenu());
         }
-
-        
 
         showScreenVisit();
     }
@@ -421,6 +420,7 @@ public final class Comcraft implements Runnable {
         world = new World(this, saveHandler, worldInfo);
 
         displayGuiScreen(new GuiLoadingWorld());
+        //ModGlobals.event.runEvent("World.Start");
     }
 
     public void endWorld() {
