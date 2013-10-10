@@ -7,32 +7,26 @@ import com.google.minijoe.sys.JsFunction;
 
 public class Mod {
 
-    private String info = "No Mod Info";
+    private String info;
     private String ModName;
     private String ModDescription;
     private boolean running = false;
     public boolean enabled = false;
-    private JsObject global = new BaseMod();
     private ModLoader ml;
     public boolean wasenabled = false;
 
-    public Mod(ModLoader modLoader, String name, String desc, DataInputStream dis) {
+    public Mod(ModLoader modLoader, String name, String desc, String info, boolean running) {
         ModName = name;
         ModDescription = desc;
         ml = modLoader;
+        this.info = info;
         if (!ml.isDisabled(name)) {
             enabled = true;
             wasenabled = true;
         } else {
             return;
         }
-        try {
-            JsFunction.exec(dis, global);
-            running = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            info = e.getMessage();
-        }
+        this.running = running;
     }
 
     public String getModName() {
