@@ -17,6 +17,8 @@
 
 package net.comcraft.src;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiInfo extends GuiScreen {
 
     public GuiInfo(GuiScreen parentScreen) {
@@ -30,7 +32,7 @@ public class GuiInfo extends GuiScreen {
         final int smallInterval = (int) (GuiButton.getButtonHeight() * 0.1f);
         final int bigInterval = (int) (GuiButton.getButtonHeight() * 0.3f);
 
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
         int y = 3;
 
@@ -80,9 +82,5 @@ public class GuiInfo extends GuiScreen {
         }
 
         backToParentScreen();
-    }
-
-    private static void appendString(StringBuffer buffer, String word) {
-        buffer.append(word);
     }
 }

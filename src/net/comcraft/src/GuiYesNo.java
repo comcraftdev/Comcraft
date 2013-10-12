@@ -2,6 +2,8 @@ package net.comcraft.src;
 
 import javax.microedition.lcdui.Graphics;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiYesNo extends GuiScreen {
 
     private String displayedString;
@@ -16,11 +18,11 @@ public class GuiYesNo extends GuiScreen {
 
     protected void customDrawScreen() {
         cc.g.setColor(0xFFFFFF);
-        drawStringWithShadow(cc.g, displayedString, cc.screenWidth / 2, 20, Graphics.TOP | Graphics.HCENTER);
+        drawStringWithShadow(cc.g, displayedString, Comcraft.screenWidth / 2, 20, Graphics.TOP | Graphics.HCENTER);
     }
 
     protected void initGui() {
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
         int startY = 60;
 

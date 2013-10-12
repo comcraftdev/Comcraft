@@ -3,7 +3,6 @@ package net.comcraft.src;
 import java.util.Hashtable;
 import javax.microedition.m3g.Loader;
 import javax.microedition.m3g.Node;
-import javax.microedition.m3g.Object3D;
 
 public class ModelsList {
 

@@ -23,12 +23,18 @@
 
 package net.comcraft.src;
 
+// ModLoader start
+import com.google.minijoe.sys.JsArray;
+import com.google.minijoe.sys.JsObject;
+
+
+// ModLoader end
 import javax.microedition.m3g.IndexBuffer;
 import javax.microedition.m3g.Node;
 import javax.microedition.m3g.Transform;
 import javax.microedition.m3g.VertexBuffer;
 
-public class Block {
+public class Block extends JsObject { // ModLoader
 
     public static final Block[] blocksList;
     public static final Block stone;
@@ -161,23 +167,91 @@ public class Block {
      * Block custom
      */
     protected int blockIndexInTexture;
-    public final int blockID;
+    public int blockID;
     private String blockName;
     private String blockPlacingSound = "/sound/block_placed.wav";
     private String blockDestroyingSound = "/sound/block_placed.wav";
+    // ModLoader start
+    private static final int ID_COLLIDES_WITH_PLAYER = 127;
+    private static final int ID_DOES_BLOCK_DESTROY_GRASS = 128;
+    private static final int ID_IS_REPLACEABLE_BLOCK = 102;
+    private static final int ID_IS_UPDATABLE_BLOCK = 103;
+    private static final int ID_CAN_BE_PIECED = 104;
+    private static final int ID_CAN_BE_PIECED_VERTICALLY = 105;
+    private static final int ID_GET_BLOCK_NAME = 106;
+    private static final int ID_SET_BLOCK_NAME = 107;
+    private static final int ID_GET_ID_DROPPED = 108;
+    private static final int ID_GET_BLOCK_TEXTURE = 109;
+    private static final int ID_IS_NORMAL = 110;
+    private static final int ID_GET_RENDER_TYPE = 111;
+    private static final int ID_SHOULD_SIDE_BE_RENDERED = 112;
+    private static final int ID_CAN_PLACE_BLOCK_ON_SIDE = 113;
+    private static final int ID_CAN_PLACE_BLOCK_AT = 114;
+    private static final int ID_ON_BLOCK_PLACED = 115;
+    private static final int ID_ON_BLOCK_DESTROYED_BY_PLAYER = 116;
+    private static final int ID_ON_NEIGHBOR_BLOCK_CHANGE = 117;
+    private static final int ID_ON_BLOCK_REMOVAL = 118;
+    private static final int ID_ON_BLOCK_ADDED = 119;
+    private static final int ID_GET_BLOCK_DESTROYING_SOUND = 120;
+    private static final int ID_GET_BLOCK_PLACING_SOUND = 121;
+    private static final int ID_SET_BLOCK_PLACING_SOUND = 122;
+    private static final int ID_SET_BLOCK_DESTROYING_SOUND = 123;
+    private static final int ID_TICK_BLOCK = 124;
+    public static final int ID_CONSTRUCTOR = 125;
+    // ModLoader end
+
+    public static final JsObject BLOCK_PROTOTYPE = new Block(OBJECT_PROTOTYPE)
+            .addNative("collidesWithPlayer", ID_COLLIDES_WITH_PLAYER, 0)
+            .addNative("doesBlockDestroyGrass", ID_DOES_BLOCK_DESTROY_GRASS, 0)
+            .addNative("isReplaceableBlock", ID_IS_REPLACEABLE_BLOCK, 0)
+            .addNative("isUpdatableBlock", ID_IS_UPDATABLE_BLOCK, 0)
+            .addNative("canBePieced", ID_CAN_BE_PIECED, 0)
+            .addNative("canBePiecedVertically", ID_CAN_BE_PIECED_VERTICALLY, 0)
+            .addNative("getBlockName", ID_GET_BLOCK_NAME, 0)
+            .addNative("setBlockName", ID_SET_BLOCK_NAME, 1)
+            .addNative("getIdDropped", ID_GET_ID_DROPPED, 0)
+            .addNative("getBlockTexture", ID_GET_BLOCK_TEXTURE, 5)
+            .addNative("isNormal", ID_IS_NORMAL, 0)
+            .addNative("getRenderType", ID_GET_RENDER_TYPE, 0)
+            .addNative("shouldSideBeRendered", ID_SHOULD_SIDE_BE_RENDERED, 5)
+            .addNative("canPlaceBlockOnSide", ID_CAN_PLACE_BLOCK_ON_SIDE, 5)
+            .addNative("canPlaceBlockAt", ID_CAN_PLACE_BLOCK_AT, 4)
+            .addNative("onBlockPlaced", ID_ON_BLOCK_PLACED, 5)
+            .addNative("onBlockDestroyedByPlayer", ID_ON_BLOCK_DESTROYED_BY_PLAYER, 5)
+            .addNative("onNeighborBlockChange", ID_ON_NEIGHBOR_BLOCK_CHANGE, 5)
+            .addNative("onBlockRemoval", ID_ON_BLOCK_REMOVAL, 4)
+            .addNative("onBlockAdded", ID_ON_BLOCK_ADDED, 4)
+            .addNative("getBlockDestroyingSound", ID_GET_BLOCK_DESTROYING_SOUND, 0)
+            .addNative("getBlockPlacingSound", ID_GET_BLOCK_PLACING_SOUND, 0)
+            .addNative("setBlockPlacingSound", ID_SET_BLOCK_PLACING_SOUND, 1)
+            .addNative("setBlockDestroyingSound", ID_SET_BLOCK_DESTROYING_SOUND, 1)
+            .addNative("tickBlock", ID_TICK_BLOCK, 4);
 
     protected Block(int id) {
+        super(BLOCK_PROTOTYPE); // ModLoader
         if (blocksList[id] != null) {
             throw new ComcraftException("Block ID is already in use! Id: " + id, null);
         } else {
             blocksList[id] = this;
             blockID = id;
         }
+
     }
 
     protected Block(int id, int index) {
         this(id);
         blockIndexInTexture = index;
+    }
+
+    public Block() {
+        super(BLOCK_PROTOTYPE);
+        blockID = 0;
+    }
+
+    public Block(JsObject objectPrototype) {
+        super(objectPrototype);
+        blockID = 0;
+        // TODO Auto-generated constructor stub
     }
 
     public boolean collidesWithPlayer() {
@@ -476,4 +550,105 @@ public class Block {
             }
         }
     }
+    // ModLoader start
+    public void evalNative(int id, JsArray stack, int sp, int parCount) {
+        switch(id) {
+            case ID_COLLIDES_WITH_PLAYER:
+                stack.setBoolean(sp,collidesWithPlayer());
+                break;
+            case ID_DOES_BLOCK_DESTROY_GRASS:
+                stack.setBoolean(sp,doesBlockDestroyGrass());
+                break;
+            case ID_IS_REPLACEABLE_BLOCK:
+                stack.setBoolean(sp,isReplaceableBlock());
+                break;
+            case ID_IS_UPDATABLE_BLOCK:
+                stack.setBoolean(sp,isUpdatableBlock());
+                break;
+            case ID_CAN_BE_PIECED:
+                stack.setBoolean(sp,canBePieced());
+                break;
+            case ID_CAN_BE_PIECED_VERTICALLY:
+                stack.setBoolean(sp,canBePiecedVertically());
+                break;
+            case ID_GET_BLOCK_NAME:
+                stack.setObject(sp,getBlockName());
+                break;
+            case ID_SET_BLOCK_NAME:
+                stack.setObject(sp,setBlockName(stack.getString(sp+2)));
+                break;
+            case ID_GET_ID_DROPPED:
+                stack.setInt(sp,getIdDropped());
+                break;
+            case ID_GET_BLOCK_TEXTURE:
+                stack.setInt(sp,getBlockTexture((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_IS_NORMAL:
+                stack.setBoolean(sp,isNormal());
+                break;
+            case ID_GET_RENDER_TYPE:
+                stack.setInt(sp,getRenderType());
+                break;
+            case ID_SHOULD_SIDE_BE_RENDERED:
+                stack.setBoolean(sp,shouldSideBeRendered((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_CAN_PLACE_BLOCK_ON_SIDE:
+                stack.setBoolean(sp,canPlaceBlockOnSide((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6)));
+                break;
+            case ID_CAN_PLACE_BLOCK_AT:
+                stack.setBoolean(sp,canPlaceBlockAt((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5)));
+                break;
+            case ID_ON_BLOCK_PLACED:
+                onBlockPlaced((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_BLOCK_DESTROYED_BY_PLAYER:
+                onBlockDestroyedByPlayer((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_NEIGHBOR_BLOCK_CHANGE:
+                onNeighborBlockChange((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5), stack.getInt(sp+6));
+                break;
+            case ID_ON_BLOCK_REMOVAL:
+                onBlockRemoval((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+            case ID_ON_BLOCK_ADDED:
+                onBlockAdded((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+            case ID_GET_BLOCK_DESTROYING_SOUND:
+                stack.setObject(sp,getBlockDestroyingSound());
+                break;
+            case ID_GET_BLOCK_PLACING_SOUND:
+                stack.setObject(sp,getBlockPlacingSound());
+                break;
+            case ID_SET_BLOCK_PLACING_SOUND:
+                setBlockPlacingSound(stack.getString(sp+2));
+                break;
+            case ID_SET_BLOCK_DESTROYING_SOUND:
+                setBlockDestroyingSound(stack.getString(sp+2));
+                break;
+            case ID_TICK_BLOCK:
+                tickBlock((World) stack.getObject(sp+2), stack.getInt(sp+3), stack.getInt(sp+4), stack.getInt(sp+5));
+                break;
+            case ID_CONSTRUCTOR:
+                System.out.println("Calling Block constructor with " + parCount + " arguments");
+                Block b;
+                // if (isConstruction(stack, sp)) {
+                // System.out.println("Is Construction");
+                // b = this;
+                // b.blockID=stack.getInt(sp+2);
+                // }
+                // else {
+                // System.out.println("Not Construction");
+                b = new Block(stack.getInt(sp + 2));
+                // }
+                stack.setObject(sp - 1, b);
+                break;
+            default:
+                System.out.println("NO MATCH");
+                super.evalNative(id, stack, sp, parCount);
+        }
+    }
+    public String toString() {
+        return "[object Block["+blockID+"]]";
+    }
+    // ModLoader end
 }

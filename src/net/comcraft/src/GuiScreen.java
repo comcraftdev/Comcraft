@@ -93,8 +93,8 @@ public abstract class GuiScreen extends GuiElement {
             blackImage = cc.textureProvider.getImage("gui/black.png");
         }
 
-        int rows = cc.screenWidth / backgroundImage.getWidth() + 1;
-        int cols = cc.screenHeight / backgroundImage.getHeight() + 1;
+        int rows = Comcraft.screenWidth / backgroundImage.getWidth() + 1;
+        int cols = Comcraft.screenHeight / backgroundImage.getHeight() + 1;
 
         for (int y = 0; y < cols; ++y) {
             for (int x = 0; x < rows; ++x) {
@@ -243,7 +243,7 @@ public abstract class GuiScreen extends GuiElement {
 
     protected void drawTitle(String title) {
         cc.g.setColor(255, 255, 255);
-        drawStringWithShadow(cc.g, title, cc.screenWidth / 2, 3, Graphics.TOP | Graphics.HCENTER);
+        drawStringWithShadow(cc.g, title, Comcraft.screenWidth / 2, 3, Graphics.TOP | Graphics.HCENTER);
     }
 
     public boolean doesGuiPauseGame() {

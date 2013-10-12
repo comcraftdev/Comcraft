@@ -29,7 +29,6 @@ public final class World {
 
     public int worldSize;
     public final Comcraft cc;
-    private WorldSaveType worldSaveType;
     public ChunkManager chunkProvider;
     private SaveInfo saveInfo;
     private WorldInfo worldInfo;
@@ -39,7 +38,6 @@ public final class World {
 
     public World(Comcraft cc, SaveInfo saveHandler, WorldSaveType worldSaveType) {
         this.cc = cc;
-        this.worldSaveType = worldSaveType;
         this.saveInfo = saveHandler;
         worldInfo = saveHandler.loadWorldInfo(cc.player);
 
@@ -298,8 +296,7 @@ public final class World {
     }
 
     public boolean canBlockBePlacedAt(int id, int x, int y, int z, int side) {
-        int i = getBlockID(x, y, z);
-        Block block = Block.blocksList[i];
+        getBlockID(x, y, z);
         Block block1 = Block.blocksList[id];
 
         if (block1 != null) {

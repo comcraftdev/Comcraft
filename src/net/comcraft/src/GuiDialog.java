@@ -7,6 +7,8 @@ package net.comcraft.src;
 
 import javax.microedition.lcdui.Graphics;
 
+import net.comcraft.client.Comcraft;
+
 /**
  *
  * @author Piotr Wójcik
@@ -25,11 +27,11 @@ public class GuiDialog extends GuiScreen {
     
     protected void customDrawScreen() {
         cc.g.setColor(0xFFFFFF);
-        drawStringInLines(cc.g, displayedString, cc.screenWidth / 2, 20, cc.screenWidth - 50, Graphics.TOP | Graphics.HCENTER);
+        drawStringInLines(cc.g, displayedString, Comcraft.screenWidth / 2, 20, Comcraft.screenWidth - 50, Graphics.TOP | Graphics.HCENTER);
     }
 
     protected void initGui() {
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
         int startY = 120;
 

@@ -18,8 +18,10 @@
 package net.comcraft.src;
 
 import java.io.IOException;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
+
 import net.comcraft.client.Comcraft;
 
 public class WorldGenerator {
@@ -62,7 +64,7 @@ public class WorldGenerator {
         chunkLoader = saveHandler.getChunkLoader(null);
     }
 
-    public WorldSaveType genereateAndSaveWorld() {
+    public WorldSaveType generateAndSaveWorld() {
         cc.loadingScreen.displayLoadingScreen(cc.langBundle.getText("WorldGenereator.generatingWorld"));
 
         seed = System.currentTimeMillis();
@@ -72,6 +74,7 @@ public class WorldGenerator {
         } else {
             chunkGenerator = new ChunkGeneratorNormal(seed, generateTrees);
         }
+        ModGlobals.event.runEvent("World.Generate", new Object[] { new Boolean(isFlat), chunkGenerator });
 
         worldSaveType = new WorldSaveType(saveHandler.getSavePath());
 

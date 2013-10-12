@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright (C) 2013 Piotr Wójcik
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,8 +16,11 @@
  */
 package net.comcraft.client;
 
+import java.io.InputStream;
+
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
+
 import net.comcraft.src.*;
 
 public final class Comcraft implements Runnable {
@@ -35,6 +38,7 @@ public final class Comcraft implements Runnable {
     public static int screenHeight = 320;
     public Graphics g;
     public TexturePackList texturePackList;
+    public ModLoader modLoader;
     public TextureManager textureProvider;
     public Settings settings;
     public WorldLoader worldLoader;
@@ -60,13 +64,14 @@ public final class Comcraft implements Runnable {
         g = null;
         currentScreen = null;
         textureProvider = null;
+        modLoader=new ModLoader(this);
         textureProvider = new TextureManager(this);
         texturePackList = new TexturePackList(this);
         world = null;
         guiIngame = null;
         render = null;
         loadingScreen = new LoadingScreen(this);
-        langBundle = new LangBundle();
+        langBundle = new LangBundle(this);
         render = new Render(this);
         musicPlayer = new MusicPlayer(this);
     }
@@ -138,11 +143,14 @@ public final class Comcraft implements Runnable {
 
         loadScreen();
 
-        langBundle.setDefaultMap("/lang/en.lng");
 
         ModelsList.initModelList();
 
         settings.loadOptions();
+
+        modLoader.initMods();
+
+        langBundle.setDefaultMap("/lang/en.lng");
 
         langBundle.loadBundle(settings.language);
 
@@ -166,8 +174,6 @@ public final class Comcraft implements Runnable {
         if (currentScreen == null) {
             displayGuiScreen(new GuiMainMenu());
         }
-
-        
 
         showScreenVisit();
     }
@@ -414,6 +420,7 @@ public final class Comcraft implements Runnable {
         world = new World(this, saveHandler, worldInfo);
 
         displayGuiScreen(new GuiLoadingWorld());
+        //ModGlobals.event.runEvent("World.Start");
     }
 
     public void endWorld() {
@@ -483,5 +490,8 @@ public final class Comcraft implements Runnable {
         }
 
         return imei;
+    }
+    public InputStream getResourceAsStream(String filename) {
+        return modLoader.getResourceAsStream(filename);
     }
 }

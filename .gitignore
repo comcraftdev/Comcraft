@@ -1,3 +1,8 @@
+################
+## CCMLGen Files
+################
+tools/_CCMLG
+
 #################
 ## Eclipse
 #################
@@ -27,6 +32,9 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+# J2ME-specific
+.mtj.tmp/
 
 
 #################

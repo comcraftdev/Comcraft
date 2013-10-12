@@ -1,6 +1,8 @@
 
 package net.comcraft.src;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiLoadingScreen extends GuiScreen {
 
     public GuiLoadingScreen() {
@@ -11,7 +13,7 @@ public class GuiLoadingScreen extends GuiScreen {
     }
 
     protected void initGui() {
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 3, cc.screenHeight - 3 - GuiButtonSmall.getButtonHeight(), "loading..."));
+        elementsList.addElement(new GuiButtonSmall(cc, 0, 3, Comcraft.screenHeight - 3 - GuiButtonSmall.getButtonHeight(), "loading..."));
     }
 
     public void onScreenClosed() {

@@ -21,6 +21,8 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.Hashtable;
 
+import net.comcraft.client.Comcraft;
+
 /**
  *
  * @author Piotr Wójcik (Queader)
@@ -29,10 +31,12 @@ public class LangBundle {
 
     private Hashtable wordMap;
     private Hashtable defaultMap;
+    private Comcraft cc;
 
-    public LangBundle() {
+    public LangBundle(Comcraft cc) {
         wordMap = new Hashtable(100);
         defaultMap = new Hashtable(100);
+        this.cc = cc;
     }
 
     private void loadMap(String fileName, Hashtable map) {
@@ -41,11 +45,11 @@ public class LangBundle {
         BufferedReader bufferedReader;
 
         try {
-            bufferedReader = new BufferedReader(new InputStreamReader(LangBundle.class.getResourceAsStream(fileName), "UTF-8"));
+            bufferedReader = new BufferedReader(new InputStreamReader(cc.getResourceAsStream(fileName), "UTF-8"));
         } catch (UnsupportedEncodingException ex) {
             //#debug
 //#             ex.printStackTrace();
-            bufferedReader = new BufferedReader(new InputStreamReader(LangBundle.class.getResourceAsStream(fileName)));
+            bufferedReader = new BufferedReader(new InputStreamReader(cc.getResourceAsStream(fileName)));
         }
 
         while (!bufferedReader.getReachedTheEnd()) {
