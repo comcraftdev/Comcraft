@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mtjMetadata jad="Comcraft-Multiscreen.jad" version="1.2.2.201110240906">
-   <device group="Oracle Java(TM) Platform Micro Edition SDK 3.2" name="JavaMEPhone2"/>
+<mtjMetadata jad="ComcraftML.jad" version="1.2.2.201110240906">
+   <device group="Oracle Java(TM) Platform Micro Edition SDK 3.3" name="JavaMEPhone1"/>
    <signing projectSpecific="false" signProject="false">
       <alias/>
    </signing>
    <configurations>
-      <configuration active="true" name="JavaMEPhone2">
-         <device group="Oracle Java(TM) Platform Micro Edition SDK 3.2" name="JavaMEPhone2"/>
-         <symbolSet name="JavaMEPhone2">
+      <configuration active="true" name="JavaMEPhone1">
+         <device group="Oracle Java(TM) Platform Micro Edition SDK 3.3" name="JavaMEPhone1"/>
+         <symbolSet name="JavaMEPhone1">
             <symbol name="MMAPI" value="1.2"/>
             <symbol name="screen.isColor" value="true"/>
             <symbol name="descriptor" value="Java ME CLDC emulator"/>

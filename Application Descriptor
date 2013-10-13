@@ -1,6 +1,6 @@
 Navi-Key-Hidden: true
 MIDlet-1: Comcraft,/icon.png,net.comcraft.client.ComcraftMIDlet
-MIDlet-Jar-URL: Comcraft-Multiscreen.jar
+MIDlet-Jar-URL: ComcraftML.jar
 MIDlet-Icon: /icon.png
 MicroEdition-Configuration: CLDC-1.1
 Created-By: 1.7.0_13-b20 (Oracle Corporation)
