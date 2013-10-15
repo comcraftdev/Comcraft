@@ -1,10 +1,5 @@
 package net.comcraft.src;
 
-import java.io.DataInputStream;
-
-import com.google.minijoe.sys.JsObject;
-import com.google.minijoe.sys.JsFunction;
-
 public class Mod {
 
     private String info;
