@@ -35,39 +35,56 @@ public class ModLoader {
 
     public void initMods() {
         resourcedata = new Hashtable();
+        if (!cc.settings.getComcraftFileSystem().isAvailable()) {
+            System.out.println("files not initialized");
+            return;
+        }
+        System.out.println("scanning mods folder");
+        Vector elements;
         try {
-            if (!cc.settings.getComcraftFileSystem().isAvailable()) {
-                System.out.println("files not initialized");
-                return;
-            }
-            System.out.println("scanning mods folder");
             FileConnection fileConnection = (FileConnection) Connector.open(cc.settings.getComcraftFileSystem().getPathToFolder("mods/"), Connector.READ);
             if (!fileConnection.exists()) {
                 fileConnection.mkdir();
             }
             hasInitialized = true;
-
-            Vector elements = FileSystemHelper.getElementsList(fileConnection);
+            elements = FileSystemHelper.getElementsList(fileConnection);
             fileConnection.close();
-            global = new BaseMod();
-            for (int i = 0; i < elements.size(); ++i) {
-                String elementName = (String) elements.elementAt(i);
-                if (elementName.endsWith("/")) {
-                    continue;
-                }
+        } catch (IOException ioEx) {
+            ioEx.printStackTrace();
+            return;
+        }
+        global = new BaseMod();
+        for (int i = 0; i < elements.size(); ++i) {
+            String elementName = (String) elements.elementAt(i);
+            if (elementName.endsWith("/")) {
+                continue;
+            }
+            String modFileName = elementName.substring(elementName.lastIndexOf(0x2F) + 1, elementName.length());
+            byte[] RawData = null;
+            Object[] info = new Object[4];
+            try {
                 FileConnection GZModFile = open(elementName);
                 byte[] GZData = new byte[(int) GZModFile.fileSize()];
+                if (GZData.length < 20) {
+                    throw new IOException("Not enough bytes in mod file");
+                }
                 GZModFile.openInputStream().read(GZData, 0, GZData.length);
                 GZModFile.close();
-                byte[] RawData = GZIP.inflate(GZData);
-                Object[] info = ReadModFile(new DataInputStream(new ByteArrayInputStream(RawData)));
-                Mods.addElement(new Mod(this, (String) info[0], (String) info[1], (String) info[2], ((Boolean) info[3]).booleanValue()));
+                RawData = GZIP.inflate(GZData);
+            } catch (IOException modEx) {
+                modEx.printStackTrace();
+                info = new Object[] { modFileName, "", modEx.getMessage(), new Boolean(false) };
             }
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            throw new ComcraftException(ex);
+            if (RawData != null) {
+                try {
+                    info = ReadModFile(new DataInputStream(new ByteArrayInputStream(RawData)));
+                } catch (IOException e) {
+                    info = new Object[] { modFileName, "", e.getMessage(), new Boolean(false) };
+                }
+            }
+            Mods.addElement(new Mod(this, (String) info[0], (String) info[1], (String) info[2], ((Boolean) info[3]).booleanValue()));
         }
+
     }
 
     private Object[] ReadModFile(DataInputStream dis) throws IOException {
@@ -124,7 +141,7 @@ public class ModLoader {
                                 info[3] = new Boolean(true);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                info[2] = e.getMessage();
+                                info[2] = e.getMessage() + "\n\nIn file " + packageName + "." + filename;
                             }
                         } else {
                             dis.read(new byte[length]);
