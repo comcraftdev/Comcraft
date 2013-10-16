@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
@@ -15,12 +16,12 @@ import com.java4ever.apime.io.GZIP;
 import net.comcraft.client.Comcraft;
 
 public class ModLoader {
-    public static final int API_VERSION = 3;
-    public static final int MIN_API_VERSION = 1;
+    public static final int API_VERSION = 4;
+    public static final int MIN_API_VERSION = 2;
     private static final int PACKAGE = 0x10;
     private static final int MOD_DESCRIPTOR = 0x20;
     private static final int RESOURCE = 0x30;
-    public static final String version = "0.3";
+    public static final String version = "0.4";
     private Comcraft cc;
     private Vector Mods;
     private boolean hasInitialized = false;
@@ -104,7 +105,7 @@ public class ModLoader {
         Object[] info = new Object[4];
         info[2] = "No Mod Info";
         info[3] = new Boolean(false);
-        dis.read();
+        int flags = dis.read();
         while (dis.available() > 0) {
             int opt = dis.read();
             switch (opt) {
@@ -112,14 +113,18 @@ public class ModLoader {
                 info[0] = dis.readUTF();
                 info[1] = dis.readUTF();
                 main = dis.readUTF();
+                if (version >= 4) { // does anyone prefer if(version > 3) ?
+                    info[2] = dis.readUTF();
+                }
                 break;
             case RESOURCE:
                 int l = dis.read();
                 for (int i = 0; i < l; i++) {
                     String resname = dis.readUTF();
+                    if (version < 4) {
+                        resname = resname.substring("/res".length()).replace('\\', '/');
+                    }
                     String content = dis.readUTF();
-                    resname = resname.replace('\\', '/'); // the IDE does not (yet) standardize URIs
-                    resname = resname.substring("/res".length()); // Forgot to strip this in the IDE
                     if (resourcedata.containsKey(resname)) {
                         // Do something here maybe
                     } else {
@@ -134,6 +139,9 @@ public class ModLoader {
                     int flen = dis.read();
                     for (int x = 0; x < flen; x++) {
                         String filename = dis.readUTF();
+                        if (version >= 4 && (flags & 1) == 1) {
+                            dis.readUTF(); // Skip past source code
+                        }
                         int length = dis.readInt();
                         if ((packageName + "." + filename).equals(main)) {
                             try {
