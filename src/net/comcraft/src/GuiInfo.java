@@ -64,7 +64,9 @@ public class GuiInfo extends GuiScreen {
 
         elementsList.addElement(new GuiButton(cc, 7, centerX, y, cc.langBundle.getText("GuiInfo.labelVersion")));
         y += GuiButton.getButtonHeight() + smallInterval;
-        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "1.0 (Open source)"));
+        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "Comcraft 1.0"));
+        y += GuiButton.getButtonHeight() + smallInterval;
+        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "Mod Loader " + ModLoader.version));
 
         y += GuiButton.getButtonHeight() + bigInterval;
 

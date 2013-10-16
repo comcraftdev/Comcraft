@@ -20,7 +20,7 @@ public class ModLoader {
     private static final int PACKAGE = 0x10;
     private static final int MOD_DESCRIPTOR = 0x20;
     private static final int RESOURCE = 0x30;
-    private String version = "0.3";
+    public static final String version = "0.3";
     private Comcraft cc;
     private Vector Mods;
     private boolean hasInitialized = false;

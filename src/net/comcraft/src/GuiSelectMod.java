@@ -4,16 +4,17 @@ import java.util.Vector;
 
 public final class GuiSelectMod extends GuiScreenSlotHost {
     private Mod selectedmod;
+
     public GuiSelectMod(GuiScreen parentScreen) {
         super(parentScreen);
         guiSlot = new GuiSlotSelectMod(this);
     }
 
     protected void initGuiSlotCustom() {
-        addButton("See Info", false, 0, 0);
+        addButton(cc.langBundle.getText("GuiSelectMod.seeInfo"), false, 0, 0);
         addButton(cc.langBundle.getText("GuiOptions.buttonBack"), parentScreen != null, 0, 1);
-        addButton("Enable", false, 1, 0);
-        addButton("Disable", false, 1, 1);
+        addButton(cc.langBundle.getText("GuiSelectMod.enable"), false, 1, 0);
+        addButton(cc.langBundle.getText("GuiSelectMod.disable"), false, 1, 1);
         elementClicked(0);
     }
 
@@ -29,7 +30,7 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
         }
         getButton(0).setEnabled(true);
         Mod mod = (Mod) getElementsList().elementAt(id);
-        selectedmod=mod;
+        selectedmod = mod;
         if (mod.enabled) {
             getButton(3).setEnabled(true);
         } else {
@@ -44,7 +45,7 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
 
     protected void customDrawScreen() {
         guiSlot.drawScreen();
-        drawTitle("Mods");
+        drawTitle(cc.langBundle.getText("GuiMainMenu.buttonMods"));
     }
 
     protected void handleGuiAction(GuiButton guiButton) {
@@ -52,19 +53,19 @@ public final class GuiSelectMod extends GuiScreenSlotHost {
             return;
         }
         if (guiButton.id == 0) {
-            //Info
+            // Info
             String text = selectedmod.getModInfo();
             cc.displayGuiScreen(new GuiModInfo(this, text));
         } else if (guiButton.id == 1) {
-            //Back
+            // Back
             backToParentScreen();
         } else if (guiButton.id == 2) {
-            //Enable
+            // Enable
             selectedmod.enable();
             getButton(2).setEnabled(false);
             getButton(3).setEnabled(true);
         } else if (guiButton.id == 3) {
-            //Disable
+            // Disable
             selectedmod.disable();
             getButton(3).setEnabled(false);
             getButton(2).setEnabled(true);
