@@ -37,6 +37,7 @@ public class WorldGenerator {
     private int flatLevel;
     private ChunkGenerator chunkGenerator;
     private boolean generateTrees;
+    private boolean allowcommands;
 
     public WorldGenerator(Comcraft cc, String name, int worldSize, boolean isFlat, int flatLevel, boolean generateTrees) {
         this.cc = cc;
@@ -64,7 +65,7 @@ public class WorldGenerator {
         chunkLoader = saveHandler.getChunkLoader(null);
     }
 
-    public WorldSaveType generateAndSaveWorld() {
+    public WorldSaveType generateAndSaveWorld(boolean allowcommands) {
         cc.loadingScreen.displayLoadingScreen(cc.langBundle.getText("WorldGenereator.generatingWorld"));
 
         seed = System.currentTimeMillis();
@@ -76,6 +77,7 @@ public class WorldGenerator {
         }
         ModGlobals.event.runEvent("World.Generate", new Object[] { new Boolean(isFlat), chunkGenerator });
 
+        this.allowcommands = allowcommands;
         worldSaveType = new WorldSaveType(saveHandler.getSavePath());
 
         writeWorldInfo();
@@ -87,6 +89,7 @@ public class WorldGenerator {
     private void writeWorldInfo() {
         EntityPlayer player = new EntityPlayer(cc);
         player.setPlayerOnWorldCenter(worldSize);
+        player.commandsAllowed = allowcommands;
 
         WorldInfo worldInfo = new WorldInfo();
         worldInfo.setWorldInfo(player, worldSize);

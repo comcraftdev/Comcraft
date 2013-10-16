@@ -419,6 +419,7 @@ public final class Comcraft implements Runnable {
 
         world = new World(this, saveHandler, worldInfo);
 
+        guiIngame.addCommandButton();
         displayGuiScreen(new GuiLoadingWorld());
         //ModGlobals.event.runEvent("World.Start");
     }

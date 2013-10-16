@@ -22,6 +22,7 @@ import net.comcraft.client.Comcraft;
 public class GuiNewWorld extends GuiScreen {
 
     private GuiScreen guiMainMenu;
+    private boolean allowcommands;
 
     public GuiNewWorld(GuiScreen parentScreen, GuiScreen guiMainMenu) {
         super(parentScreen);
@@ -43,9 +44,10 @@ public class GuiNewWorld extends GuiScreen {
         
         elementsList.addElement(new GuiButtonSelect(cc, 3, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 4, cc.langBundle.getText("GuiNewWorld.level"), new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}, new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 (default)", "13", "14", "15"}).setCurrentValue(12).setEnabled(false));
 
-//        elementsList.addElement(new GuiButtonOnOff(cc, 5, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 5, cc.langBundle.getText("GuiNewWorld.generateTrees")).setValue(false).setEnabled(true));
-        
-        elementsList.addElement(new GuiButton(cc, 1, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 6, cc.langBundle.getText("GuiNewWorld.buttonClose")).setEnabled(parentScreen != null));//Close
+        //elementsList.addElement(new GuiButtonOnOff(cc, 5, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 5, cc.langBundle.getText("GuiNewWorld.generateTrees")).setValue(false).setEnabled(true));
+        elementsList.addElement(new GuiButton(cc, 6, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 5, cc.langBundle.getText("GuiNewWorld.command.enable")));
+        elementsList.addElement(new GuiButton(cc, 1, centerX, startY + (GuiButton.getButtonHeight() + GuiButton.getButtonHeight() / 6) * 7, cc.langBundle.getText("GuiNewWorld.buttonClose")).setEnabled(parentScreen != null));//Close
+        allowcommands = false;
     }
 
     public void onScreenClosed() {
@@ -81,7 +83,15 @@ public class GuiNewWorld extends GuiScreen {
         } else if (guiButton.getId() == 5) {
             boolean value = !getButtonOnOff(guiButton.getId()).getValue();
             getButtonOnOff(guiButton.getId()).setValue(value);
-        } 
+        } else if (guiButton.getId() == 6) {
+            if (allowcommands) {
+                guiButton.displayString = cc.langBundle.getText("GuiNewWorld.command.enable");
+                allowcommands = false;
+            } else {
+                guiButton.displayString = cc.langBundle.getText("GuiNewWorld.command.disable");
+                allowcommands = true;
+            }
+        }
     }
 
     private boolean isWorldWithTheSameName(String name) {
@@ -112,9 +122,9 @@ public class GuiNewWorld extends GuiScreen {
         boolean isFlat = getButtonSelect(2).getCurrentValue() == 1;
         int flatLevel = getButtonSelect(3).getCurrentValue();
         
-//        boolean generateTrees = getButtonOnOff(5).getValue();
+        //boolean generateTrees = getButtonOnOff(5).getValue();
 
         WorldGenerator worldGenerator = new WorldGenerator(cc, worldName, worldSize, isFlat, flatLevel, false);
-        worldGenerator.generateAndSaveWorld();
+        worldGenerator.generateAndSaveWorld(allowcommands);
     }
 }

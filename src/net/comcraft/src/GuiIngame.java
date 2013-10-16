@@ -20,7 +20,6 @@ public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
     private Sprite loadingChunksSprite;
     private Image lastLoadingChunksImage;
     private GuiButton screenshotButton;
-    private GuiButton commandButton;
 
     public GuiIngame(Comcraft cc) {
         super(null);
@@ -44,9 +43,13 @@ public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
             drawSelectionImage();
         }
 
-        if (!Touch.isTouchSupported() && cc.settings.screenshotMode) {
+        if (!Touch.isTouchSupported()) {
             cc.g.setColor(0xFFFFFF);
-            drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.screenshotInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            if (cc.settings.screenshotMode) {
+                drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.screenshotInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            } else if (cc.player.commandsAllowed) {
+                drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.commandInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            }
         }
         
         if (cc.world.chunkProvider.getChunksQueueNum() > 0) {
@@ -132,10 +135,15 @@ public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
 
             screenshotButton = new GuiButtonPictured(cc, this, 10, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), Comcraft.screenHeight - GuiButtonPictured.getButtonHeight(), "gui/button_screenshot.png", Sprite.TRANS_ROT90);
             elementsList.addElement(screenshotButton);
-            commandButton = new GuiButtonPictured(cc, this, 11, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), 0, "gui/button_command.png", Sprite.TRANS_ROT90);
-            elementsList.addElement(commandButton);
 
             screenshotButton.drawButton = cc.settings.screenshotMode;
+        }
+    }
+
+    public void addCommandButton() {
+        if (cc.player.commandsAllowed) {
+            GuiButtonPictured commandButton = new GuiButtonPictured(cc, this, 11, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), 0, "gui/button_command.png", Sprite.TRANS_ROT90);
+            elementsList.addElement(commandButton);
         }
     }
 
@@ -260,6 +268,8 @@ public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
                 cc.displayGuiScreen(new GuiQuickMenu());
             } else if (cc.settings.screenshotMode) {
                 takeScreenshot();
+            } else if (cc.player.commandsAllowed) {
+                commandInput();
             }
         }
     }

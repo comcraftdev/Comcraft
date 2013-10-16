@@ -34,6 +34,7 @@ public class EntityPlayer {
     public float zPos;
     public float rotationYaw = 225;
     public float rotationPitch = 340;
+    public boolean commandsAllowed = false;
     private float aspect;
     private float h;
     private float w;
@@ -245,10 +246,6 @@ public class EntityPlayer {
         rotationPitch = dataInputStream.readFloat();
         rotationYaw = dataInputStream.readFloat();
 
-        if (worldVersion == 2f) {
-            return;
-        }
-
         int fastSlotSize = dataInputStream.readInt();
 
         for (int n = 0; n < fastSlotSize; ++n) {
@@ -256,6 +253,11 @@ public class EntityPlayer {
 
             inventory.setItemStackAt(n, new InvItemStack(id));
         }
+        if (worldVersion == 3) {
+            return;
+        }
+
+        commandsAllowed = dataInputStream.readBoolean();
     }
 
     public void writeToDataOutputStream(DataOutputStream dataOutputStream) throws IOException {
@@ -272,5 +274,9 @@ public class EntityPlayer {
         for (int n = 0; n < inventory.getFastSlotSize(); ++n) {
             dataOutputStream.writeInt(inventory.getItemStackAt(n).itemID);
         }
+
+        //from CCML 0.4 (worldVersion 4)
+
+        dataOutputStream.writeBoolean(commandsAllowed);
     }
 }
