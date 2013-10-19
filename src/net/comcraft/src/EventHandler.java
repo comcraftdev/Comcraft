@@ -1,6 +1,5 @@
 package net.comcraft.src;
 
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
@@ -30,11 +29,11 @@ public class EventHandler {
         if (event[0].isEmpty()) {
             return;
         }
-        Enumeration e = event[0].elements();
-        while (e.hasMoreElements()) {
-            JsFunction fn = (JsFunction) e.nextElement();
-            JsArray stack = new JsArray();
-            stack.setObject(0, ModGlobals.global); // Global scope
+        Vector e = event[0];
+        JsArray stack = new JsArray();
+        stack.setObject(0, ModGlobals.global); // Global scope
+        for (int ce = 0; ce < e.size(); ce++) {
+            JsFunction fn = (JsFunction) e.elementAt(ce);
             stack.setObject(1, fn); // Function
             stack.setObject(2, fn); // Local scope
             for (int i = 0; i < params.length; i++) {
@@ -72,8 +71,8 @@ public class EventHandler {
         Vector event = ((Vector[]) events.get(name))[1];
         Enumeration e = event.elements();
         Object r = null;
-        while (e.hasMoreElements()) {
-            Object t = e.nextElement();
+        for (int i = 0; i < event.size(); i++) {
+            Object t = event.elementAt(i);
             if (t != null) {
                 r = t;
             }
@@ -83,9 +82,8 @@ public class EventHandler {
 
     public Object getFirstSuccess(String name) {
         Vector event = ((Vector[]) events.get(name))[1];
-        Enumeration e = event.elements();
-        while (e.hasMoreElements()) {
-            Object r = e.nextElement();
+        for (int i = 0; i < event.size(); i++) {
+            Object r = event.elementAt(i);
             if (r != null) {
                 return r;
             }
@@ -95,10 +93,9 @@ public class EventHandler {
 
     public Object[] getSucesses(String name) {
         Vector event = ((Vector[]) events.get(name))[1];
-        Enumeration e = event.elements();
         Vector v = new Vector();
-        while (e.hasMoreElements()) {
-            Object r = e.nextElement();
+        for (int i = 0; i < event.size(); i++) {
+            Object r = event.elementAt(i);
             if (r != null) {
                 v.addElement(r);
             }
