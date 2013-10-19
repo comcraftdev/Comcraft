@@ -13,6 +13,7 @@ class BaseMod extends JsObject {
         scopeChain = ModGlobals.createGlobal();
         addVar("Console", new DebugConsole());
         addVar("EventHandler", ModGlobals.event);
+        addVar("Model", new ModelsList());
         stack.setObject(0, this);
     }
 
