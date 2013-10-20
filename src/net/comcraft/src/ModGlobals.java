@@ -12,8 +12,7 @@ public class ModGlobals implements JsObjectFactory {
     public static EventHandlerAPI event = new EventHandlerAPI();
 
     public static JsObject createGlobal() {
-        global = JsSystem.createGlobal();
-        return global;
+        return JsSystem.createGlobal();
     }
 
     public JsObject newInstance(int type) {
