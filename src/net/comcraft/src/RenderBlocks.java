@@ -20,12 +20,12 @@ public final class RenderBlocks {
 
         cullingOffTextures = new Vector(20);
 
-        addCullingOffTextures(Block.redFlower.getUsedTexturesList());
-        addCullingOffTextures(Block.yellowFlower.getUsedTexturesList());
-        addCullingOffTextures(Block.treePlant.getUsedTexturesList());
-        addCullingOffTextures(Block.toadstool.getUsedTexturesList());
-        addCullingOffTextures(Block.mushroom.getUsedTexturesList());
-        addCullingOffTextures(Block.wheat.getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("redFlower").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("yellowFlower").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("treePlant").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("toadstool").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("mushroom").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("wheat").getUsedTexturesList());
     }
 
     private void addCullingOffTextures(int[] list) {

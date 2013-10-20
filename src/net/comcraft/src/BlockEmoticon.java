@@ -54,7 +54,7 @@ public class BlockEmoticon extends Block {
         return world.getBlockMetadata(x, y, z) & 3;
     }
 
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         int index = getNextTextureIndex(world, x, y, z);
         
         world.setBlockMetadata(x, y, z, getMetadataToSave(getSide(world, x, y, z), true, index));

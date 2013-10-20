@@ -5,6 +5,7 @@
 package net.comcraft.src;
 
 import java.util.Random;
+
 import javax.microedition.m3g.IndexBuffer;
 import javax.microedition.m3g.VertexBuffer;
 
@@ -72,7 +73,7 @@ public class BlockPresent extends Block {
         addBoomEfects(world, x, y, z);
     }
 
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         if (!boomable) {
             return false;
         }

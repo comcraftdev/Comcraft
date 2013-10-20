@@ -33,34 +33,34 @@ public class ChunkGeneratorFlat extends ChunkGenerator {
                     int id = 0;
 
                     if (y == 0) {
-                        id = Block.bedrock.blockID;
+                        id = Block.getBlock("bedrock").blockID;
                     } else if (y >= 1 && y <= 3) {
-                        id = Block.stone.blockID;
+                        id = Block.getBlock("stone").blockID;
                     } else if (y >= 4 && y <= 10) {
                         int i = random.nextInt(y - 3);
 
                         if (i == 0) {
-                            id = Block.stone.blockID;
+                            id = Block.getBlock("stone").blockID;
                         } else {
-                            id = Block.dirt.blockID;
+                            id = Block.getBlock("dirt").blockID;
                         }
                     }
                     
                     if (y < level - 1 && y >= 11) {
-                        id = Block.dirt.blockID;
+                        id = Block.getBlock("dirt").blockID;
                     }
                     if (y == level - 1) {
-                        id = Block.dirt.blockID;
+                        id = Block.getBlock("dirt").blockID;
                     }
                     if (y == level) {
-                        id = Block.grass.blockID;
+                        id = Block.getBlock("grass").blockID;
                     }
                     if (y > level) {
                         id = 0;
                     }
                     
                     if (y == level + 1 && isHalloweenToday && random.nextInt(30) == 0) {
-                        id = Block.pumpkin.blockID;
+                        id = Block.getBlock("pumpkin").blockID;
                     }
                     id = runModGens(id,-1,level, x,y,z, chunkX,chunkZ);
                     blockStorageTemp.setBlockID(x, y & 3, z, id);

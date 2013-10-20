@@ -85,31 +85,31 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
                     int biom = biomTab[x][z];
 
                     if (y == 0) {
-                        id = Block.bedrock.blockID;
+                        id = Block.getBlock("bedrock").blockID;
                     } else if (y >= 1 && y <= 2) {
-                        id = Block.stone.blockID;
+                        id = Block.getBlock("stone").blockID;
                     } else if (y >= 3 && y <= 10) {
                         int i = random.nextInt(y);
 
                         if (i == 0) {
-                            id = Block.stone.blockID;
+                            id = Block.getBlock("stone").blockID;
                         } else {
-                            id = biom == 0 ? Block.dirt.blockID
-                                    : Block.sandStone.blockID;
+                            id = biom == 0 ? Block.getBlock("dirt").blockID
+                                    : Block.getBlock("sandStone").blockID;
                         }
                     }
 
                     if (y < level - 1 && y >= 11) {
-                        id = biom == 0 ? Block.dirt.blockID
-                                : Block.sand.blockID;
+                        id = biom == 0 ? Block.getBlock("dirt").blockID
+                                : Block.getBlock("sand").blockID;
                     }
                     if (y == level - 1) {
-                        id = biom == 0 ? Block.dirt.blockID
-                                : Block.sand.blockID;
+                        id = biom == 0 ? Block.getBlock("dirt").blockID
+                                : Block.getBlock("sand").blockID;
                     }
                     if (y == level) {
-                        id = biom == 0 ? Block.grass.blockID
-                                : Block.sand.blockID;
+                        id = biom == 0 ? Block.getBlock("grass").blockID
+                                : Block.getBlock("sand").blockID;
                     }
                     if (y == level + 1) {
                         id = 0;
@@ -122,11 +122,11 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
                                     (chunkZ * 4 + z) / 24f);
 
                             if (n > 0.6f && n < 0.69f) {
-                                id = Block.redFlower.blockID;
+                                id = Block.getBlock("redFlower").blockID;
                             }
 
                             if (n < -0.6f && n > -0.69f) {
-                                id = Block.yellowFlower.blockID;
+                                id = Block.getBlock("yellowFlower").blockID;
                             }
                         }
 
@@ -139,7 +139,7 @@ public class ChunkGeneratorNormal extends ChunkGenerator {
                                     (chunkZ * 4 + z) / 75f);
 
                             if (n > 0.75f) {
-                                id = Block.treePlant.blockID;
+                                id = Block.getBlock("treePlant").blockID;
                             }
                         }
                     }

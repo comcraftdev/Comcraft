@@ -99,7 +99,7 @@ public class BlockTorch extends Block {
         return AxisAlignedBB.getBoundingBox(x, y, z, x + 1f, y + 1f, z + 1f);
     }
 
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         return true;
     }
 

@@ -36,7 +36,7 @@ public class BlockTNT extends Block {
     }
 
     public int[] getUsedTexturesList() {
-        return new int[]{indexSides, indexTop, indexBottom, indexSidesExp, indexTopExp, indexBottomExp};
+        return new int[] { indexSides, indexTop, indexBottom, indexSidesExp, indexTopExp, indexBottomExp };
     }
 
     public int getRenderType() {
@@ -73,7 +73,7 @@ public class BlockTNT extends Block {
         for (int zI = -1; zI <= 1; ++zI) {
             for (int yI = -1; yI <= 1; ++yI) {
                 for (int xI = -1; xI <= 1; ++xI) {
-                    if (world.getBlockID(x + xI, y + yI, z + zI) == Block.water.blockID) {
+                    if (world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("water").blockID) {
                         waterFound = true;
                     }
                 }
@@ -88,8 +88,10 @@ public class BlockTNT extends Block {
                             continue;
                         }
 
-                        if (world.getBlockID(x + xI, y + yI, z + zI) == Block.tnt.blockID || world.getBlockID(x + xI, y + yI, z + zI) == Block.tntWeak.blockID || world.getBlockID(x + xI, y + yI, z + zI) == Block.tntStrong.blockID) {
-                            Block.blocksList[blockID].blockActivated(world, x + xI, y + yI, z + zI, null);
+                        if (world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tnt").blockID
+                                || world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tntWeak").blockID
+                                || world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tntStrong").blockID) {
+                            Block.blocksList[blockID].blockActivated(world, x + xI, y + yI, z + zI, null, null);
                         } else {
                             world.setBlockID(x + xI, y + yI, z + zI, 0);
                         }
@@ -102,14 +104,10 @@ public class BlockTNT extends Block {
     }
 
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
-        if (itemStack.itemID == InvItem.detonator.shiftedIndex) {
-            return blockActivated(world, x, y, z, entityplayer);
+        if (itemStack != null && itemStack.itemID != InvItem.detonator.shiftedIndex) {
+            return false;
         }
 
-        return false;
-    }
-
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
         int time = 1;
 
         if (entityplayer == null) {
