@@ -143,7 +143,7 @@ public class ModLoader {
                             dis.readUTF(); // Skip past source code
                         }
                         int length = dis.readInt();
-                        if ((packageName + "." + filename).equals(main)) {
+                        if ((packageName + "." + filename).equals(main) && !isDisabled((String) info[0])) {
                             try {
                                 JsFunction.exec(dis, global);
                                 info[3] = new Boolean(true);
