@@ -69,7 +69,6 @@ public class EventHandler {
 
     public Object getLastSuccess(String name) {
         Vector event = ((Vector[]) events.get(name))[1];
-        Enumeration e = event.elements();
         Object r = null;
         for (int i = 0; i < event.size(); i++) {
             Object t = event.elementAt(i);

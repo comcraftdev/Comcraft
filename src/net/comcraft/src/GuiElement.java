@@ -27,10 +27,19 @@ public class GuiElement {
                 string = string.substring(1);
             }
 
-            if (string.length() > 0 && string.charAt(0) != ' ') {
-                int ind = tempString.lastIndexOf(' ');
-                carry += tempString.substring(ind + 1);
-                tempString = tempString.substring(0, ind);
+            int find = 0;
+            char[] c = new char[] { '.', '(', ')', ' ' };
+            for (int a = 0; a < c.length; a++) {
+                if (string.length() > 0 && string.charAt(0) != c[a]) {
+                    int ind = tempString.lastIndexOf(c[a]) + 1;
+                    if (find < ind) {
+                        find = ind;
+                    }
+                }
+            }
+            if (find != 0) {
+                carry += tempString.substring(find);
+                tempString = tempString.substring(0, find);
             }
 
             drawStringWithShadow(g, tempString, x, y + (g.getFont().getHeight() + 3) * i, anchor);
