@@ -13,7 +13,7 @@ public class ChunkStorage {
     }
 
     public int getBlockID(int x, int y, int z) {
-        return (int) blockIDArray[x + (y << 2) + (z << 4)];
+        return (int) blockIDArray[x + (y << 2) + (z << 4)] & 0xFF;
     }
 
     public void setBlockID(int x, int y, int z, int id) {
@@ -60,7 +60,7 @@ public class ChunkStorage {
             if (blockIDArray[i] != 0) {
                 containsBlocks = true;
                 
-                if (!Block.blocksList[blockIDArray[i]].isNormal()) {
+                if (!Block.blocksList[(blockIDArray[i] & 0xFF)].isNormal()) {
                     containsNonOpaqueBlocks = true;
                     return;
                 }
