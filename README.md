@@ -8,6 +8,8 @@ It was forked from the [Comcraft repository](https://github.com/queader/Comcraft
 ### Documentation
 Documentation has been made on the **[wiki](https://github.com/simon816/ComcraftModLoader/wiki)**, it includes all information about developing mods, testing, releasing and more.
 
+**You can now browse the API Docs found [here](http://simon816.hostzi.com/dev/ComcraftML/doc/)**
+
 ### Issues, new features questions
 Please go to the **[issues](https://github.com/simon816/ComcraftModLoader/issues)** page and open a new issue with the relevent label (bug, enhancement ...)
 
