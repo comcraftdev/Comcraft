@@ -25,14 +25,15 @@ package net.comcraft.src;
 
 import javax.microedition.m3g.IndexBuffer;
 import javax.microedition.m3g.Node;
-import javax.microedition.m3g.Transform;
 import javax.microedition.m3g.VertexBuffer;
 
 import com.google.minijoe.sys.JsArray;
 import com.google.minijoe.sys.JsFunction;
 import com.google.minijoe.sys.JsObject;
+import com.simon816.minijoe.nativetypes.Transform;
 
 public class Block extends JsObject {
+
 
     public static final Block[] blocksList = new Block[256];
 
@@ -63,6 +64,7 @@ public class Block extends JsObject {
     private static final int ID_IS_NORMAL = 102;
     private static final int ID_GET_BLOCK_DESTROYING_SOUND = 103;
     private static final int ID_GET_BLOCK_PLACING_SOUND = 104;
+
     // ModLoader end
 
     protected Block(int id) {
@@ -73,6 +75,9 @@ public class Block extends JsObject {
         blocksList[id] = this;
         IdDropped = blockID = id;
         addNative("create", ID_CREATE, 2);
+        addNative("getBlockName", ID_GET_BLOCK_NAME, 0);
+        addNative("isNormal", ID_IS_NORMAL, 0);
+        addNative("getBlockDestroyingSound", ID_GET_BLOCK_DESTROYING_SOUND, 0);
     }
 
     protected Block(int id, int index) {
@@ -104,13 +109,13 @@ public class Block extends JsObject {
         return canBePiecedVertically;
     }
 
-    public Transform getBlockTransform(World world, int x, int y, int z, Transform transform, int side) {
-        eh.runEvent("getBlockTransform", new Object[] { world, new Integer(x), new Integer(y), new Integer(z), transform, new Integer(side) });
+    public javax.microedition.m3g.Transform getBlockTransform(World world, int x, int y, int z, javax.microedition.m3g.Transform transform, int side) {
+        eh.runEvent("getBlockTransform", new Object[] { world, new Integer(x), new Integer(y), new Integer(z), new Transform(transform), new Integer(side) });
         Object success = eh.getLastSuccess("getBlockTransform");
         if (success == null) {
             return transform;
         }
-        return (Transform) success;
+        return ((Transform) success)._getTransform();
 
     }
 
