@@ -112,8 +112,11 @@ public class ModLoader {
                 info[0] = dis.readUTF();
                 info[1] = dis.readUTF();
                 main = dis.readUTF();
-                if (version >= 4) { // does anyone prefer if(version > 3) ?
-                    info[2] = dis.readUTF();
+                if (version >= 4) {
+                    String ldesc = dis.readUTF();
+                    if (ldesc.length() > 0) {
+                        info[2] = ldesc;
+                    }
                 }
                 break;
             case RESOURCE:
