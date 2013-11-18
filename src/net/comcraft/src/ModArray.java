@@ -38,6 +38,7 @@ public class ModArray extends JsArray {
         }
         return obj;
     }
+
     public static int[] toIntArray(JsArray arr) {
         int[] obj = new int[arr.size()];
         for (int i = 0; i < obj.length; i++) {

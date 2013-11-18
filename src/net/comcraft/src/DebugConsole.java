@@ -11,13 +11,13 @@ public class DebugConsole extends JsObject {
         super(JsObject.OBJECT_PROTOTYPE);
         addNative("log", ID_LOG, 1);
     }
+
     public void evalNative(int id, JsArray stack, int sp, int parCount) {
-        switch(id) {
+        switch (id) {
         case ID_LOG:
-            System.out.println(stack.getObject(sp+2));
+            System.out.println(stack.getObject(sp + 2));
             break;
         default:
-
             super.evalNative(id, stack, sp, parCount);
         }
     }

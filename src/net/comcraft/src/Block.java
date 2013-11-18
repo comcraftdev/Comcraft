@@ -50,9 +50,8 @@ public class Block extends JsObject {
     private boolean isNormal = true;
     private int RenderType = 1;
     private int IdDropped;
-    private EventHandler eh = new EventHandler(new String[] { "getBlockTransform", "getBlockTexture", "shouldSideBeRendered",
-            "getCollisionBoundingBoxFromPool", "canPlaceBlockAt", "canPlaceBlockOnSide", "blockActivated", "onBlockPlaced", "onBlockPlacedBy",
-            "onBlockDestroyedByPlayer", "onNeighborBlockChange", "onBlockRemoval", "onBlockAdded", "tickBlock", "getBlockModel" });
+    private EventHandler eh = new EventHandler(new String[] { "getBlockTransform", "getBlockTexture", "shouldSideBeRendered", "getCollisionBoundingBoxFromPool", "canPlaceBlockAt", "canPlaceBlockOnSide", "blockActivated", "onBlockPlaced",
+            "onBlockPlacedBy", "onBlockDestroyedByPlayer", "onNeighborBlockChange", "onBlockRemoval", "onBlockAdded", "tickBlock", "getBlockModel" });
     private VertexBuffer[][][][] BlockVertexBufferPieced = ModelPieceBlock.vertexBuffer;
     private IndexBuffer BlockIndexBuffer = ModelPieceBlock.indexBuffer;
     private int[] UsedTexturesList;

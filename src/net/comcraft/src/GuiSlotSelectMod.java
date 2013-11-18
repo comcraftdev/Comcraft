@@ -55,12 +55,11 @@ public class GuiSlotSelectMod extends GuiSlot {
         }
         int interval = (slotHeight - cc.g.getFont().getHeight() * 2) / 3;
         if (mod.isRunning()) {
-            cc.g.setColor(255,255,255);
+            cc.g.setColor(255, 255, 255);
             drawStringWithShadow(cc.g, mod.getModName(), (Comcraft.screenWidth - slotWidth) / 2 + 10, y + interval, Graphics.TOP | Graphics.LEFT);
-            cc.g.setColor(200,200,200);
-            drawStringWithShadow(cc.g, mod.getModDescription(), (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval*2+ cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
-        }
-        else {
+            cc.g.setColor(200, 200, 200);
+            drawStringWithShadow(cc.g, mod.getModDescription(), (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval * 2 + cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
+        } else {
             cc.g.setColor(110, 110, 110);
             drawStringWithShadow(cc.g, mod.getModName(), (Comcraft.screenWidth - slotWidth) / 2 + 10, y + interval, Graphics.TOP | Graphics.LEFT);
             String text = cc.langBundle.getText("GuiSlotSelectMod.error");
@@ -73,7 +72,7 @@ public class GuiSlotSelectMod extends GuiSlot {
             } else {
                 cc.g.setColor(0x8B0000);
             }
-            drawStringWithShadow(cc.g, text, (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval*2+ cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
+            drawStringWithShadow(cc.g, text, (Comcraft.screenWidth - slotWidth) / 2 + 15, y + interval * 2 + cc.g.getFont().getHeight(), Graphics.TOP | Graphics.LEFT);
         }
     }
 
