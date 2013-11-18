@@ -34,7 +34,7 @@ public final class World extends JsObject { // ModLoader
     public int worldSize;
     public final Comcraft cc;
     public ChunkManager chunkProvider;
-    private SaveInfo saveInfo;
+    private LevelInfo saveInfo;
     private WorldInfo worldInfo;
     private long lastAutosaveTime;
     private WorldUpdater worldUpdater;
@@ -52,7 +52,7 @@ public final class World extends JsObject { // ModLoader
     private static final int ID_CAN_BLOCK_BE_PLACED_AT = 109;
     // ModLoader end
 
-    public World(Comcraft cc, SaveInfo saveHandler, WorldSaveType worldSaveType) {
+    public World(Comcraft cc, LevelInfo saveHandler, WorldSaveType worldSaveType) {
         super(JsObject.OBJECT_PROTOTYPE); // ModLoader
         this.cc = cc;
         this.saveInfo = saveHandler;
