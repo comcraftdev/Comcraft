@@ -10,12 +10,14 @@ public class GuiEditServer extends GuiScreen implements GuiTextBoxHost {
     private String ip;
     private GuiButton textbutton = null;
     private boolean isNew;
+    private String[] selected;
 
-    public GuiEditServer(GuiSelectServer parentScreen, String name, String ip, boolean isNew) {
+    public GuiEditServer(GuiSelectServer parentScreen, String name, String ip, String[] selected) {
         super(parentScreen);
         this.name = name;
         this.ip = ip;
-        this.isNew = isNew;
+        this.isNew = selected == null;
+        this.selected = selected;
     }
 
     protected void customDrawScreen() {
@@ -41,9 +43,9 @@ public class GuiEditServer extends GuiScreen implements GuiTextBoxHost {
         if (guiButton.getId() == 0) {
             if (!name.equals("") && ip != null) {
                 if (isNew) {
-                    // Add Server
+                    cc.serverLoader.addServer(name, ip);
                 } else {
-                    // Edit Server
+                    cc.serverLoader.editServer(selected, name, ip);
                 }
                 backToParentScreen();
             }

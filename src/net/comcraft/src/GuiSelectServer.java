@@ -29,17 +29,18 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
         if (guiButton.getId() == 0) {
             selectServer(selectedServer);
         } else if (guiButton.getId() == 1) {
-            cc.displayGuiScreen(new GuiEditServer(this, null, null, true));
+            cc.displayGuiScreen(new GuiEditServer(this, null, null, null));
         } else if (guiButton.getId() == 2) {
             cc.displayGuiScreen(new GuiYesNo(this, cc.langBundle.getText("GuiSelectWorld.deleteWorld.confirmationText")));
         } else if (guiButton.getId() == 3) {
             backToParentScreen();
         } else if (guiButton.getId() == 4) {
-            cc.displayGuiScreen(new GuiEditServer(this, selectedServer[0], selectedServer[1], false));
+            cc.displayGuiScreen(new GuiEditServer(this, selectedServer[0], selectedServer[1], selectedServer));
         }
     }
 
     protected void initGuiSlotCustom() {
+        cc.serverLoader.updateServerList();
         addButton(cc.langBundle.getText("GuiSelectServer.buttonConnect"), false, 2, 0);
         addButton(cc.langBundle.getText("GuiSelectServer.buttonAdd"), true, 1, 0);
         addButton(cc.langBundle.getText("GuiSelectWorld.buttonDelete"), false, 2, 1);
@@ -50,6 +51,15 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
     }
 
     public void onScreenClosed() {
+    }
+
+    public void onScreenDisplay() {
+        if (guiSlot.selectedElement > -1) {
+            selectedServer = (String[]) getElementsList().elementAt(guiSlot.selectedElement);
+        } else {
+            selectedServer = null;
+        }
+
     }
 
     public void elementClicked(int id) {
@@ -69,12 +79,13 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
     }
 
     public Vector getElementsList() {
-        return new Vector(0);
+        return cc.serverLoader.getServerList();
     }
 
     public void guiYesNoAction(boolean value) {
         if (value) {
-            // Delete Server
+            cc.serverLoader.deleteServer(selectedServer);
+            cc.serverLoader.updateServerList();
             guiSlot.resetSlot();
             if (!getButton(2).enabled) {
                 selectedButton = getNextAvailableButton();

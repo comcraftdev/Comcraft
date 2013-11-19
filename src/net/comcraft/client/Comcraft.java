@@ -42,6 +42,7 @@ public final class Comcraft implements Runnable {
     public TextureManager textureProvider;
     public Settings settings;
     public WorldLoader worldLoader;
+    public ServerLoader serverLoader;
     public World world;
     public EntityPlayer player;
     public volatile float dt;
@@ -161,6 +162,7 @@ public final class Comcraft implements Runnable {
         render.initRender();
 
         worldLoader = new WorldLoader(this);
+        serverLoader = new ServerLoader(this);
 
         texturePackList.updateAvailableTexturePacks();
 
