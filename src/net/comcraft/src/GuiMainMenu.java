@@ -24,6 +24,7 @@ import net.comcraft.client.Comcraft;
 public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
 
     private String currentHelloWord;
+    private int logoHeight;
 
     public GuiMainMenu() {
         super(null);
@@ -47,18 +48,22 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
 
     protected void initGui() {
         currentHelloWord = getHelloWorld();
+        logoHeight = cc.textureProvider.getImage("gui/comcraft_logo.png").getHeight();
 
         int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
-        int logoHeight = cc.textureProvider.getImage("gui/comcraft_logo.png").getHeight();
-        int startY = 10 + logoHeight + 30;
+        elementsList.addElement(new GuiButton(cc, 0, centerX, calcBtnY(0), cc.langBundle.getText("GuiMainMenu.buttonSingleplayer")));
+        elementsList.addElement(new GuiButton(cc, 6, centerX, calcBtnY(1), cc.langBundle.getText("GuiMainMenu.buttonMultiplayer")));
+        elementsList.addElement(new GuiButton(cc, 1, centerX, calcBtnY(2), cc.langBundle.getText("GuiMainMenu.buttonTexturepacks")));
+        elementsList.addElement(new GuiButton(cc, 5, centerX, calcBtnY(3), cc.langBundle.getText("GuiMainMenu.buttonMods")));
+        elementsList.addElement(new GuiButton(cc, 2, centerX, calcBtnY(4), cc.langBundle.getText("GuiMainMenu.buttonOptions")));
+        elementsList.addElement(new GuiButton(cc, 3, centerX, calcBtnY(5), cc.langBundle.getText("GuiMainMenu.buttonInfo")));
+        elementsList.addElement(new GuiButton(cc, 4, centerX, calcBtnY(6), cc.langBundle.getText("GuiMainMenu.buttonQuit")));
+    }
 
-        elementsList.addElement(new GuiButton(cc, 0, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 0, cc.langBundle.getText("GuiMainMenu.buttonPlay")));
-        elementsList.addElement(new GuiButton(cc, 1, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 1, cc.langBundle.getText("GuiMainMenu.buttonTexturepacks")));
-        elementsList.addElement(new GuiButton(cc, 5, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 2, cc.langBundle.getText("GuiMainMenu.buttonMods")));
-        elementsList.addElement(new GuiButton(cc, 2, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 3, cc.langBundle.getText("GuiMainMenu.buttonOptions")));
-        elementsList.addElement(new GuiButton(cc, 3, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 4, cc.langBundle.getText("GuiMainMenu.buttonInfo")));
-        elementsList.addElement(new GuiButton(cc, 4, centerX, startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * 5, cc.langBundle.getText("GuiMainMenu.buttonQuit")));
+    protected int calcBtnY(int i) {
+        int startY = 10 + logoHeight + 30;
+        return startY + (GuiButton.getButtonHeight() + (int) (GuiButton.getButtonHeight() * 0.35f)) * i;
     }
 
     private String getHelloWorld() {
@@ -94,6 +99,8 @@ public class GuiMainMenu extends GuiScreen implements GuiYesNoHost {
             cc.displayGuiScreen(new GuiInfo(this));
         } else if (guiButton.id == 5) {
             cc.displayGuiScreen(new GuiSelectMod(this));
+        } else if (guiButton.id == 6) {
+            cc.displayGuiScreen(new GuiSelectServer(this));
         }
     }
 
