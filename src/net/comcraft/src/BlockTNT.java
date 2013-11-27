@@ -87,12 +87,12 @@ public class BlockTNT extends Block {
                         if ((zI * zI + yI * yI * xI * xI) > boomRadius * boomRadius) {
                             continue;
                         }
-
-                        if (world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tnt").blockID
+                        int id = world.getBlockID(x + xI, y + yI, z + zI);
+                        if (id == Block.getBlock("tnt").blockID
                                 || world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tntWeak").blockID
                                 || world.getBlockID(x + xI, y + yI, z + zI) == Block.getBlock("tntStrong").blockID) {
                             Block.blocksList[blockID].blockActivated(world, x + xI, y + yI, z + zI, null, null);
-                        } else {
+                        } else if (id != 0) {
                             world.setBlockID(x + xI, y + yI, z + zI, 0);
                         }
                     }
