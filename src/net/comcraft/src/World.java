@@ -52,7 +52,7 @@ public final class World extends JsObject { // ModLoader
     private static final int ID_CAN_BLOCK_BE_PLACED_AT = 109;
     // ModLoader end
 
-    public World(Comcraft cc, LevelInfo saveHandler, WorldSaveType worldSaveType) {
+    public World(Comcraft cc, LevelInfo saveHandler) {
         super(JsObject.OBJECT_PROTOTYPE); // ModLoader
         this.cc = cc;
         this.saveInfo = saveHandler;

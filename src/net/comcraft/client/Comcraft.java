@@ -419,7 +419,7 @@ public final class Comcraft implements Runnable {
 
         player = playerManager.createPlayer();
 
-        world = new World(this, saveHandler, worldInfo);
+        world = new World(this, saveHandler);
 
         guiIngame.addCommandButton();
         displayGuiScreen(new GuiLoadingWorld());

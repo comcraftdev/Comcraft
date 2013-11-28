@@ -98,17 +98,17 @@ public class WorldGenerator {
     }
 
     private void writeWorldData() {
-        chunkLoader.startSavingBlockStorage();
+        ((LocalChunkLoader) chunkLoader).startSavingBlockStorage();
 
         for (int z = 0; z < worldSize; ++z) {
             for (int x = 0; x < worldSize; ++x) {
-                chunkLoader.saveBlockStorage(chunkGenerator.generateChunk(x, z));
+                ((LocalChunkLoader) chunkLoader).saveBlockStorage(chunkGenerator.generateChunk(x, z));
             }
 
             cc.loadingScreen.setProgress((float) z / (worldSize - 1));
         }
 
-        chunkLoader.endSavingBlockStorage();
+        ((LocalChunkLoader) chunkLoader).endSavingBlockStorage();
 
         chunkLoader.onChunkLoaderEnd();
     }
