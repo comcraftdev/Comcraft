@@ -2,7 +2,9 @@ package net.comcraft.src;
 
 import java.util.Vector;
 
-public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
+import javax.microedition.lcdui.TextField;
+
+public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost, GuiTextBoxHost {
 
     private String[] selectedServer;
 
@@ -36,6 +38,8 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
             backToParentScreen();
         } else if (guiButton.getId() == 4) {
             cc.displayGuiScreen(new GuiEditServer(this, selectedServer[0], selectedServer[1], selectedServer));
+        } else if (guiButton.getId() == 5) {
+            cc.displayGuiScreen(new GuiTextBox(this, cc.settings.username, TextField.ANY, 16));
         }
     }
 
@@ -46,6 +50,7 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
         addButton(cc.langBundle.getText("GuiSelectWorld.buttonDelete"), false, 2, 1);
         addButton(cc.langBundle.getText("GuiSelectWorld.buttonClose"), parentScreen != null, 0, 1);
         addButton(cc.langBundle.getText("GuiSelectServer.buttonEdit"), false, 1, 1);
+        addButton(cc.langBundle.getText("GuiSelectServer.buttonChangeName"), true, 0, 0);
         elementClicked(0);
 
     }
@@ -91,6 +96,13 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost {
                 selectedButton = getNextAvailableButton();
             }
         }
+    }
+
+    public void guiTextBoxAction(String username) {
+        if (username == null || username.equals("")) {
+            return;
+        }
+        cc.settings.username = username;
     }
 
 }
