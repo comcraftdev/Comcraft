@@ -343,6 +343,9 @@ public final class Comcraft implements Runnable {
 
         musicPlayer.tickMusicPlayer();
 
+        if (serverLoader.game != null) {
+            serverLoader.game.processAnyPackets();
+        }
         if (!isGamePaused) {
             player.onLivingUpdate(dt);
 

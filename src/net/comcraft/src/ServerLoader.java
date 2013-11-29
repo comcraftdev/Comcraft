@@ -14,6 +14,7 @@ public class ServerLoader {
 
     private final Comcraft cc;
     private Vector serverList;
+    public ServerGame game = null;
 
     public ServerLoader(Comcraft cc) {
         this.cc = cc;
@@ -95,6 +96,14 @@ public class ServerLoader {
             file.close();
         } catch (IOException ex) {
             throw new ComcraftException(ex);
+        }
+    }
+
+    public void newGame(String ip) {
+        ServerGame g = new ServerGame(cc, ip);
+        if (g.hasConnected()) {
+            game = g;
+            game.begin();
         }
     }
 }

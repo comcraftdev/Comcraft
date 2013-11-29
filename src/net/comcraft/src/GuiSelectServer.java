@@ -20,7 +20,7 @@ public class GuiSelectServer extends GuiScreenSlotHost implements GuiYesNoHost, 
 
     private void selectServer(String[] serverinfo) {
         String ip = serverinfo[1];
-        // Launch Server Game
+        cc.serverLoader.newGame(ip);
     }
 
     protected void handleGuiAction(GuiButton guiButton) {
