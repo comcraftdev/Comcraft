@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="res/176-220"/>
+	<classpathentry kind="src" path="res/240-320"/>
+	<classpathentry kind="src" path="res/240-400"/>
+	<classpathentry kind="src" path="res/320-240"/>
+	<classpathentry kind="src" path="res/320-480"/>
+	<classpathentry kind="src" path="res/360-480"/>
+	<classpathentry kind="src" path="res/360-640"/>
+	<classpathentry kind="src" path="res/480-640"/>
+	<classpathentry kind="src" path="res/480-800"/>
+	<classpathentry kind="src" path="res/default"/>
+	<classpathentry kind="con" path="org.elipse.mtj.JavaMEContainer/Oracle Java(TM) Platform Micro Edition SDK 3.3/JavaMEPhone1"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

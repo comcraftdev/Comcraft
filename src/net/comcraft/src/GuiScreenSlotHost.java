@@ -2,9 +2,12 @@ package net.comcraft.src;
 
 import java.util.Vector;
 
+import net.comcraft.client.Comcraft;
+
 public abstract class GuiScreenSlotHost extends GuiScreen {
 
     protected GuiSlot guiSlot;
+    private int button_index =0 ;
 
     public GuiScreenSlotHost(GuiScreen parentScreen) {
         super(parentScreen);
@@ -55,4 +58,18 @@ public abstract class GuiScreenSlotHost extends GuiScreen {
     protected void customHandleInput() {
         guiSlot.handleInput();
     }
+    protected void addButton(String text, boolean enabled, int row, int col) {
+        row++;
+        int bwidth = GuiButtonSmall.getButtonWidth();
+        int bheight = GuiButtonSmall.getButtonHeight();
+        int xpos;
+        int ypos = Comcraft.screenHeight - (5 * row) - (bheight * row);
+        if (col == 0) {
+            xpos = 5; // 5 px from the left edge
+        } else {
+            xpos = Comcraft.screenWidth - 5 - bwidth; // 5 px from the right edge
+        }
+        elementsList.addElement(new GuiButtonSmall(cc, button_index, xpos, ypos, text).setEnabled(enabled));
+        button_index++;
+     }
 }

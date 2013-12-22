@@ -6,6 +6,9 @@ package net.comcraft.src;
 
 import java.util.Vector;
 
+import com.google.minijoe.sys.JsArray;
+
+
 /**
  *
  * @author Piotr Wójcik
@@ -31,11 +34,17 @@ public class GuiSelectLanguage extends GuiScreenSlotHost {
         languagesList.addElement(new LanguageSet("Português (Brasil)", "/lang/pt-BR.lng"));
         languagesList.addElement(new LanguageSet("Pусский", "/lang/ru.lng"));
         languagesList.addElement(new LanguageSet("Український", "/lang/uk.lng"));
+        ModGlobals.event.runEvent("Language.List");
+        Object[] s = ModGlobals.event.getSucesses("Language.List");
+        for (int i = 0; i < s.length; i++) {
+            JsArray a = (JsArray) s[i];
+            languagesList.addElement(new LanguageSet(a.getString(0), a.getString(1)));
+        }
     }
 
     protected void initGuiSlotCustom() {
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, cc.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), "Select").setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), cc.screenHeight - 5 - GuiButtonSmall.getButtonHeight(), "Close").setEnabled(parentScreen != null));
+        addButton("Select", false, 0, 0);
+        addButton("Close", parentScreen != null, 0, 1);
 
         elementClicked(0);
     }

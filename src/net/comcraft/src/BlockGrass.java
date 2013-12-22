@@ -16,7 +16,7 @@ public class BlockGrass extends BlockSidesTopBottom {
 
     public void onNeighborBlockChange(World world, int x, int y, int z, int blockID) {
         if (world.getBlockID(x, y + 1, z) != 0 && world.getBlock(x, y + 1, z).doesBlockDestroyGrass()) {
-            world.setBlockID(x, y, z, Block.dirt.blockID);
+            world.setBlockID(x, y, z, Block.getBlock("dirt").blockID);
         }
     }
 }

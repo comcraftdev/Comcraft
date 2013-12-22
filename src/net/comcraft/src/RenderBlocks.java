@@ -20,12 +20,12 @@ public final class RenderBlocks {
 
         cullingOffTextures = new Vector(20);
 
-        addCullingOffTextures(Block.redFlower.getUsedTexturesList());
-        addCullingOffTextures(Block.yellowFlower.getUsedTexturesList());
-        addCullingOffTextures(Block.treePlant.getUsedTexturesList());
-        addCullingOffTextures(Block.toadstool.getUsedTexturesList());
-        addCullingOffTextures(Block.mushroom.getUsedTexturesList());
-        addCullingOffTextures(Block.wheat.getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("redFlower").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("yellowFlower").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("treePlant").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("toadstool").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("mushroom").getUsedTexturesList());
+        addCullingOffTextures(Block.getBlock("wheat").getUsedTexturesList());
     }
 
     private void addCullingOffTextures(int[] list) {
@@ -208,22 +208,22 @@ public final class RenderBlocks {
 
     private void renderCarpetBlock(Block block, int x, int y, int z, Transform transform, EntityPlayer player, ChunkPiece chunkPiece) {
         if (renderAllFaces || (player.zPos > (z + 0.5f) && block.shouldSideBeRendered(cc.world, x, y, z + 1, 0))) {
-            renderPiecedFace(block, 0, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 0, chunkPiece, transform);
         }
         if (renderAllFaces || (player.zPos < (z + 0.5f) && block.shouldSideBeRendered(cc.world, x, y, z - 1, 1))) {
-            renderPiecedFace(block, 1, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 1, chunkPiece, transform);
         }
         if (renderAllFaces || (player.xPos < (x + 0.5f) && block.shouldSideBeRendered(cc.world, x - 1, y, z, 2))) {
-            renderPiecedFace(block, 2, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 2, chunkPiece, transform);
         }
         if (renderAllFaces || (player.xPos > (x + 0.5f) && block.shouldSideBeRendered(cc.world, x + 1, y, z, 3))) {
-            renderPiecedFace(block, 3, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 3, chunkPiece, transform);
         }
         if (renderAllFaces || (player.yPos > (y + 0.1f) && block.shouldSideBeRendered(cc.world, x, y + 1, z, 4))) {
-            renderPiecedFace(block, 4, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 4, chunkPiece, transform);
         }
         if (renderAllFaces || (player.yPos < (y + 0.0f) && block.shouldSideBeRendered(cc.world, x, y - 1, z, 5))) {
-            renderPiecedFace(block, 5, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 5, chunkPiece, transform);
         }
     }
 
@@ -305,28 +305,28 @@ public final class RenderBlocks {
 
     private void renderPiecedBlock(Block block, int x, int y, int z, Transform transform, EntityPlayer player, ChunkPiece chunkPiece) {
         if (renderAllFaces || (player.zPos > (z + 1f) && block.shouldSideBeRendered(cc.world, x, y, z + 1, 0))) {
-            renderPiecedFace(block, 0, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 0, chunkPiece, transform);
         }
         if (renderAllFaces || (player.zPos < (z + 0f) && block.shouldSideBeRendered(cc.world, x, y, z - 1, 1))) {
-            renderPiecedFace(block, 1, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 1, chunkPiece, transform);
         }
         if (renderAllFaces || (player.xPos < (x + 0f) && block.shouldSideBeRendered(cc.world, x - 1, y, z, 2))) {
-            renderPiecedFace(block, 2, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 2, chunkPiece, transform);
         }
         if (renderAllFaces || (player.xPos > (x + 1f) && block.shouldSideBeRendered(cc.world, x + 1, y, z, 3))) {
-            renderPiecedFace(block, 3, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 3, chunkPiece, transform);
         }
         if (renderAllFaces || (player.yPos > (y + 1f) && block.shouldSideBeRendered(cc.world, x, y + 1, z, 4))) {
-            renderPiecedFace(block, 4, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 4, chunkPiece, transform);
         }
         if (renderAllFaces || (player.yPos < (y + 0f) && block.shouldSideBeRendered(cc.world, x, y - 1, z, 5))) {
-            renderPiecedFace(block, 5, chunkPiece, transform);
+            renderPiecedFace(block, x, y, z, 5, chunkPiece, transform);
         }
     }
 
-    private void renderPiecedFace(Block block, int side, ChunkPiece chunkPiece, Transform transform) {
+    private void renderPiecedFace(Block block, int x, int y, int z, int side, ChunkPiece chunkPiece, Transform transform) {
         if (chunkPiece.needsRender(cc.render.currentTick, side)) {
-            g3D.render(chunkPiece.getVertexBuffer(cc.world, side), block.getBlockIndexBuffer(), appearanceList[block.getBlockTexture(cc.world, -1, -1, -1, side)], transform);
+            g3D.render(chunkPiece.getVertexBuffer(cc.world, side), block.getBlockIndexBuffer(), appearanceList[block.getBlockTexture(cc.world, x, y, z, side)], transform);
         }
     }
 }

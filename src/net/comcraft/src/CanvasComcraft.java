@@ -24,8 +24,6 @@ import net.comcraft.client.Comcraft;
 public class CanvasComcraft extends GameCanvas {
 
     public volatile boolean visibile;
-    private Comcraft cc;
-
     public CanvasComcraft() {
         super(false);
         setFullScreenMode(true);
@@ -36,7 +34,6 @@ public class CanvasComcraft extends GameCanvas {
     }
 
     public void setComcraft(Comcraft cc) {
-        this.cc = cc;
     }
 
     protected void showNotify() {
@@ -49,14 +46,6 @@ public class CanvasComcraft extends GameCanvas {
 
     public Graphics getGraphics() {
         return super.getGraphics();
-    }
-
-    private int getPcX(int x, int y) {
-        return cc.screenWidth - y;
-    }
-
-    private int getPcY(int x, int y) {
-        return x;
     }
 
     public void pointerPressed(int x, int y) {

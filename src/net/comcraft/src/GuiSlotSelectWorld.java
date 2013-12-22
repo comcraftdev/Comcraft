@@ -14,11 +14,11 @@ public class GuiSlotSelectWorld extends GuiSlot {
 
     protected void initSlotSize() {
         xPos = 0;
-        slotScreenWidth = cc.screenWidth;
-        slotWidth = cc.screenWidth - 10 * 2;
+        slotScreenWidth = Comcraft.screenWidth;
+        slotWidth = Comcraft.screenWidth - 10 * 2;
 
         yPos = 3 + cc.g.getFont().getHeight() + 3;
-        slotScreenHeight = cc.screenHeight - yPos - 5 * 4 - GuiButtonSmall.getButtonHeight() * 3;
+        slotScreenHeight = Comcraft.screenHeight - yPos - 5 * 4 - GuiButtonSmall.getButtonHeight() * 3;
 
         if (Comcraft.getScreenHeight() == 320) {
             slotHeight = 30;
@@ -52,6 +52,6 @@ public class GuiSlotSelectWorld extends GuiSlot {
 
         WorldSaveType worldInfo = (WorldSaveType) guiScreenSlotHost.getElementsList().elementAt(i);
 
-        drawStringWithShadow(cc.g, worldInfo.getWorldName(), (cc.screenWidth - slotWidth) / 2 + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
+        drawStringWithShadow(cc.g, worldInfo.getWorldName(), (Comcraft.screenWidth - slotWidth) / 2 + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
     }
 }

@@ -4,14 +4,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.Vector;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+import javax.microedition.lcdui.TextField;
 import javax.microedition.lcdui.game.Sprite;
+
 import net.comcraft.client.Comcraft;
 
-public class GuiIngame extends GuiScreen {
+public class GuiIngame extends GuiScreen implements GuiTextBoxHost {
 
     private GuiInventory guiInventory;
     private Sprite loadingChunksSprite;
@@ -40,9 +43,13 @@ public class GuiIngame extends GuiScreen {
             drawSelectionImage();
         }
 
-        if (!Touch.isTouchSupported() && cc.settings.screenshotMode) {
+        if (!Touch.isTouchSupported()) {
             cc.g.setColor(0xFFFFFF);
-            drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.screenshotInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            if (cc.settings.screenshotMode) {
+                drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.screenshotInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            } else if (cc.player.commandsAllowed) {
+                drawStringWithShadow(cc.g, cc.langBundle.getText("Ingame.commandInfo"), 3, Comcraft.screenHeight - 3, Graphics.LEFT | Graphics.BASELINE);
+            }
         }
         
         if (cc.world.chunkProvider.getChunksQueueNum() > 0) {
@@ -61,9 +68,9 @@ public class GuiIngame extends GuiScreen {
         }
 
         if (Touch.isTouchSupported()) {
-            loadingChunksSprite.setPosition(cc.screenWidth - 3 - 50, cc.screenHeight - 3 - 50);
+            loadingChunksSprite.setPosition(Comcraft.screenWidth - 3 - 50, Comcraft.screenHeight - 3 - 50);
         } else {
-            loadingChunksSprite.setPosition(cc.screenWidth - 3 - 50, 3);
+            loadingChunksSprite.setPosition(Comcraft.screenWidth - 3 - 50, 3);
         }
 
         loadingChunksSprite.paint(cc.g);
@@ -72,18 +79,18 @@ public class GuiIngame extends GuiScreen {
     }
 
     private void drawSelectionImage() {
-        cc.g.drawImage(cc.textureProvider.getImage("gui/pointer.png"), cc.screenWidth / 2, cc.screenHeight / 2, Graphics.HCENTER | Graphics.VCENTER);
+        cc.g.drawImage(cc.textureProvider.getImage("gui/pointer.png"), Comcraft.screenWidth / 2, Comcraft.screenHeight / 2, Graphics.HCENTER | Graphics.VCENTER);
     }
 
     private void drawFastSlotBar() {
         if (Touch.isTouchSupported()) {
-            int startY = (cc.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2;
+            int startY = (Comcraft.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2;
 
             for (int i = 0; i < 4; ++i) {
-                drawFastSlot(i, cc.screenWidth - 3 - GuiButtonMoveControl.getButtonWidth(), startY + i * GuiButtonMoveControl.getButtonHeight());
+                drawFastSlot(i, Comcraft.screenWidth - 3 - GuiButtonMoveControl.getButtonWidth(), startY + i * GuiButtonMoveControl.getButtonHeight());
             }
         } else {
-            int startX = (cc.screenWidth - 3 * GuiButtonMoveControl.getButtonWidth()) / 2;
+            int startX = (Comcraft.screenWidth - 3 * GuiButtonMoveControl.getButtonWidth()) / 2;
 
             for (int i = 0; i < 3; ++i) {
                 drawFastSlot(i, startX + i * GuiButtonMoveControl.getButtonWidth(), 3);
@@ -117,19 +124,26 @@ public class GuiIngame extends GuiScreen {
             elementsList.addElement(new GuiButtonMoveControl(cc, this, 2, 0, 0 + GuiButtonMoveControl.getButtonHeight() * 2, imageName, Sprite.TRANS_MIRROR_ROT180));
             elementsList.addElement(new GuiButtonMoveControl(cc, this, 3, 0 + GuiButtonMoveControl.getButtonWidth(), 0 + GuiButtonMoveControl.getButtonHeight(), imageName, Sprite.TRANS_ROT90));
             //DOWN/UP
-            elementsList.addElement(new GuiButtonMoveControl(cc, this, 4, 0, cc.screenHeight - GuiButtonMoveControl.getButtonHeight(), imageName, Sprite.TRANS_MIRROR_ROT270));
-            elementsList.addElement(new GuiButtonMoveControl(cc, this, 5, 0 + GuiButtonMoveControl.getButtonWidth(), cc.screenHeight - GuiButtonMoveControl.getButtonHeight(), imageName, Sprite.TRANS_ROT90));
+            elementsList.addElement(new GuiButtonMoveControl(cc, this, 4, 0, Comcraft.screenHeight - GuiButtonMoveControl.getButtonHeight(), imageName, Sprite.TRANS_MIRROR_ROT270));
+            elementsList.addElement(new GuiButtonMoveControl(cc, this, 5, 0 + GuiButtonMoveControl.getButtonWidth(), Comcraft.screenHeight - GuiButtonMoveControl.getButtonHeight(), imageName, Sprite.TRANS_ROT90));
             //Fast slot bar
-            int startY = (cc.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2;
+            int startY = (Comcraft.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2;
 
             for (int i = 0; i < 4; ++i) {
-                elementsList.addElement(new GuiButtonArea(this, 6 + i, cc.screenWidth - 3 - 50, startY + i * 50, 50, 50));
+                elementsList.addElement(new GuiButtonArea(this, 6 + i, Comcraft.screenWidth - 3 - 50, startY + i * 50, 50, 50));
             }
 
-            screenshotButton = new GuiButtonPictured(cc, this, 10, (int) ((cc.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), cc.screenHeight - GuiButtonPictured.getButtonHeight(), "gui/button_screenshot.png", Sprite.TRANS_ROT90);
+            screenshotButton = new GuiButtonPictured(cc, this, 10, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), Comcraft.screenHeight - GuiButtonPictured.getButtonHeight(), "gui/button_screenshot.png", Sprite.TRANS_ROT90);
             elementsList.addElement(screenshotButton);
 
             screenshotButton.drawButton = cc.settings.screenshotMode;
+        }
+    }
+
+    public void addCommandButton() {
+        if (cc.player.commandsAllowed) {
+            GuiButtonPictured commandButton = new GuiButtonPictured(cc, this, 11, (int) ((Comcraft.screenWidth - GuiButtonPictured.getButtonWidth()) * 3f / 5), 0, "gui/button_command.png", Sprite.TRANS_ROT90);
+            elementsList.addElement(commandButton);
         }
     }
 
@@ -166,9 +180,15 @@ public class GuiIngame extends GuiScreen {
             }
         } else if (guiButton.getId() == 10) {
             takeScreenshot();
+        } else if (guiButton.getId() == 11) {
+            commandInput();
         }
 
         Touch.setInputHandled(true);
+    }
+
+    private void commandInput() {
+        cc.displayGuiScreen(new GuiInGameTextBox(this, "", TextField.ANY, 64));
     }
 
     private void takeScreenshot() {
@@ -177,8 +197,8 @@ public class GuiIngame extends GuiScreen {
 
         Image blackImage = cc.textureProvider.getImage("gui/black.png");
 
-        int rows = cc.screenWidth / blackImage.getWidth() + 1;
-        int cols = cc.screenHeight / blackImage.getHeight() + 1;
+        int rows = Comcraft.screenWidth / blackImage.getWidth() + 1;
+        int cols = Comcraft.screenHeight / blackImage.getHeight() + 1;
 
         for (int y = 0; y < cols; ++y) {
             for (int x = 0; x < rows; ++x) {
@@ -248,16 +268,18 @@ public class GuiIngame extends GuiScreen {
                 cc.displayGuiScreen(new GuiQuickMenu());
             } else if (cc.settings.screenshotMode) {
                 takeScreenshot();
+            } else if (cc.player.commandsAllowed) {
+                commandInput();
             }
         }
     }
 
     private boolean isPointAtFastSlotBox(int x, int y) {
-        int startY = (cc.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2 - 10;
+        int startY = (Comcraft.screenHeight - 4 * GuiButtonMoveControl.getButtonHeight()) / 2 - 10;
         int width = GuiButtonMoveControl.getButtonWidth() + 10;
         int height = 4 * GuiButtonMoveControl.getButtonHeight() + 20;
 
-        return x >= cc.screenWidth - width && y >= startY && y <= startY + height;
+        return x >= Comcraft.screenWidth - width && y >= startY && y <= startY + height;
     }
 
     protected void handleTouchInput() {
@@ -280,5 +302,16 @@ public class GuiIngame extends GuiScreen {
     }
 
     protected void initGui() {
+    }
+
+    public void guiTextBoxAction(String cmd) {
+        if (cmd == null) {
+            return;
+        }
+        if (cmd.equals("")) {
+            return;
+        }
+        // Work In Progress
+        ModGlobals.event.runEvent("Game.Command", new Object[] { cmd });
     }
 }

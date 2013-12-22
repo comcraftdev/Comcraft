@@ -1,0 +1,15 @@
+Navi-Key-Hidden: true
+MIDlet-1: Comcraft,/icon.png,net.comcraft.client.ComcraftMIDlet
+MIDlet-Jar-URL: ComcraftML.jar
+MIDlet-Icon: /icon.png
+MicroEdition-Configuration: CLDC-1.1
+Created-By: 1.7.0_13-b20 (Oracle Corporation)
+MIDlet-Version: 1.0
+MIDlet-Info-URL: http://comcraft-game.blogspot.com/
+MIDlet-Description: Comcraft is a 3D minecraft-style game for J2ME!
+MIDlet-Name: Comcraft
+MIDlet-Vendor: Piotr W�jcik
+MicroEdition-Profile: MIDP-2.0
+LGE-MIDlet-Display-Nav-Keypad: no
+MIDlet-Touch-Support: true
+Nokia-MIDlet-On-Screen-Keypad: no

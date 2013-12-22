@@ -23,7 +23,7 @@ import java.io.IOException;
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 
-public class SaveInfo {
+public class SaveInfo implements LevelInfo {
 
     private String savePath;
 
@@ -32,7 +32,7 @@ public class SaveInfo {
     }
 
     public ChunkLoader getChunkLoader(World world) {
-        return new ChunkLoader(world, savePath);
+        return new LocalChunkLoader(world, savePath);
     }
     
     public String getSavePath() {

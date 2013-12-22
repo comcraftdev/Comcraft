@@ -53,14 +53,14 @@ public class BlockTreePlant extends BlockFlower {
     }
 
     private void placeTree(World world, int x, int y, int z) {
-        world.setBlockID(x, y, z, Block.wood.blockID);
+        world.setBlockID(x, y, z, Block.getBlock("wood").blockID);
 
         for (int n = 1; n <= 3; ++n) {
             if (!world.isAirBlock(x, y + n, z)) {
                 return;
             }
 
-            world.setBlockID(x, y + n, z, Block.wood.blockID);
+            world.setBlockID(x, y + n, z, Block.getBlock("wood").blockID);
         }
 
         Random random = new Random();
@@ -69,13 +69,13 @@ public class BlockTreePlant extends BlockFlower {
             for (int b = -1; b <= 1; ++b) {
                 for (int a = -1; a <= 1; ++a) {
                     if (world.isAirBlock(x + a, y + n, z + b) && !(random.nextInt(6 - n) == 0)) {
-                        world.setBlockID(x + a, y + n, z + b, Block.leaves.blockID);
+                        world.setBlockID(x + a, y + n, z + b, Block.getBlock("leaves").blockID);
                     }
                 }
             }
         }
         
-        world.setBlockID(x, y + 4, z, Block.leaves.blockID);
+        world.setBlockID(x, y + 4, z, Block.getBlock("leaves").blockID);
     }
 
     public boolean isUpdatableBlock() {

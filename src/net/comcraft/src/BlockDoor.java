@@ -107,7 +107,7 @@ public class BlockDoor extends Block {
         return blockTransform;
     }
 
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         int side = getDoorSide(world, x, y, z);
 
         boolean value = !isDoorOpended(world, x, y, z);

@@ -22,11 +22,11 @@ public class GuiSlotSelectLanguage extends GuiSlot {
 
     protected void initSlotSize() {
         xPos = 0;
-        slotScreenWidth = cc.screenWidth;
-        slotWidth = cc.screenWidth - 10 * 2;
+        slotScreenWidth = Comcraft.screenWidth;
+        slotWidth = Comcraft.screenWidth - 10 * 2;
 
         yPos = 3 + cc.g.getFont().getHeight() + 3;
-        slotScreenHeight = cc.screenHeight - yPos - 5 * 2 - GuiButtonSmall.getButtonHeight();
+        slotScreenHeight = Comcraft.screenHeight - yPos - 5 * 2 - GuiButtonSmall.getButtonHeight();
 
         if (Comcraft.getScreenHeight() == 320) {
             slotHeight = 30;
@@ -58,6 +58,6 @@ public class GuiSlotSelectLanguage extends GuiSlot {
 
         LanguageSet language = (LanguageSet) guiScreenSlotHost.getElementsList().elementAt(i);
 
-        drawStringWithShadow(cc.g, language.getLanguageName(), (cc.screenWidth - slotWidth) / 2 + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
+        drawStringWithShadow(cc.g, language.getLanguageName(), (Comcraft.screenWidth - slotWidth) / 2 + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
     }
 }

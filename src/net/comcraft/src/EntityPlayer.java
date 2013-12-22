@@ -34,6 +34,7 @@ public class EntityPlayer {
     public float zPos;
     public float rotationYaw = 225;
     public float rotationPitch = 340;
+    public boolean commandsAllowed = false;
     private float aspect;
     private float h;
     private float w;
@@ -46,7 +47,7 @@ public class EntityPlayer {
         xPos = 32;
         yPos = 15;
         zPos = 32;
-        aspect = (float) cc.screenWidth / cc.screenHeight;
+        aspect = (float) Comcraft.screenWidth / Comcraft.screenHeight;
         h = 2 * (float) Math.tan(Math.toRadians(cc.settings.fov / 2));
         w = aspect * h;
         boundingBox = new AxisAlignedBB(0, 0, 0, 0, 0, 0);
@@ -195,7 +196,7 @@ public class EntityPlayer {
         Vec3D up_dir = dir1c.crossProduct(right_dir);
         up_dir.normalize();
 
-        Vec3D center = new Vec3D(((float) y / cc.screenHeight - 0.5f) * h, (0.5f - (float) x / cc.screenWidth) * w, 0);
+        Vec3D center = new Vec3D(((float) y / Comcraft.screenHeight - 0.5f) * h, (0.5f - (float) x / Comcraft.screenWidth) * w, 0);
         Vec3D centerWS = (right_dir.crossProduct(center.x)).addVector((up_dir.crossProduct(center.y)));
         Vec3D dir2 = (dir1.addVector(centerWS));
         dir2.normalize();
@@ -245,10 +246,6 @@ public class EntityPlayer {
         rotationPitch = dataInputStream.readFloat();
         rotationYaw = dataInputStream.readFloat();
 
-        if (worldVersion == 2f) {
-            return;
-        }
-
         int fastSlotSize = dataInputStream.readInt();
 
         for (int n = 0; n < fastSlotSize; ++n) {
@@ -256,6 +253,11 @@ public class EntityPlayer {
 
             inventory.setItemStackAt(n, new InvItemStack(id));
         }
+        if (worldVersion == 3) {
+            return;
+        }
+
+        commandsAllowed = dataInputStream.readBoolean();
     }
 
     public void writeToDataOutputStream(DataOutputStream dataOutputStream) throws IOException {
@@ -272,5 +274,9 @@ public class EntityPlayer {
         for (int n = 0; n < inventory.getFastSlotSize(); ++n) {
             dataOutputStream.writeInt(inventory.getItemStackAt(n).itemID);
         }
+
+        //from CCML 0.4 (worldVersion 4)
+
+        dataOutputStream.writeBoolean(commandsAllowed);
     }
 }
