@@ -34,25 +34,17 @@ public class GuiInventory extends GuiScreen implements GuiYesNoHost {
         inventoryImage = cc.textureProvider.getImage("gui/inventory_" + (Touch.isTouchSupported() ? "landscape.png" : "normal.png"));
 
         if (Touch.isTouchSupported()) {
-            xInv = (cc.screenWidth - 3 - GuiButtonMoveControl.getButtonWidth() - 3) / 2 - inventoryImage.getWidth() / 2;
-            yInv = (cc.screenHeight) / 2 - inventoryImage.getHeight() / 2;
+            xInv = (Comcraft.screenWidth - 3 - GuiButtonMoveControl.getButtonWidth() - 3) / 2 - inventoryImage.getWidth() / 2;
+            yInv = (Comcraft.screenHeight) / 2 - inventoryImage.getHeight() / 2;
 
-            elementsList.addElement(new GuiButtonPictured(cc, this, 0, cc.screenWidth - GuiButtonPictured.getButtonWidth() - 3, cc.screenHeight - GuiButtonPictured.getButtonHeight() - 3, "gui/button_exit.png", Sprite.TRANS_ROT90));
-            elementsList.addElement(new GuiButtonPictured(cc, this, 1, cc.screenWidth - GuiButtonPictured.getButtonWidth() - 3, 3, "gui/button_quick_menu.png", Sprite.TRANS_ROT90));
+            elementsList.addElement(new GuiButtonPictured(cc, this, 0, Comcraft.screenWidth - GuiButtonPictured.getButtonWidth() - 3, Comcraft.screenHeight - GuiButtonPictured.getButtonHeight() - 3, "gui/button_exit.png", Sprite.TRANS_ROT90));
+            elementsList.addElement(new GuiButtonPictured(cc, this, 1, Comcraft.screenWidth - GuiButtonPictured.getButtonWidth() - 3, 3, "gui/button_quick_menu.png", Sprite.TRANS_ROT90));
         } else {
-            xInv = (cc.screenWidth) / 2 - inventoryImage.getWidth() / 2;
-            yInv = (cc.screenHeight - 3 - GuiButtonMoveControl.getButtonHeight() - 3) / 2 - inventoryImage.getHeight() / 2 + 3 + GuiButtonMoveControl.getButtonHeight() + 3;
+            xInv = (Comcraft.screenWidth) / 2 - inventoryImage.getWidth() / 2;
+            yInv = (Comcraft.screenHeight - 3 - GuiButtonMoveControl.getButtonHeight() - 3) / 2 - inventoryImage.getHeight() / 2 + 3 + GuiButtonMoveControl.getButtonHeight() + 3;
         }
 
         guiContainer = new GuiContainerInventory(cc, this, xInv + 5, yInv + 5);
-    }
-
-    private void checkLoadAllChunksButton() {
-        if (cc.world.chunkProvider.getLoadedChunksNum() + cc.world.chunkProvider.getChunksQueueNum() < cc.world.worldSize * cc.world.worldSize) {
-            getButton(1).setEnabled(true);
-        } else {
-            getButton(1).setEnabled(false);
-        }
     }
 
     protected void handleGuiAction(GuiButton guiButton) {

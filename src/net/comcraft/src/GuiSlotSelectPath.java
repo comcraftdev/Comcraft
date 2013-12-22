@@ -16,11 +16,11 @@ public class GuiSlotSelectPath extends GuiSlot {
 
     protected void initSlotSize() {
         xPos = 0;
-        slotScreenWidth = cc.screenWidth;
-        slotWidth = cc.screenWidth - 10 * 2;
+        slotScreenWidth = Comcraft.screenWidth;
+        slotWidth = Comcraft.screenWidth - 10 * 2;
 
         yPos = 3 + cc.g.getFont().getHeight() + 3;
-        slotScreenHeight = cc.screenHeight - yPos - 5 * 3 - GuiButtonSmall.getButtonHeight() * 2;
+        slotScreenHeight = Comcraft.screenHeight - yPos - 5 * 3 - GuiButtonSmall.getButtonHeight() * 2;
 
         if (Comcraft.getScreenHeight() == 320) {
             slotHeight = 30;
@@ -73,10 +73,10 @@ public class GuiSlotSelectPath extends GuiSlot {
             drawSlotTypeImage(fileImage, y);
         }
 
-        drawStringWithShadow(cc.g, FileSystemHelper.getLastPathName(slotString), (cc.screenWidth - slotWidth) / 2 + folderImage.getWidth() + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
+        drawStringWithShadow(cc.g, FileSystemHelper.getLastPathName(slotString), (Comcraft.screenWidth - slotWidth) / 2 + folderImage.getWidth() + 10, y + slotHeight / 2 - cc.g.getFont().getHeight() / 2, Graphics.TOP | Graphics.LEFT);
     }
 
     private void drawSlotTypeImage(Image slotImage, int y) {
-        cc.g.drawImage(slotImage, (cc.screenWidth - slotWidth) / 2 + 5, y + (slotHeight - slotImage.getHeight()) / 2, Graphics.TOP | Graphics.LEFT);
+        cc.g.drawImage(slotImage, (Comcraft.screenWidth - slotWidth) / 2 + 5, y + (slotHeight - slotImage.getHeight()) / 2, Graphics.TOP | Graphics.LEFT);
     }
 }

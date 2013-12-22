@@ -22,24 +22,39 @@
  */
 package net.comcraft.src;
 
+// ModLoader start
+import com.google.minijoe.sys.JsArray;
+import com.google.minijoe.sys.JsObject;
+// ModLoader end
 import java.util.Vector;
 import net.comcraft.client.Comcraft;
 
-public final class World {
+public final class World extends JsObject { // ModLoader
 
     public int worldSize;
     public final Comcraft cc;
-    private WorldSaveType worldSaveType;
     public ChunkManager chunkProvider;
-    private SaveInfo saveInfo;
+    private LevelInfo saveInfo;
     private WorldInfo worldInfo;
     private long lastAutosaveTime;
     private WorldUpdater worldUpdater;
     public long startTime;
+    // ModLoader start
+    private static final int ID_IS_AIR_BLOCK = 100;
+    private static final int ID_GET_BLOCK_ID = 101;
+    private static final int ID_GET_BLOCK_METADATA = 102;
+    private static final int ID_SET_BLOCK_AND_METADATA = 103;
+    private static final int ID_SET_BLOCK_ID = 104;
+    private static final int ID_SET_BLOCK_N = 105;
+    private static final int ID_SET_BLOCK_AND_METADATA_N = 106;
+    private static final int ID_SET_BLOCK_METADATA = 107;
+    private static final int ID_IS_BLOCK_NORMAL = 108;
+    private static final int ID_CAN_BLOCK_BE_PLACED_AT = 109;
+    // ModLoader end
 
-    public World(Comcraft cc, SaveInfo saveHandler, WorldSaveType worldSaveType) {
+    public World(Comcraft cc, LevelInfo saveHandler) {
+        super(JsObject.OBJECT_PROTOTYPE); // ModLoader
         this.cc = cc;
-        this.worldSaveType = worldSaveType;
         this.saveInfo = saveHandler;
         worldInfo = saveHandler.loadWorldInfo(cc.player);
 
@@ -48,6 +63,20 @@ public final class World {
         chunkProvider = createChunkProvider();
         worldUpdater = new WorldUpdater(this);
         startTime = System.currentTimeMillis();
+        // ModLoader start
+        // Methods
+        addNative("isAirBlock", ID_IS_AIR_BLOCK, 3);
+        addNative("getBlockID", ID_GET_BLOCK_ID, 3);
+        addNative("getBlockMetadata", ID_GET_BLOCK_METADATA, 3);
+        addNative("setBlockAndMetadata", ID_SET_BLOCK_AND_METADATA, 5);
+        addNative("setBlockID", ID_SET_BLOCK_ID, 4);
+        addNative("setBlockN", ID_SET_BLOCK_N, 4);
+        addNative("setBlockAndMetadataN", ID_SET_BLOCK_AND_METADATA_N, 5);
+        addNative("setBlockMetadata", ID_SET_BLOCK_METADATA, 4);
+        addNative("isBlockNormal", ID_IS_BLOCK_NORMAL, 3);
+        addNative("canBlockBePlacedAt", ID_CAN_BLOCK_BE_PLACED_AT, 5);
+        // Properties
+        // ModLoader end
     }
 
     public WorldUpdater getWorldUpdater() {
@@ -298,8 +327,7 @@ public final class World {
     }
 
     public boolean canBlockBePlacedAt(int id, int x, int y, int z, int side) {
-        int i = getBlockID(x, y, z);
-        Block block = Block.blocksList[i];
+        getBlockID(x, y, z);
         Block block1 = Block.blocksList[id];
 
         if (block1 != null) {
@@ -312,4 +340,42 @@ public final class World {
 
         return id > 0 && block1.canPlaceBlockOnSide(this, x, y, z, side);
     }
+    // ModLoader start
+    public void evalNative(int id, JsArray stack, int sp, int parCount) {
+        switch(id) {
+        case ID_IS_AIR_BLOCK:
+            stack.setBoolean(sp, isAirBlock(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4)));
+            break;
+        case ID_GET_BLOCK_ID:
+            stack.setInt(sp, getBlockID(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4)));
+            break;
+        case ID_GET_BLOCK_METADATA:
+            stack.setInt(sp, getBlockMetadata(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4)));
+            break;
+        case ID_SET_BLOCK_AND_METADATA:
+            stack.setBoolean(sp, setBlockAndMetadata(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5), stack.getInt(sp + 6)));
+            break;
+        case ID_SET_BLOCK_ID:
+            stack.setBoolean(sp, setBlockID(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5)));
+            break;
+        case ID_SET_BLOCK_N:
+            stack.setBoolean(sp, setBlockN(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5)));
+            break;
+        case ID_SET_BLOCK_AND_METADATA_N:
+            stack.setBoolean(sp, setBlockAndMetadataN(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5), stack.getInt(sp + 6)));
+            break;
+        case ID_SET_BLOCK_METADATA:
+            stack.setBoolean(sp, setBlockMetadata(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5)));
+            break;
+        case ID_IS_BLOCK_NORMAL:
+            stack.setBoolean(sp, isBlockNormal(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4)));
+            break;
+        case ID_CAN_BLOCK_BE_PLACED_AT:
+            stack.setBoolean(sp, canBlockBePlacedAt(stack.getInt(sp + 2), stack.getInt(sp + 3), stack.getInt(sp + 4), stack.getInt(sp + 5), stack.getInt(sp + 6)));
+            break;
+        default:
+            super.evalNative(id, stack, sp, parCount);
+        }
+    }
+    // ModLoader end
 }

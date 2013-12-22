@@ -31,10 +31,10 @@ public class GuiSelectPath extends GuiScreenSlotHost implements GuiYesNoHost {
             fileBrowser.openDirectory(cc.settings.getComcraftFileSystem().getComcraftPath());
         }
 
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectPath.buttonOpen")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 2, 5, guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectPath.buttonSetAsRoot")).setEnabled(fileBrowser.canWriteCurrentDirectory()));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectPath.buttonBack")).setEnabled(!fileBrowser.getCurrentPath().equals("file:///")));
-        elementsList.addElement(new GuiButtonSmall(cc, 3, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectPath.buttonClose")).setEnabled(parentScreen != null));
+        addButton(cc.langBundle.getText("GuiSelectPath.buttonOpen"), false, 1, 0);
+        addButton(cc.langBundle.getText("GuiSelectPath.buttonBack"), !fileBrowser.getCurrentPath().equals("file:///"), 1, 1);
+        addButton(cc.langBundle.getText("GuiSelectPath.buttonSetAsRoot"), fileBrowser.canWriteCurrentDirectory(), 0, 0);
+        addButton(cc.langBundle.getText("GuiSelectPath.buttonClose"), parentScreen != null, 0, 1);
 
         elementClicked(0);
     }

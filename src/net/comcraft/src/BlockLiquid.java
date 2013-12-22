@@ -188,43 +188,43 @@ public class BlockLiquid extends Block {
 
     private void checkForFusion(World world, int x, int y, int z) {
         Block currentBlock = Block.blocksList[world.getBlockID(x, y, z)];
-        Block oppositeBlock = (currentBlock == Block.water ? Block.lava : Block.water);
+        Block oppositeBlock = (currentBlock == Block.getBlock("water") ? Block.getBlock("lava") : Block.getBlock("water"));
 
         int height = getWaterHeightFromMetadata(world, x, y, z);
 
         if (Block.blocksList[world.getBlockID(x + 1, y, z)] == oppositeBlock && height > 1) {
             if (height < 7) {
-                world.setBlockID(x + 1, y, z, Block.cobblestone.blockID);
+                world.setBlockID(x + 1, y, z, Block.getBlock("cobblestone").blockID);
             } else {
-                world.setBlockID(x + 1, y, z, Block.obsidian.blockID);
+                world.setBlockID(x + 1, y, z, Block.getBlock("obsidian").blockID);
             }
         }
         if (Block.blocksList[world.getBlockID(x - 1, y, z)] == oppositeBlock && height > 1) {
             if (height < 7) {
-                world.setBlockID(x - 1, y, z, Block.cobblestone.blockID);
+                world.setBlockID(x - 1, y, z, Block.getBlock("cobblestone").blockID);
             } else {
-                world.setBlockID(x - 1, y, z, Block.obsidian.blockID);
+                world.setBlockID(x - 1, y, z, Block.getBlock("obsidian").blockID);
             }
         }
         if (Block.blocksList[world.getBlockID(x, y - 1, z)] == oppositeBlock && height > 1) {
             if (height < 7) {
-                world.setBlockID(x, y - 1, z, Block.cobblestone.blockID);
+                world.setBlockID(x, y - 1, z, Block.getBlock("cobblestone").blockID);
             } else {
-                world.setBlockID(x, y - 1, z, Block.obsidian.blockID);
+                world.setBlockID(x, y - 1, z, Block.getBlock("obsidian").blockID);
             }
         }
         if (Block.blocksList[world.getBlockID(x, y, z + 1)] == oppositeBlock && height > 1) {
             if (height < 7) {
-                world.setBlockID(x, y, z + 1, Block.cobblestone.blockID);
+                world.setBlockID(x, y, z + 1, Block.getBlock("cobblestone").blockID);
             } else {
-                world.setBlockID(x, y, z + 1, Block.obsidian.blockID);
+                world.setBlockID(x, y, z + 1, Block.getBlock("obsidian").blockID);
             }
         }
         if (Block.blocksList[world.getBlockID(x, y, z - 1)] == oppositeBlock && height > 1) {
             if (height < 7) {
-                world.setBlockID(x, y, z - 1, Block.cobblestone.blockID);
+                world.setBlockID(x, y, z - 1, Block.getBlock("cobblestone").blockID);
             } else {
-                world.setBlockID(x, y, z - 1, Block.obsidian.blockID);
+                world.setBlockID(x, y, z - 1, Block.getBlock("obsidian").blockID);
             }
         }
     }

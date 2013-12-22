@@ -24,11 +24,9 @@ import net.comcraft.client.Comcraft;
 
 public final class ComcraftFileSystem {
 
-    private final Comcraft cc;
     private String comcraftPath;
 
     public ComcraftFileSystem(Comcraft cc, String path) {
-        this.cc = cc;
         comcraftPath = path;
     }
 
@@ -38,6 +36,7 @@ public final class ComcraftFileSystem {
         }
 
         initFolder(comcraftPath + "comcraft/");
+        initFolder(comcraftPath + "comcraft/" + "mods/");
         initFolder(comcraftPath + "comcraft/" + "saves/");
         initFolder(comcraftPath + "comcraft/" + "texturepacks/");
         initFolder(comcraftPath + "comcraft/" + "music/");

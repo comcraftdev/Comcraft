@@ -8,6 +8,7 @@ import net.comcraft.client.Comcraft;
 public class ChunkManager implements Runnable {
 
     public final Comcraft cc;
+    public final boolean isServerGame;
     private Hashtable chunksMap;
     private ChunkLoader chunkLoader;
     private ChunkEmpty emptyChunk;
@@ -19,6 +20,7 @@ public class ChunkManager implements Runnable {
 
     public ChunkManager(Comcraft cc, ChunkLoader chunkLoader, World world) {
         this.cc = cc;
+        isServerGame = chunkLoader instanceof ServerGame;
         this.world = world;
         this.chunkLoader = chunkLoader;
         chunksMap = new Hashtable(1024);
@@ -168,7 +170,7 @@ public class ChunkManager implements Runnable {
                         throw error;
                     }
                 }
-            } else {
+            } else if (!isServerGame){
                 try {
                     Thread.sleep(750);
                 } catch (InterruptedException ex) {

@@ -4,7 +4,11 @@
 
 package net.comcraft.src;
 
-public final class AxisAlignedBB {
+// ModLoader start
+import com.google.minijoe.sys.JsArray;
+import com.google.minijoe.sys.JsObject;
+// ModLoader end
+public final class AxisAlignedBB extends JsObject { // ModLoader
 
     public float minX;
     public float minY;
@@ -12,14 +16,31 @@ public final class AxisAlignedBB {
     public float maxX;
     public float maxY;
     public float maxZ;
+    // ModLoader start
+    private static final int ID_GET_BOUNDING_BOX = 100;
+    private static final int ID_COLLIDES_WITH = 101;
+    // ModLoader end
 
     public AxisAlignedBB(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
+        super(JsObject.OBJECT_PROTOTYPE); // ModLoader
         this.minX = minX;
         this.minY = minY;
         this.minZ = minZ;
         this.maxX = maxX;
         this.maxY = maxY;
         this.maxZ = maxZ;
+        // ModLoader start
+        // Methods
+        addNative("getBoundingBox", ID_GET_BOUNDING_BOX, 6);
+        addNative("collidesWith", ID_COLLIDES_WITH, 1);
+        // Properties
+        addVar("minX", new Float(minX));
+        addVar("minY", new Float(minY));
+        addVar("minZ", new Float(minZ));
+        addVar("maxX", new Float(maxX));
+        addVar("maxY", new Float(maxY));
+        addVar("maxZ", new Float(maxZ));
+        // ModLoader end
     }
 
     public static AxisAlignedBB getBoundingBox(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
@@ -89,4 +110,19 @@ public final class AxisAlignedBB {
 //        
 //        return false;
 //    }
+    // ModLoader start
+    public void evalNative(int id, JsArray stack, int sp, int parCount) {
+        switch(id) {
+        case ID_GET_BOUNDING_BOX:
+            stack.setObject(sp,getBoundingBox((float) stack.getNumber(sp+2), (float) stack.getNumber(sp+3), (float) stack.getNumber(sp+4), (float) stack.getNumber(sp+5), (float) stack.getNumber(sp+6), (float) stack.getNumber(sp+7)));
+            break;
+        case ID_COLLIDES_WITH:
+            stack.setBoolean(sp,collidesWith((AxisAlignedBB) stack.getObject(sp+2)));
+            break;
+
+            default:
+                super.evalNative(id, stack, sp, parCount);
+        }
+    }
+    // ModLoader end
 }

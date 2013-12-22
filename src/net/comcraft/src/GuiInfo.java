@@ -17,6 +17,8 @@
 
 package net.comcraft.src;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiInfo extends GuiScreen {
 
     public GuiInfo(GuiScreen parentScreen) {
@@ -30,7 +32,7 @@ public class GuiInfo extends GuiScreen {
         final int smallInterval = (int) (GuiButton.getButtonHeight() * 0.1f);
         final int bigInterval = (int) (GuiButton.getButtonHeight() * 0.3f);
 
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
 
         int y = 3;
 
@@ -62,7 +64,9 @@ public class GuiInfo extends GuiScreen {
 
         elementsList.addElement(new GuiButton(cc, 7, centerX, y, cc.langBundle.getText("GuiInfo.labelVersion")));
         y += GuiButton.getButtonHeight() + smallInterval;
-        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "1.0 (Open source)"));
+        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "Comcraft 1.0"));
+        y += GuiButton.getButtonHeight() + smallInterval;
+        elementsList.addElement(new GuiButton(cc, 8, centerX, y, "Mod Loader " + ModLoader.version));
 
         y += GuiButton.getButtonHeight() + bigInterval;
 
@@ -80,9 +84,5 @@ public class GuiInfo extends GuiScreen {
         }
 
         backToParentScreen();
-    }
-
-    private static void appendString(StringBuffer buffer, String word) {
-        buffer.append(word);
     }
 }

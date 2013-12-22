@@ -18,8 +18,10 @@
 package net.comcraft.src;
 
 import java.io.IOException;
+
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
+
 import net.comcraft.client.Comcraft;
 
 public class WorldGenerator {
@@ -35,6 +37,7 @@ public class WorldGenerator {
     private int flatLevel;
     private ChunkGenerator chunkGenerator;
     private boolean generateTrees;
+    private boolean allowcommands;
 
     public WorldGenerator(Comcraft cc, String name, int worldSize, boolean isFlat, int flatLevel, boolean generateTrees) {
         this.cc = cc;
@@ -62,7 +65,7 @@ public class WorldGenerator {
         chunkLoader = saveHandler.getChunkLoader(null);
     }
 
-    public WorldSaveType genereateAndSaveWorld() {
+    public WorldSaveType generateAndSaveWorld(boolean allowcommands) {
         cc.loadingScreen.displayLoadingScreen(cc.langBundle.getText("WorldGenereator.generatingWorld"));
 
         seed = System.currentTimeMillis();
@@ -72,7 +75,9 @@ public class WorldGenerator {
         } else {
             chunkGenerator = new ChunkGeneratorNormal(seed, generateTrees);
         }
+        ModGlobals.event.runEvent("World.Generate", new Object[] { new Boolean(isFlat), chunkGenerator });
 
+        this.allowcommands = allowcommands;
         worldSaveType = new WorldSaveType(saveHandler.getSavePath());
 
         writeWorldInfo();
@@ -84,6 +89,7 @@ public class WorldGenerator {
     private void writeWorldInfo() {
         EntityPlayer player = new EntityPlayer(cc);
         player.setPlayerOnWorldCenter(worldSize);
+        player.commandsAllowed = allowcommands;
 
         WorldInfo worldInfo = new WorldInfo();
         worldInfo.setWorldInfo(player, worldSize);
@@ -92,17 +98,17 @@ public class WorldGenerator {
     }
 
     private void writeWorldData() {
-        chunkLoader.startSavingBlockStorage();
+        ((LocalChunkLoader) chunkLoader).startSavingBlockStorage();
 
         for (int z = 0; z < worldSize; ++z) {
             for (int x = 0; x < worldSize; ++x) {
-                chunkLoader.saveBlockStorage(chunkGenerator.generateChunk(x, z));
+                ((LocalChunkLoader) chunkLoader).saveBlockStorage(chunkGenerator.generateChunk(x, z));
             }
 
             cc.loadingScreen.setProgress((float) z / (worldSize - 1));
         }
 
-        chunkLoader.endSavingBlockStorage();
+        ((LocalChunkLoader) chunkLoader).endSavingBlockStorage();
 
         chunkLoader.onChunkLoaderEnd();
     }

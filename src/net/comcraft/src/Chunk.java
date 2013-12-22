@@ -127,6 +127,10 @@ public class Chunk {
             blockStorage = blockStorageArray[y >> 2] = new ChunkStorage();
         }
 
+        if (world.chunkProvider.isServerGame) {
+            world.cc.serverLoader.game.blockChanged(this, x, y, z, id, metadata);
+        }
+
         blockStorage.setBlockID(x, y & 3, z, id);
 
         if (lastID != 0) {

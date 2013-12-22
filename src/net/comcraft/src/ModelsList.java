@@ -1,15 +1,28 @@
 package net.comcraft.src;
 
 import java.util.Hashtable;
+
 import javax.microedition.m3g.Loader;
 import javax.microedition.m3g.Node;
-import javax.microedition.m3g.Object3D;
 
-public class ModelsList {
+import com.google.minijoe.sys.JsObject;
+
+public class ModelsList extends JsObject {
 
     private static Hashtable modelsList;
 
-    private ModelsList() {
+    public ModelsList() {
+        super(OBJECT_PROTOTYPE);
+        addVar("PieceBlock", new ModArray(new Object[] { ModelPieceBlock.indexBuffer, ModelPieceBlock.vertexBuffer }));
+        addVar("PieceSlab", new ModArray(new Object[] { ModelPieceSlab.indexBuffer, ModelPieceSlab.vertexBuffer }));
+        addVar("Liquid", new ModArray(new Object[] { null, ModelLiquid.vertexBuffer }));
+        addVar("Flower", new ModArray(new Object[] { ModelFlower.indexBuffer, ModelFlower.vertexBuffer }));
+        addVar("PieceCarpet", new ModArray(new Object[] { ModelPieceCarpet.indexBuffer, ModelPieceCarpet.vertexBuffer }));
+        addVar("Torch", new ModArray(new Object[] { ModelTorch.indexBuffer, ModelTorch.vertexBuffer }));
+        addVar("Door", new ModArray(new Object[] { ModelDoor.indexBuffer, ModelDoor.vertexBuffer }));
+        addVar("Stairs", new ModArray(new Object[] { ModelStairs.indexBuffer, ModelStairs.vertexBuffer }));
+        addVar("SmallCube", new ModArray(new Object[] { ModelSmallCube.indexBuffer, ModelSmallCube.vertexBuffer }));
+        addVar("Fence", new ModArray(new Object[] { ModelFence.indexBuffer, ModelFence.vertexBufferFull, ModelFence.vertexBufferSmall }));
     }
 
     public static void initModelList() {
@@ -23,7 +36,7 @@ public class ModelsList {
         ModelTorch.initModel();
         ModelDoor.initModel();
         ModelStairs.initModel();
-//        ModelSmallCube.initModel();
+        ModelSmallCube.initModel();
         ModelFence.initModel();
     }
 

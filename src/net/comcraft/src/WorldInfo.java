@@ -7,10 +7,10 @@ import java.io.IOException;
 public class WorldInfo {
 
     /*
-     * worldVersion - in the past spawnX 
+     * worldVersion
      * 
-     * 2 - CC 0.5
      * 3 - CC 0.6
+     * 4 - CCML 0.4
      */
     private float worldVersion;
     private float spawnX;
@@ -19,7 +19,7 @@ public class WorldInfo {
     private int worldSize;
 
     public WorldInfo() {
-        worldVersion = 3;
+        worldVersion = 4;
     }
     
     public int getWorldSize() {
@@ -47,25 +47,15 @@ public class WorldInfo {
 
     public void loadWorldInfo(DataInputStream dataInputStream, EntityPlayer player) throws IOException {
         worldVersion = dataInputStream.readFloat();
+        worldSize = dataInputStream.readInt();
+        spawnX = dataInputStream.readFloat();
+        spawnY = dataInputStream.readFloat();
+        spawnZ = dataInputStream.readFloat();
 
-        if (worldVersion == 2f) {
-            spawnY = dataInputStream.readFloat();
-            spawnZ = dataInputStream.readFloat();
-            player.loadFromDataInputStream(dataInputStream, worldVersion);
-            
-            spawnX = 10;
-            spawnY = 20;
-            spawnZ = 10;
-            worldVersion = 3;
-            worldSize = 16;
-        } else {
-            worldSize = dataInputStream.readInt();
-            
-            spawnX = dataInputStream.readFloat();
-            spawnY = dataInputStream.readFloat();
-            spawnZ = dataInputStream.readFloat();
-            
-            player.loadFromDataInputStream(dataInputStream, worldVersion);
+        player.loadFromDataInputStream(dataInputStream, worldVersion);
+
+        if (worldVersion < 4) {
+            worldVersion = 4;
         }
     }
 }

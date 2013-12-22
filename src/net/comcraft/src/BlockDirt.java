@@ -16,7 +16,7 @@ public class BlockDirt extends Block {
 
     public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         if (itemStack.itemID == InvItem.seeds.shiftedIndex) {
-            world.setBlockID(x, y, z, Block.grass.blockID);
+            world.setBlockID(x, y, z, Block.getBlock("grass").blockID);
             
             return true;
         }

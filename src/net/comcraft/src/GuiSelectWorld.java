@@ -6,6 +6,7 @@ import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.lcdui.TextField;
 
+
 public class GuiSelectWorld extends GuiScreenSlotHost implements GuiYesNoHost, GuiTextBoxHost {
 
     private WorldSaveType selectedWorld;
@@ -18,15 +19,12 @@ public class GuiSelectWorld extends GuiScreenSlotHost implements GuiYesNoHost, G
 
     protected void initGuiSlotCustom() {
         maxWorlds = 666;
-        
         cc.worldLoader.updateAvailableWorldList();
-
-        elementsList.addElement(new GuiButtonSmall(cc, 0, 5, guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectWorld.buttonPlay")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 1, 5, guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectWorld.buttonNew")).setEnabled(getElementsList().size() < maxWorlds));
-        elementsList.addElement(new GuiButtonSmall(cc, 2, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5, cc.langBundle.getText("GuiSelectWorld.buttonDelete")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 4, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + GuiButtonSmall.getButtonHeight() + 5, cc.langBundle.getText("GuiSelectWorld.buttonRename")).setEnabled(false));
-        elementsList.addElement(new GuiButtonSmall(cc, 3, cc.screenWidth - 5 - GuiButtonSmall.getButtonWidth(), guiSlot.getSlotEndPosY() + 5 + (GuiButtonSmall.getButtonHeight() + 5) * 2, cc.langBundle.getText("GuiSelectWorld.buttonClose")).setEnabled(parentScreen != null));
-
+        addButton(cc.langBundle.getText("GuiSelectWorld.buttonPlay"),false, 2, 0);
+        addButton(cc.langBundle.getText("GuiSelectWorld.buttonNew"), getElementsList().size() < maxWorlds, 1, 0);
+        addButton(cc.langBundle.getText("GuiSelectWorld.buttonDelete"), false, 2, 1);
+        addButton(cc.langBundle.getText("GuiSelectWorld.buttonClose"), parentScreen != null, 0, 1);
+        addButton(cc.langBundle.getText("GuiSelectWorld.buttonRename"), false, 1, 1);
         elementClicked(0);
     }
 

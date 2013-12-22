@@ -2,6 +2,8 @@ package net.comcraft.src;
 
 import javax.microedition.m3g.Graphics3D;
 
+import net.comcraft.client.Comcraft;
+
 public class GuiOptions extends GuiScreen {
 
     public GuiOptions(GuiScreen parentScreen) {
@@ -12,7 +14,7 @@ public class GuiOptions extends GuiScreen {
     }
 
     protected void initGui() {
-        int centerX = (cc.screenWidth - GuiButton.getButtonWidth()) / 2;
+        int centerX = (Comcraft.screenWidth - GuiButton.getButtonWidth()) / 2;
         int startY = 5;
 
         String distShort = cc.langBundle.getText("GuiOptions.buttonRenderDistance.short");

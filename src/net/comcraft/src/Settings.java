@@ -1,4 +1,5 @@
 package net.comcraft.src;
+
 /*
  * Copyright (C) 2013 Piotr Wójcik
  * 
@@ -20,7 +21,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 import javax.microedition.m3g.Graphics3D;
+
 import net.comcraft.client.Comcraft;
 
 public final class Settings {
@@ -48,6 +51,8 @@ public final class Settings {
     public boolean screenshotMode;
     public int resolutionScale;
     public int screenshotResolution;
+    public String[] disabledMods;
+    public String username;
 
     public Settings(Comcraft cc) {
         this.cc = cc;
@@ -70,6 +75,8 @@ public final class Settings {
         screenshotMode = false;
         resolutionScale = 1;
         screenshotResolution = 2;
+        disabledMods = new String[0];
+        username = "Player";
 
         Boolean antialiasingB = (Boolean) (Graphics3D.getProperties().get("supportAntialiasing"));
         antialiasing = antialiasingB.booleanValue();
@@ -113,16 +120,20 @@ public final class Settings {
             language = dataInputStream.readUTF();
             resolutionScale = dataInputStream.readInt();
             screenshotResolution = dataInputStream.readInt();
+            readDisabledMods(dataInputStream);
+            if (dataInputStream.available() > 0) {
+                username = dataInputStream.readUTF();
+            }
         } catch (IOException ex) {
-            //#debug debug
-//#             ex.printStackTrace();
+            // #debug debug
+            // # ex.printStackTrace();
         }
 
         try {
             dataInputStream.close();
         } catch (IOException ex) {
-            //#debug
-//#             ex.printStackTrace();
+            // #debug
+            // # ex.printStackTrace();
         }
 
         rms.closeRecordStore();
@@ -152,9 +163,11 @@ public final class Settings {
             dataOutputStream.writeUTF(language);
             dataOutputStream.writeInt(resolutionScale);
             dataOutputStream.writeInt(screenshotResolution);
+            writeDisabledMods(dataOutputStream);
+            dataOutputStream.writeUTF(username);
         } catch (IOException ex) {
-            //#debug debug
-//#             ex.printStackTrace();
+            // #debug
+            // # ex.printStackTrace();
         }
 
         rms.setRecord(1, byteArrayOutputStream);
@@ -168,5 +181,29 @@ public final class Settings {
 
     public void setComcraftFileSystem(ComcraftFileSystem comcraftFileSystem) {
         this.comcraftFileSystem = comcraftFileSystem;
+    }
+
+    private void readDisabledMods(DataInputStream dataInputStream) throws IOException {
+        int len = dataInputStream.readShort();
+        disabledMods = new String[len];
+        for (int i = 0; i < len; i++) {
+            disabledMods[i] = dataInputStream.readUTF();
+        }
+    }
+
+    private void writeDisabledMods(DataOutputStream dataOutputStream) throws IOException {
+        String[] disMods = new String[disabledMods.length];
+        int x = 0;
+        for (int i = 0; i < disabledMods.length; i++) {
+            if (disabledMods[i] != null) {
+                disMods[x++] = disabledMods[i];
+            }
+        }
+        disabledMods = new String[x];
+        System.arraycopy(disMods, 0, disabledMods, 0, x);
+        dataOutputStream.writeShort(disabledMods.length);
+        for (int i = 0; i < disabledMods.length; i++) {
+            dataOutputStream.writeUTF(disabledMods[i]);
+        }
     }
 }

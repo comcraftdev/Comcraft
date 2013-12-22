@@ -69,14 +69,14 @@ public abstract class GuiSlot extends GuiElement {
     protected void drawForeground() {
         Image backgroundImage = cc.textureProvider.getImage("gui/background.png");
 
-        int cols = cc.screenWidth / backgroundImage.getWidth() + 1;
+        int cols = Comcraft.screenWidth / backgroundImage.getWidth() + 1;
 
         for (int i = 0; i < cols; ++i) {
             cc.g.drawImage(backgroundImage, i * backgroundImage.getWidth(), yPos, Graphics.BOTTOM | Graphics.LEFT);
         }
 
         int yStart = slotScreenHeight + yPos;
-        int rows = (cc.screenHeight - yStart) / backgroundImage.getHeight() + 1;
+        int rows = (Comcraft.screenHeight - yStart) / backgroundImage.getHeight() + 1;
 
         for (int y = 0; y < rows; ++y) {
             for (int x = 0; x < cols; ++x) {
@@ -193,12 +193,12 @@ public abstract class GuiSlot extends GuiElement {
 
     protected void drawSelectedSlotFrame(int y) {
         cc.g.setColor(0, 0, 0);
-        cc.g.fillRect((cc.screenWidth - slotWidth) / 2, y, slotWidth, slotHeight);
+        cc.g.fillRect((Comcraft.screenWidth - slotWidth) / 2, y, slotWidth, slotHeight);
 
         cc.g.setColor(128, 128, 128);
 
         for (int i = 0; i < 3; ++i) {
-            cc.g.drawRect((cc.screenWidth - slotWidth) / 2 - i, y - i, slotWidth + i * 2, slotHeight + i * 2);
+            cc.g.drawRect((Comcraft.screenWidth - slotWidth) / 2 - i, y - i, slotWidth + i * 2, slotHeight + i * 2);
         }
     }
 

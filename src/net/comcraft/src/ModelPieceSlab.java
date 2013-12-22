@@ -2,7 +2,6 @@ package net.comcraft.src;
 
 import javax.microedition.m3g.IndexBuffer;
 import javax.microedition.m3g.TriangleStripArray;
-import javax.microedition.m3g.VertexArray;
 import javax.microedition.m3g.VertexBuffer;
 
 public final class ModelPieceSlab {

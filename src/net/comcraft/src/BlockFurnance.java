@@ -22,7 +22,7 @@ public class BlockFurnance extends Block {
         return new int[] {indexFront, indexSide, indexTop, indexBottom, indexActivated};
     }
 
-    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer) {
+    public boolean blockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, InvItemStack itemStack) {
         changeFurnanceState(world, x, y, z);
 
         return true;
